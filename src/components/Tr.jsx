@@ -10,7 +10,7 @@ const Tr = ({ props }) => {
 
   return (
     <div
-      className=" flex py-1 items-center justify-center p-1 my-2 gap-3 text-sm cursor-pointer bg-red-600  hover:bg-purple-600 rounded-full"
+      className=" flex py-1 items-center justify-center p-1 my-2 gap-3 text-sm cursor-pointer bg-red-700 hover:bg-purple-600 rounded-full"
       onClick={(e) => {
         click();
       }}
