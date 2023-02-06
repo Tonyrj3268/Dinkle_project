@@ -143,6 +143,54 @@ const Detail = () => {
         status: 2,
       },
     },
+    {
+      Detail: "Detail5",
+      CorrectRange: "2.1~4.75",
+      RealRange: "3.0~3.3",
+      Status: "合格",
+      lineChartData: [
+        { x: new Date(2023, 0, 1, 0, 0, 0), y: 42 },
+        { x: new Date(2023, 0, 1, 0, 0, 10), y: 25 },
+        { x: new Date(2023, 0, 1, 0, 0, 20), y: 35 },
+        { x: new Date(2023, 0, 1, 0, 0, 30), y: 30 },
+        { x: new Date(2023, 0, 1, 0, 0, 40), y: 45 },
+        { x: new Date(2023, 0, 1, 0, 0, 50), y: 48 },
+        { x: new Date(2023, 0, 1, 0, 0, 60), y: 20 },
+      ],
+      BestRate: "不需調整",
+      BestStatus: "不需調整",
+      BestTimes: "不需調整",
+      Shap: {
+        name: "0",
+        rate: "281",
+        times: "6.2",
+        status: 2,
+      },
+    },
+    {
+      Detail: "Detail5",
+      CorrectRange: "2.1~4.75",
+      RealRange: "3.0~3.3",
+      Status: "合格",
+      lineChartData: [
+        { x: new Date(2023, 0, 1, 0, 0, 0), y: 42 },
+        { x: new Date(2023, 0, 1, 0, 0, 10), y: 25 },
+        { x: new Date(2023, 0, 1, 0, 0, 20), y: 35 },
+        { x: new Date(2023, 0, 1, 0, 0, 30), y: 30 },
+        { x: new Date(2023, 0, 1, 0, 0, 40), y: 45 },
+        { x: new Date(2023, 0, 1, 0, 0, 50), y: 48 },
+        { x: new Date(2023, 0, 1, 0, 0, 60), y: 20 },
+      ],
+      BestRate: "不需調整",
+      BestStatus: "不需調整",
+      BestTimes: "不需調整",
+      Shap: {
+        name: "0",
+        rate: "281",
+        times: "6.2",
+        status: 2,
+      },
+    },
   ];
 
   return (
@@ -198,7 +246,7 @@ const Detail = () => {
               </div>
             </div>
           </div>
-          <div className=" dark:text-gray-200 bg-white h-[352px] rounded-xl lg:w-[300px] p-5   bg-center">
+          <div className=" dark:text-gray-200 bg-white h-[352px] rounded-xl lg:w-[300px] p-5   bg-center overflow-y-auto">
             <div className=" flex py-4 items-center justify-center gap-2 text-sm bg-red-600 rounded-xl p-3">
               <p className=" font-bold  ">名稱 </p>
               <p className=" font-bold ">合格範圍</p>

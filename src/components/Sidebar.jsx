@@ -22,6 +22,12 @@ const Sidebar = () => {
     即時監控: "realtime",
     line: "line",
     Detail預測: "detail",
+    area: "area",
+    bar: "bar",
+    pie: "pie",
+    financial: "financial",
+    stacked: "stacked",
+    維修項目: "fix",
   };
   const activeLink =
     "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2";

@@ -1,7 +1,8 @@
 export { default as Admin } from "./Admin";
 export { default as Kanban } from "./Kanban";
 export { default as Realtime } from "./Realtime";
-export { default as Employees } from "./Employees";
+export { default as Fix } from "./Fix";
+export { default as FixDetail } from "./FixDetail";
 export { default as Editor } from "./Editor";
 export { default as Detail } from "./Detail";
 export { default as ColorPicker } from "./ColorPicker";

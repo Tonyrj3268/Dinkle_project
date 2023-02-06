@@ -521,7 +521,7 @@ export const links = [
   },
 
   {
-    title: "Pages",
+    title: "即時品質預測",
     links: [
       {
         name: "即時監控",
@@ -529,32 +529,28 @@ export const links = [
       },
       {
         name: "Detail預測",
-        icon: <FiEdit />,
+        icon: <AiOutlineBarChart />,
       },
       {
-        name: "employees",
+        name: "維修項目",
         icon: <FiEdit />,
       },
     ],
   },
   {
-    title: "Apps",
+    title: "歷史品質分析",
     links: [
       {
-        name: "calendar",
+        name: "次數統計",
         icon: <AiOutlineCalendar />,
       },
       {
-        name: "kanban",
+        name: "原因分析",
         icon: <BsKanban />,
       },
       {
-        name: "editor",
+        name: "預測趨勢",
         icon: <FiEdit />,
-      },
-      {
-        name: "color-picker",
-        icon: <BiColorFill />,
       },
     ],
   },

@@ -8,7 +8,7 @@ import {
   Admin,
   Realtime,
   Calendar,
-  Employees,
+  Fix,
   Stacked,
   Pyramid,
   Detail,
@@ -21,6 +21,7 @@ import {
   ColorPicker,
   ColorMapping,
   Editor,
+  FixDetail,
 } from "./pages";
 import "./App.css";
 
@@ -91,7 +92,8 @@ const App = () => {
 
                 {/* pages  */}
                 <Route path="/Realtime" element={<Realtime />} />
-                <Route path="/employees" element={<Employees />} />
+                <Route path="/fix" element={<Fix />} />
+                <Route path="/fixDetail" element={<FixDetail />} />
                 <Route path="/detail" element={<Detail />} />
 
                 {/* apps  */}
