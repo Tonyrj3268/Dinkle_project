@@ -192,9 +192,7 @@ const Admin = () => {
                 />
               </div>
             </div>
-            <div>
-              <Stacked currentMode={currentMode} width="320px" height="360px" />
-            </div>
+            <div></div>
           </div>
         </div>
         <div>

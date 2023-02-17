@@ -11,20 +11,21 @@ import {
 } from "@syncfusion/ej2-react-charts";
 
 import {
-  lineCustomSeries,
+  doubleLineCustomSeries,
   LinePrimaryXAxis,
   LinePrimaryYAxis,
 } from "../../data/dummy";
 import { useStateContext } from "../../contexts/ContextProvider";
 
-const LineChart = ({ height, width, lineChartData }) => {
+const DoubleLineChart = ({ height, width }) => {
   const { currentMode, lineData } = useStateContext();
 
   useEffect(() => {
-    console.log(lineData);
-    lineCustomSeries[1].dataSource = lineData.lineChartData1;
-    lineCustomSeries[0].dataSource = lineData.lineMax;
-    lineCustomSeries[2].dataSource = lineData.lineMin;
+    // console.log(lineData);
+    doubleLineCustomSeries[0].dataSource = lineData.lineMax;
+    doubleLineCustomSeries[1].dataSource = lineData.lineChartData1;
+    doubleLineCustomSeries[2].dataSource = lineData.lineChartData2;
+    doubleLineCustomSeries[3].dataSource = lineData.lineMin;
   }, [lineData]);
 
   return (
@@ -42,7 +43,7 @@ const LineChart = ({ height, width, lineChartData }) => {
       <Inject services={[LineSeries, DateTime, Legend, Tooltip]} />
       <SeriesCollectionDirective>
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        {lineCustomSeries.map((item, index) => (
+        {doubleLineCustomSeries.map((item, index) => (
           <SeriesDirective fill={item.color} key={index} {...item} />
         ))}
       </SeriesCollectionDirective>
@@ -50,4 +51,4 @@ const LineChart = ({ height, width, lineChartData }) => {
   );
 };
 
-export default LineChart;
+export default DoubleLineChart;

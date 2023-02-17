@@ -8,13 +8,58 @@ import { links } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
-  const { currentColor, activeMenu, setActiveMenu, screenSize } =
-    useStateContext();
+  const {
+    currentColor,
+    activeMenu,
+    setActiveMenu,
+    screenSize,
+    setIsTrClicked,
+    setLineData,
+  } = useStateContext();
 
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
       setActiveMenu(false);
     }
+    setLineData({
+      Detail: "Detail預測",
+      CorrectRange: "",
+      RealRange: "",
+      Status: "",
+      lineChartData1: [],
+      selectChartData1: [],
+      lineChartData2: [],
+      selectChartData2: [],
+      BestRate: "",
+      BestStatus: "",
+      BestTimes: "",
+      times: 0,
+      Shap: {
+        name: "",
+        rate: "",
+        times: "",
+        status: "",
+      },
+      lineMin: [
+        { x: new Date(2023, 0, 1, 0, 0, 0), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 10), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 20), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 30), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 40), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 50), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 60), y: 10 },
+      ],
+      lineMax: [
+        { x: new Date(2023, 0, 1, 0, 0, 0), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 10), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 20), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 30), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 40), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 50), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 60), y: 90 },
+      ],
+    });
+    setIsTrClicked("");
   };
 
   const linkSet = {
@@ -28,6 +73,9 @@ const Sidebar = () => {
     financial: "financial",
     stacked: "stacked",
     維修項目: "fix",
+    次數統計: "costtotal",
+    原因分析: "Cause",
+    預測趨勢: "FutureAnalysis",
   };
   const activeLink =
     "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2";

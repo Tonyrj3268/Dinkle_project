@@ -22,6 +22,9 @@ import {
   ColorMapping,
   Editor,
   FixDetail,
+  CostTotal,
+  Cause,
+  FutureAnalysis,
 } from "./pages";
 import "./App.css";
 
@@ -94,6 +97,9 @@ const App = () => {
                 <Route path="/Realtime" element={<Realtime />} />
                 <Route path="/fix" element={<Fix />} />
                 <Route path="/fixDetail" element={<FixDetail />} />
+                <Route path="/costtotal" element={<CostTotal />} />
+                <Route path="/cause" element={<Cause />} />
+                <Route path="/futureanalysis" element={<FutureAnalysis />} />
                 <Route path="/detail" element={<Detail />} />
 
                 {/* apps  */}

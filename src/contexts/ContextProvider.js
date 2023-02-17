@@ -12,33 +12,49 @@ const initialState = {
 export const ContextProvider = ({ children }) => {
   const [screenSize, setScreenSize] = useState(undefined);
   const [currentColor, setCurrentColor] = useState("#03C9D7");
-  const [currentMode, setCurrentMode] = useState("Light");
+  const [currentMode, setCurrentMode] = useState("Dark");
   const [themeSettings, setThemeSettings] = useState(false);
   const [activeMenu, setActiveMenu] = useState(true);
+  const [test, setTest] = useState(1);
   const [isClicked, setIsClicked] = useState(initialState);
+  const [isTrClicked, setIsTrClicked] = useState(false);
   const [lineData, setLineData] = useState({
-    Detail: "Detail5",
-    CorrectRange: "2.1~4.75",
-    RealRange: "3.0~3.3",
-    Status: "合格",
-    lineChartData: [
-      { x: new Date(2023, 0, 1, 0, 0, 0), y: 42 },
-      { x: new Date(2023, 0, 1, 0, 0, 10), y: 25 },
-      { x: new Date(2023, 0, 1, 0, 0, 20), y: 35 },
-      { x: new Date(2023, 0, 1, 0, 0, 30), y: 30 },
-      { x: new Date(2023, 0, 1, 0, 0, 40), y: 45 },
-      { x: new Date(2023, 0, 1, 0, 0, 50), y: 48 },
-      { x: new Date(2023, 0, 1, 0, 0, 60), y: 20 },
-    ],
-    BestRate: "不需調整",
-    BestStatus: "不需調整",
-    BestTimes: "不需調整",
+    Detail: "Detail預測",
+    CorrectRange: "",
+    RealRange: "",
+    Status: "",
+    lineChartData1: [],
+    selectChartData1: [],
+    lineChartData2: [],
+    selectChartData2: [],
+    BestRate: "",
+    BestStatus: "",
+    BestTimes: "",
+    times: 0,
     Shap: {
-      name: "0",
-      rate: "281",
-      times: "6.2",
-      status: 2,
+      name: "",
+      rate: "",
+      times: "",
+      status: "",
     },
+    lineMin: [
+      { x: new Date(2023, 0, 1, 0, 0, 0), y: 10 },
+      { x: new Date(2023, 0, 1, 0, 0, 10), y: 10 },
+      { x: new Date(2023, 0, 1, 0, 0, 20), y: 10 },
+      { x: new Date(2023, 0, 1, 0, 0, 30), y: 10 },
+      { x: new Date(2023, 0, 1, 0, 0, 40), y: 10 },
+      { x: new Date(2023, 0, 1, 0, 0, 50), y: 10 },
+      { x: new Date(2023, 0, 1, 0, 0, 60), y: 10 },
+    ],
+    lineMax: [
+      { x: new Date(2023, 0, 1, 0, 0, 0), y: 90 },
+      { x: new Date(2023, 0, 1, 0, 0, 10), y: 90 },
+      { x: new Date(2023, 0, 1, 0, 0, 20), y: 90 },
+      { x: new Date(2023, 0, 1, 0, 0, 30), y: 90 },
+      { x: new Date(2023, 0, 1, 0, 0, 40), y: 90 },
+      { x: new Date(2023, 0, 1, 0, 0, 50), y: 90 },
+      { x: new Date(2023, 0, 1, 0, 0, 60), y: 90 },
+    ],
   });
 
   const setMode = (e) => {
@@ -76,6 +92,10 @@ export const ContextProvider = ({ children }) => {
         setColor,
         themeSettings,
         setThemeSettings,
+        test,
+        setTest,
+        isTrClicked,
+        setIsTrClicked,
       }}
     >
       {children}

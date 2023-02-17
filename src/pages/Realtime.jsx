@@ -15,23 +15,28 @@ import {
 } from "@syncfusion/ej2-react-grids";
 
 import { realtimeData, contextMenuItems, realtimeGrid } from "../data/dummy";
-import { Header } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 import DiaLog from "./Dialog";
+
 const Realtime = () => {
+  const { currentColor, currentMod } = useStateContext();
   function dialogTemplete(props) {
     return <DiaLog {...props} />;
   }
+
   const editing = {
     mode: "Normal",
     allowEditing: true,
     template: dialogTemplete,
   };
-  const { currentColor, currentMode } = useStateContext();
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl overflow-y-hidden">
-      <Header category="Page" title="即時監控" />
+      <div className=" mb-5">
+        <p className="text-3xl font-extrabold tracking-tight text-slate-900">
+          即時監控
+        </p>
+      </div>
       <div className="flex  ">
         <div className=" dark:text-gray-200 bg-red-600 h-44 rounded-xl lg:w-56 p-5 pt-9 m-3  bg-center">
           <div className="flex justify-between items-center ">
