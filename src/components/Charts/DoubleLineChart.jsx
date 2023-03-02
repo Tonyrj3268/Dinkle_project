@@ -17,7 +17,7 @@ import {
 } from "../../data/dummy";
 import { useStateContext } from "../../contexts/ContextProvider";
 
-const DoubleLineChart = ({ height, width }) => {
+const DoubleLineChart = ({ height, width, bg }) => {
   const { currentMode, lineData } = useStateContext();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const DoubleLineChart = ({ height, width }) => {
       primaryYAxis={LinePrimaryYAxis}
       chartArea={{ border: { width: 0 } }}
       tooltip={{ enable: true }}
-      background={currentMode === "Dark" ? "#33373E" : "#fff"}
+      background={bg}
       legendSettings={{ background: "white" }}
     >
       <Inject services={[LineSeries, DateTime, Legend, Tooltip]} />

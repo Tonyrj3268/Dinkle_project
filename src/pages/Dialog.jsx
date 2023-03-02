@@ -101,7 +101,7 @@ const DiaLog = (props) => {
       <h1 className=" p-7 text-3xl font-semibold">{props.Name}</h1>
       <DialogContent>
         <div className=" flex flex-row px-5 gap-10">
-          <DoubleLineChart height={"450px"} width={"700px"} />
+          <DoubleLineChart bg={"white"} height={"450px"} width={"700px"} />
           <div className="flex flex-col p-5 w-[340px] h-[450px] bg-red-600 rounded-xl justify-start items-start text-white ">
             <p className=" text-2xl p-2">機台ID：{props.ID}</p>
             <p className=" text-2xl p-2">機台名稱：{props.Name}</p>

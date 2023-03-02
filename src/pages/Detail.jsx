@@ -1,20 +1,26 @@
 import React, { useEffect } from "react";
-
+import axios from "axios";
 import { LineChart } from "../components";
-import { customersData, customersGrid } from "../data/dummy";
-import { Header } from "../components";
 import { useStateContext } from ".././contexts/ContextProvider";
 import Tr from "../components/Tr";
 const Detail = () => {
-  const selectionsettings = { persistSelection: true };
-  const toolbarOptions = ["Delete"];
-  const editing = { allowDeleting: true, allowEditing: true };
-  const { activeMenu, lineData, setLineData, test, setTest, setIsTrClicked } =
-    useStateContext();
+  const { activeMenu, lineData, setLineData, setTest } = useStateContext();
   const MINUTE_MS = 3000;
 
   useEffect(() => {
     const interval = setInterval(() => {
+      var request = {
+        Start_date: "2022-01",
+        End_date: "2022-06",
+      };
+      // axios
+      //   .post(
+      //     "http://192.168.83.203:8081/AVM20_V2/api/MachineCostDate",
+      //     request
+      //   )
+      //   .then((res) => {
+      //     console.log(res.data);
+      //   });
       if (lineData.lineChartData1.length < 7) {
         var temp_data = lineData;
         temp_data.lineChartData1.push(
@@ -452,9 +458,9 @@ const Detail = () => {
           ) : (
             <div>
               {activeMenu ? (
-                <LineChart height={"350px"} width={"350px"} />
+                <LineChart height={"350px"} width={"350px"} bg={"#33373E"} />
               ) : (
-                <LineChart height={"350px"} width={"580px"} />
+                <LineChart height={"350px"} width={"580px"} bg={"#33373E"} />
               )}
             </div>
           )}

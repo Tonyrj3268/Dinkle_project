@@ -1,27 +1,44 @@
-import React from 'react';
-import { AccumulationChartComponent, AccumulationSeriesCollectionDirective, AccumulationSeriesDirective, AccumulationLegend, PieSeries, AccumulationDataLabel, Inject, AccumulationTooltip } from '@syncfusion/ej2-react-charts';
+import React from "react";
+import {
+  AccumulationChartComponent,
+  AccumulationSeriesCollectionDirective,
+  AccumulationSeriesDirective,
+  AccumulationLegend,
+  PieSeries,
+  AccumulationDataLabel,
+  Inject,
+  AccumulationTooltip,
+} from "@syncfusion/ej2-react-charts";
 
-import { useStateContext } from '../../contexts/ContextProvider';
+import { useStateContext } from "../../contexts/ContextProvider";
 
-const Doughnut = ({ id, data, legendVisiblity, height }) => {
+const Doughnut = ({ id, data, legendVisiblity, height, width, bg }) => {
   const { currentMode } = useStateContext();
 
   return (
     <AccumulationChartComponent
       id={id}
-      legendSettings={{ visible: legendVisiblity, background: 'white' }}
+      legendSettings={{ visible: legendVisiblity, background: "white" }}
       height={height}
-      background={currentMode === 'Dark' ? '#33373E' : '#fff'}
+      width={width}
+      background={bg}
       tooltip={{ enable: true }}
     >
-      <Inject services={[AccumulationLegend, PieSeries, AccumulationDataLabel, AccumulationTooltip]} />
+      <Inject
+        services={[
+          AccumulationLegend,
+          PieSeries,
+          AccumulationDataLabel,
+          AccumulationTooltip,
+        ]}
+      />
       <AccumulationSeriesCollectionDirective>
         <AccumulationSeriesDirective
           name="Sale"
           dataSource={data}
           xName="x"
           yName="y"
-          innerRadius="40%"
+          innerRadius="0%"
           startAngle={0}
           endAngle={360}
           radius="70%"
@@ -30,11 +47,11 @@ const Doughnut = ({ id, data, legendVisiblity, height }) => {
           explodeIndex={2}
           dataLabel={{
             visible: true,
-            name: 'text',
-            position: 'Inside',
+            name: "text",
+            position: "Inside",
             font: {
-              fontWeight: '600',
-              color: '#fff',
+              fontWeight: "600",
+              color: "#fff",
             },
           }}
         />
