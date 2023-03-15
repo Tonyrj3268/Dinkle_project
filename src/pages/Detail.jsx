@@ -9,10 +9,10 @@ const Detail = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      var request = {
-        Start_date: "2022-01",
-        End_date: "2022-06",
-      };
+      // var request = {
+      //   Start_date: "2022-01",
+      //   End_date: "2022-06",
+      // };
       // axios
       //   .post(
       //     "http://192.168.83.203:8081/AVM20_V2/api/MachineCostDate",

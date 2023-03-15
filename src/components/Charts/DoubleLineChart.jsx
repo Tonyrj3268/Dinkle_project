@@ -17,20 +17,20 @@ import {
 } from "../../data/dummy";
 import { useStateContext } from "../../contexts/ContextProvider";
 
-const DoubleLineChart = ({ height, width, bg }) => {
-  const { currentMode, lineData } = useStateContext();
+const DoubleLineChart = ({ height, width, bg, id }) => {
+  const { currentMode, lineData, setTest } = useStateContext();
 
   useEffect(() => {
     // console.log(lineData);
-    doubleLineCustomSeries[0].dataSource = lineData.lineMax;
-    doubleLineCustomSeries[1].dataSource = lineData.lineChartData1;
-    doubleLineCustomSeries[2].dataSource = lineData.lineChartData2;
-    doubleLineCustomSeries[3].dataSource = lineData.lineMin;
-  }, [lineData]);
+    doubleLineCustomSeries[0].dataSource = lineData.lineNow;
+    doubleLineCustomSeries[1].dataSource = lineData.lineChartData2;
+    doubleLineCustomSeries[2].dataSource = lineData.lineFuture;
+    setTest((prev) => prev + 1);
+  }, [lineData.lineNow]);
 
   return (
     <ChartComponent
-      id="line-chart"
+      id={id}
       height={height}
       width={width}
       primaryXAxis={LinePrimaryXAxis}

@@ -399,7 +399,7 @@ export const FinancialPrimaryYAxis = {
 
 export const LinePrimaryXAxis = {
   valueType: "DateTime",
-  labelFormat: "y年M月d日h時m分s秒",
+  labelFormat: "h時m分s秒",
   intervalType: "Seconds",
   edgeLabelPlacement: "Shift",
   majorGridLines: { width: 0 },
@@ -941,7 +941,14 @@ export const realtimeData = [
       { x: new Date(2023, 1, 1, 0, 1, 50), y: 98 },
       { x: new Date(2023, 1, 1, 0, 1, 60), y: 9 },
     ],
-    lineChartData2: [],
+    lineChartData2: [
+      { x: new Date(2023, 1, 1, 0, 0, 30), y: 0 },
+      { x: new Date(2023, 1, 1, 0, 0, 30), y: 20 },
+      { x: new Date(2023, 1, 1, 0, 0, 30), y: 40 },
+      { x: new Date(2023, 1, 1, 0, 0, 30), y: 60 },
+      { x: new Date(2023, 1, 1, 0, 0, 30), y: 80 },
+      { x: new Date(2023, 1, 1, 0, 0, 30), y: 100 },
+    ],
     selectChartData2: [
       { x: new Date(2023, 1, 1, 0, 0, 0), y: 9 },
       { x: new Date(2023, 1, 1, 0, 0, 10), y: 33 },
@@ -986,6 +993,8 @@ export const realtimeData = [
       { x: new Date(2023, 1, 1, 0, 0, 50), y: 90 },
       { x: new Date(2023, 1, 1, 0, 0, 60), y: 90 },
     ],
+    lineNow: [],
+    lineFuture: [],
   },
   {
     ID: 2,
@@ -1599,7 +1608,7 @@ export const scheduleData = [
 ];
 
 export const lineChartData = [[], [], []];
-export const douleLineChartData = [[], [], [], []];
+export const douleLineChartData = [[], [], [], [], []];
 export const dropdownData = [
   {
     Id: "1",
@@ -1658,46 +1667,31 @@ export const lineCustomSeries = [
 
 export const doubleLineCustomSeries = [
   {
-    dataSource: douleLineChartData[0],
-    xName: "x",
-    yName: "y",
-    name: "Maximum",
-    width: "2",
-    marker: { visible: true, width: 10, height: 10 },
-    type: "Line",
-    color: "red",
-  },
-
-  {
     dataSource: douleLineChartData[1],
     xName: "x",
     yName: "y",
-    name: "PredictLine_Max",
-    width: "2",
-    marker: { visible: true, width: 10, height: 10 },
+    name: "現在資料",
     type: "Line",
-    color: "#f2ea0a",
+    color: "red",
   },
 
   {
     dataSource: douleLineChartData[2],
     xName: "x",
     yName: "y",
-    name: "PredictLine_Min",
+    name: "現在時間",
     width: "2",
-    marker: { visible: true, width: 10, height: 10 },
     type: "Line",
-    color: "#34ebd2",
+    color: "black",
   },
   {
     dataSource: douleLineChartData[3],
     xName: "x",
     yName: "y",
-    name: "Mimimum",
+    name: "預測資料",
     width: "2",
-    marker: { visible: true, width: 10, height: 10 },
     type: "Line",
-    color: "red",
+    color: "#34ebd2",
   },
 ];
 

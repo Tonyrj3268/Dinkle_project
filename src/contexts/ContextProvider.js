@@ -23,10 +23,13 @@ export const ContextProvider = ({ children }) => {
     CorrectRange: "",
     RealRange: "",
     Status: "",
+
     lineChartData1: [],
     selectChartData1: [],
     lineChartData2: [],
     selectChartData2: [],
+    lineNow: [],
+    lineFuture: [],
     BestRate: "",
     BestStatus: "",
     BestTimes: "",

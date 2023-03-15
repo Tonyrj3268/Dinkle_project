@@ -30,6 +30,8 @@ const Sidebar = () => {
       selectChartData1: [],
       lineChartData2: [],
       selectChartData2: [],
+      lineNow: [],
+      lineFuture: [],
       BestRate: "",
       BestStatus: "",
       BestTimes: "",
