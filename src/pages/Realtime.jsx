@@ -176,7 +176,7 @@ const Realtime = () => {
           }}
           className=" w-1/2 h-12 bg-green-500 rounded-full hover:bg-green-600"
         >
-          良率
+          整體良率
         </button>
       </div>
       {page === "即時監控" ? (
@@ -215,36 +215,23 @@ const Realtime = () => {
             <div className=" dark:text-gray-200 bg-green-500 h-44 rounded-xl w-1/3 p-5 pt-9 m-3  bg-center">
               <div className="flex justify-between items-center ">
                 <div>
-                  <p>不良數總數</p>
+                  <p>累積不良機台分鐘</p>
                 </div>
               </div>
               <div className="mt-3">
                 <p className="text-3xl font-bold ">32</p>
               </div>
             </div>
-            <div className=" dark:text-gray-200 bg-green-500 h-44 rounded-xl w-1/3 p-5 pt-9 m-3  bg-center">
+            <div className=" dark:text-gray-200 bg-green-500 h-44 rounded-xl w-2/3 p-5 pt-9 m-3  bg-center">
               <div className="flex flex-col gap-3 -mt-4 ">
                 <div className="">
-                  <p className=" items-baseline">過去一百分鐘不良總數</p>
+                  <p className=" items-baseline">過去一百分鐘機台不良分鐘</p>
 
                   <p className="text-2xl font-bold ">3</p>
                 </div>
                 <div>
-                  <p>過去一百分鐘不良率</p>
+                  <p>過去一百分鐘機台不良率</p>
                   <p className="text-2xl font-bold ">3%</p>
-                </div>
-              </div>
-            </div>
-            <div className=" dark:text-gray-200 bg-green-500 h-44 rounded-xl w-1/3 p-5 pt-9 m-3  bg-center">
-              <div className="flex flex-col gap-3 -mt-4 ">
-                <div className="">
-                  <p className=" items-baseline">過去一百分鐘不良機台</p>
-
-                  <p className="text-2xl font-bold ">1,3,6</p>
-                </div>
-                <div>
-                  <p>過去一百分鐘不良機台率</p>
-                  <p className="text-2xl font-bold ">38%</p>
                 </div>
               </div>
             </div>

@@ -1024,6 +1024,12 @@ const DiaLog = (props) => {
             >
               Detail預測
             </button>
+            <button
+              className="px-8 py-4 bg-green-400 text-xl cursor-pointer hover:bg-green-500 text-white"
+              onClick={(e) => handlePage("Detail")}
+            >
+              機台良率
+            </button>
           </div>
         </div>
 
