@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   GridComponent,
   ColumnsDirective,
@@ -19,14 +19,125 @@ import { realtimeData, contextMenuItems, realtimeGrid } from "../data/dummy";
 // import { useStateContext } from "../contexts/ContextProvider";
 import DiaLog from "./Dialog";
 import { HiVariable } from "react-icons/hi";
+import { useStateContext } from "../contexts/ContextProvider";
 
 const Realtime = () => {
   // const { currentColor, currentMod } = useStateContext();
-  const [page, setPage] = useState("");
+  const [page, setPage] = useState("即時監控");
   function dialogTemplete(props) {
+    setLineData({
+      Detail: "Detail預測",
+      CorrectRange: "",
+      RealRange: "",
+      Status: "",
+      lineChartData1: [],
+      selectChartData1: [],
+      lineChartData2: [],
+      selectChartData2: [],
+      lineNow: [],
+      lineFuture: [],
+      times: 0,
+      lineMin: [
+        { x: new Date(2023, 0, 1, 0, 0, 0), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 10), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 20), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 30), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 40), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 50), y: 10 },
+        { x: new Date(2023, 0, 1, 0, 0, 60), y: 10 },
+      ],
+      lineMax: [
+        { x: new Date(2023, 0, 1, 0, 0, 0), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 10), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 20), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 30), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 40), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 50), y: 90 },
+        { x: new Date(2023, 0, 1, 0, 0, 60), y: 90 },
+      ],
+    });
     return <DiaLog {...props} />;
   }
+  const { setLineData, setTest, lineData } = useStateContext();
+  const MINUTE_MS = 3000;
+  useEffect(() => {
+    if (page === "成本") {
+      const interval = setInterval(() => {
+        // var request = {
+        //   Start_date: "2022-01",
+        //   End_date: "2022-06",
+        // };
+        // axios
+        //   .post(
+        //     "http://192.168.83.203:8081/AVM20_V2/api/MachineCostDate",
+        //     request
+        //   )
+        //   .then((res) => {
+        //     console.log(res.data);
+        //   });
+        if (lineData.lineChartData1.length < 7) {
+          var temp_data = lineData;
+          temp_data.lineChartData1.push(
+            temp_data.selectChartData1[temp_data.lineChartData1.length]
+          );
+          console.log("update");
+          setLineData(temp_data);
+        } else if (
+          lineData.lineChartData1.length === 7 &&
+          lineData.selectChartData1.length - 7 > lineData.times
+        ) {
+          lineData.times = lineData.times + 1;
+          console.log(lineData.times);
+          var temp_data = lineData;
+          for (var i = 0; i < 7; i++) {
+            temp_data.lineChartData1[i] =
+              temp_data.selectChartData1[i + lineData.times];
+          }
+          console.log("update_new");
+          // console.log(temp_data.lineChartData[0]);
+          console.log(temp_data.lineMax[0]);
+          setLineData(temp_data);
+        } else {
+          lineData.times = 0;
+          console.log("no");
+        }
+        setTest((prev) => prev + 1);
+        console.log("良率");
+      }, MINUTE_MS);
+      return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+    }
+  }, [lineData.lineChartData1, lineData.lineMax, lineData.lineMin]);
   var changePage = (value) => {
+    if (value === "成本") {
+      console.log("成本");
+      setLineData({
+        Detail: "Detail1",
+        CorrectRange: "3.1~3.75",
+        RealRange: "2.2~3.3",
+        Status: "不合格",
+        lineChartData1: [],
+        selectChartData1: [
+          { x: new Date(2023, 1, 1, 0, 0, 0), y: 82 },
+          { x: new Date(2023, 1, 1, 0, 0, 10), y: 93 },
+          { x: new Date(2023, 1, 1, 0, 0, 20), y: 74 },
+          { x: new Date(2023, 1, 1, 0, 0, 30), y: 77 },
+          { x: new Date(2023, 1, 1, 0, 0, 40), y: 83 },
+          { x: new Date(2023, 1, 1, 0, 0, 50), y: 84 },
+          { x: new Date(2023, 1, 1, 0, 0, 60), y: 91 },
+
+          { x: new Date(2023, 1, 1, 0, 1, 10), y: 91 },
+          { x: new Date(2023, 1, 1, 0, 1, 20), y: 85 },
+          { x: new Date(2023, 1, 1, 0, 1, 30), y: 85 },
+          { x: new Date(2023, 1, 1, 0, 1, 40), y: 91 },
+          { x: new Date(2023, 1, 1, 0, 1, 50), y: 72 },
+          { x: new Date(2023, 1, 1, 0, 1, 60), y: 84 },
+        ],
+        times: 0,
+        lineMin: [],
+        lineMax: [],
+      });
+    }
+    for (var i = 1; i < 99999; i++) window.clearInterval(i);
     setPage(value);
   };
 
@@ -65,53 +176,12 @@ const Realtime = () => {
           }}
           className=" w-1/2 h-12 bg-green-500 rounded-full hover:bg-green-600"
         >
-          成本
+          良率
         </button>
       </div>
       {page === "即時監控" ? (
         <div>
-          <div className="flex w-full">
-            <div className=" dark:text-gray-200 bg-red-600 h-44 rounded-xl w-1/4 p-5 pt-9 m-3  bg-center">
-              <div className="flex justify-between items-center ">
-                <div>
-                  <p className="text-2xl font-bold ">預測品質狀況</p>
-                </div>
-              </div>
-              <div className="mt-6">
-                <p>合格</p>
-              </div>
-            </div>
-            <div className=" dark:text-gray-200 bg-red-600 h-44 rounded-xl w-1/4 p-5 pt-9 m-3  bg-center">
-              <div className="flex justify-between items-center ">
-                <div>
-                  <p className="text-2xl font-bold ">不合格</p>
-                </div>
-              </div>
-              <div className="mt-6">
-                <p>detail 2,5,7</p>
-              </div>
-            </div>
-            <div className=" dark:text-gray-200 bg-red-600 h-44 rounded-xl w-1/4  p-5 pt-9 m-3  bg-center">
-              <div className="flex justify-between items-center ">
-                <div>
-                  <p className="text-2xl font-bold ">需調整機台</p>
-                </div>
-              </div>
-              <div className="mt-6">
-                <p>機台一,機台二</p>
-              </div>
-            </div>
-            <div className=" dark:text-gray-200 bg-red-600 h-44 rounded-xl w-1/4 p-5 pt-9 m-3  bg-center">
-              <div className="flex justify-between items-center ">
-                <div>
-                  <p className="font-bold ">預測良率：98%</p>
-                </div>
-              </div>
-              <div className="mt-6">
-                <p className="font-bold ">預測不良率：2%</p>
-              </div>
-            </div>
-          </div>
+          <div className="flex w-full p-5"></div>
           <GridComponent
             id="gridcomp"
             dataSource={realtimeData}
@@ -145,56 +215,47 @@ const Realtime = () => {
             <div className=" dark:text-gray-200 bg-green-500 h-44 rounded-xl w-1/3 p-5 pt-9 m-3  bg-center">
               <div className="flex justify-between items-center ">
                 <div>
-                  <p>總預測損失成本</p>
+                  <p>不良數總數</p>
                 </div>
               </div>
               <div className="mt-3">
-                <p className="text-3xl font-bold ">32.45萬</p>
+                <p className="text-3xl font-bold ">32</p>
               </div>
             </div>
             <div className=" dark:text-gray-200 bg-green-500 h-44 rounded-xl w-1/3 p-5 pt-9 m-3  bg-center">
               <div className="flex flex-col gap-3 -mt-4 ">
                 <div className="">
-                  <p className=" items-baseline">預防成本</p>
+                  <p className=" items-baseline">過去一百分鐘不良總數</p>
 
-                  <p className="text-2xl font-bold ">6.5萬</p>
+                  <p className="text-2xl font-bold ">3</p>
                 </div>
                 <div>
-                  <p>鑑定成本</p>
-                  <p className="text-2xl font-bold ">3.45萬</p>
+                  <p>過去一百分鐘不良率</p>
+                  <p className="text-2xl font-bold ">3%</p>
                 </div>
               </div>
             </div>
             <div className=" dark:text-gray-200 bg-green-500 h-44 rounded-xl w-1/3 p-5 pt-9 m-3  bg-center">
               <div className="flex flex-col gap-3 -mt-4 ">
                 <div className="">
-                  <p className=" items-baseline">內部失敗成本</p>
+                  <p className=" items-baseline">過去一百分鐘不良機台</p>
 
-                  <p className="text-2xl font-bold ">21.5萬</p>
+                  <p className="text-2xl font-bold ">1,3,6</p>
                 </div>
                 <div>
-                  <p>外部失敗成本</p>
-                  <p className="text-2xl font-bold ">1萬</p>
+                  <p>過去一百分鐘不良機台率</p>
+                  <p className="text-2xl font-bold ">38%</p>
                 </div>
               </div>
             </div>
           </div>
           <div className=" flex gap-4">
-            <div className=" dark:text-gray-200 rounded-xl w-1/2 ">
-              <PieChart
-                id="chart-pie"
-                data={pieChartData}
-                legendVisiblity
-                height="100%"
-                width="100%"
-                bg="white"
-              />
-            </div>
-            <div className=" w-1/2">
+            <div className=" w-full">
               <LineChart
                 height={"100%"}
                 width={"100%"}
                 bg={"white"}
+                type={"Yield"}
               ></LineChart>
             </div>
           </div>

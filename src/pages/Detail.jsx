@@ -428,7 +428,7 @@ const Detail = () => {
           </div>
         </div>
 
-        <div className=" flex px-10 items-center gap-3">
+        <div className=" flex px-10 items-center gap-5 w-full">
           {lineData.selectChartData1.length < 6 ? (
             <div>
               {activeMenu ? (
@@ -456,50 +456,26 @@ const Detail = () => {
               )}
             </div>
           ) : (
-            <div>
+            <div className="w-[70%]">
               {activeMenu ? (
-                <LineChart height={"350px"} width={"350px"} bg={"#33373E"} />
+                <LineChart
+                  height={"350px"}
+                  width={"100%"}
+                  bg={"#33373E"}
+                  type={"Detail"}
+                />
               ) : (
-                <LineChart height={"350px"} width={"580px"} bg={"#33373E"} />
+                <LineChart
+                  height={"350px"}
+                  width={"100%"}
+                  bg={"#33373E"}
+                  type={"Detail"}
+                />
               )}
             </div>
           )}
 
-          <div className="">
-            <div className=" dark:text-gray-200 bg-red-600 h-44 rounded-xl lg:w-64 p-4 pt-9 m-3  bg-center">
-              <div className="-mt-2 items-center">
-                <p className="text-2xl font-bold text-center">SHAP分析結果</p>
-              </div>
-              <div className=" flex py-1 items-center justify-center gap-2">
-                <p className="text-base font-bold  ">重點期數 </p>
-                <p className="text-base font-bold ">轉速</p>
-                <p className="text-base font-bold ">沖壓次數 </p>
-                <p className="text-base font-bold ">狀態</p>
-              </div>
-              <div className=" flex py-1 items-center justify-center gap-8">
-                <p className="text-base font-bold  ">{lineData.Shap.name} </p>
-                <p className="text-base font-bold ">{lineData.Shap.rate}</p>
-                <p className="text-base font-bold ">{lineData.Shap.times} </p>
-                <p className="text-base font-bold ">{lineData.Shap.status}</p>
-              </div>
-            </div>
-            <div className=" dark:text-gray-200 bg-red-600 h-44 rounded-xl lg:w-64 p-4 pt-9 m-3  bg-center">
-              <div className="-mt-2">
-                <p className="text-2xl font-bold ">最適機台數據</p>
-              </div>
-
-              <div className="mt-2">
-                <p>轉速：{lineData.BestRate}</p>
-              </div>
-              <div className="mt-2">
-                <p>狀態：{lineData.BestStatus}</p>
-              </div>
-              <div className="mt-2">
-                <p>每秒沖壓次數：{lineData.BestTimes}</p>
-              </div>
-            </div>
-          </div>
-          <div className=" dark:text-gray-200 bg-white h-[352px]  lg:w-[300px] p-5   bg-center overflow-y-auto">
+          <div className=" dark:text-gray-200 bg-white h-[352px]  lg:w-[30%] p-5   bg-center overflow-y-auto">
             <div className=" flex py-4 items-center justify-center gap-2 text-sm bg-black  p-3">
               <p className=" font-bold  ">名稱 </p>
               <p className=" font-bold ">合格範圍</p>

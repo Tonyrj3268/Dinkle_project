@@ -18,12 +18,12 @@ export const ContextProvider = ({ children }) => {
   const [test, setTest] = useState(1);
   const [isClicked, setIsClicked] = useState(initialState);
   const [isTrClicked, setIsTrClicked] = useState(false);
+
   const [lineData, setLineData] = useState({
     Detail: "Detail預測",
     CorrectRange: "",
     RealRange: "",
     Status: "",
-
     lineChartData1: [],
     selectChartData1: [],
     lineChartData2: [],
@@ -40,6 +40,8 @@ export const ContextProvider = ({ children }) => {
       times: "",
       status: "",
     },
+    times: 0,
+
     lineMin: [
       { x: new Date(2023, 0, 1, 0, 0, 0), y: 10 },
       { x: new Date(2023, 0, 1, 0, 0, 10), y: 10 },
@@ -58,6 +60,58 @@ export const ContextProvider = ({ children }) => {
       { x: new Date(2023, 0, 1, 0, 0, 50), y: 90 },
       { x: new Date(2023, 0, 1, 0, 0, 60), y: 90 },
     ],
+  });
+  const [doubleLineData, setDoubleLineData] = useState({
+    Detail: "Detail預測",
+    CorrectRange: "",
+    RealRange: "",
+    Status: "",
+    speed: {
+      lineChartData1: [],
+      selectChartData1: [],
+      lineChartData2: [],
+      selectChartData2: [],
+
+      times: 0,
+      lineMin: [],
+      lineNow: [],
+      lineFuture: [],
+    },
+    frequency: {
+      lineChartData1: [],
+      selectChartData1: [],
+      lineChartData2: [],
+      selectChartData2: [],
+
+      times: 0,
+      lineMin: [],
+      lineNow: [],
+      lineFuture: [],
+    },
+    state: {
+      lineChartData1: [],
+      selectChartData1: [],
+      lineChartData2: [],
+      selectChartData2: [],
+
+      times: 0,
+      lineMin: [],
+      lineNow: [],
+      lineFuture: [],
+    },
+    G: {
+      lineChartData1: [],
+      selectChartData1: [],
+      lineChartData2: [],
+      selectChartData2: [],
+
+      times: 0,
+      lineMin: [],
+      lineNow: [],
+      lineFuture: [],
+    },
+
+    times: 0,
   });
 
   const setMode = (e) => {
@@ -99,6 +153,8 @@ export const ContextProvider = ({ children }) => {
         setTest,
         isTrClicked,
         setIsTrClicked,
+        doubleLineData,
+        setDoubleLineData,
       }}
     >
       {children}

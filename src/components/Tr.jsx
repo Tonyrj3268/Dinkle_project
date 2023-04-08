@@ -14,7 +14,7 @@ const Tr = ({ props }) => {
     <div>
       {isTrClicked == props.Detail ? (
         <div
-          className=" flex py-2 items-center justify-center p-1 my-2 gap-3 text-sm cursor-pointer bg-purple-600 hover:bg-purple-600"
+          className=" flex py-2 items-center justify-center p-1 my-2 gap-3 text-sm cursor-pointer bg-slate-900  "
           onClick={(e) => {
             click();
           }}
@@ -34,7 +34,7 @@ const Tr = ({ props }) => {
         </div>
       ) : (
         <div
-          className=" flex py-2 items-center justify-center p-1 my-2 gap-3 text-sm cursor-pointer bg-black hover:bg-purple-600"
+          className=" flex py-2 items-center justify-center p-1 my-2 gap-3 text-sm cursor-pointer bg-slate-800 hover:bg-slate-900"
           onClick={(e) => {
             click();
           }}

@@ -17,14 +17,37 @@ import {
 } from "../../data/dummy";
 import { useStateContext } from "../../contexts/ContextProvider";
 
-const LineChart = ({ height, width, lineChartData, bg }) => {
-  const { currentMode, lineData } = useStateContext();
+const LineChart = ({ height, width, bg, type }) => {
+  const { currentMode, lineData, setTest } = useStateContext();
+  var selectType = {
+    Detail: {
+      labelFormat: "{value}",
+      rangePadding: "None",
+      minimum: 0,
+      maximum: 4,
+      interval: 1,
+      lineStyle: { width: 0 },
+      majorTickLines: { width: 0 },
+      minorTickLines: { width: 0 },
+    },
+    Yield: {
+      labelFormat: "{value}%",
+      rangePadding: "None",
+      minimum: 0,
+      maximum: 100,
+      interval: 20,
+      lineStyle: { width: 0 },
+      majorTickLines: { width: 0 },
+      minorTickLines: { width: 0 },
+    },
+  };
 
   useEffect(() => {
-    console.log(lineData);
     lineCustomSeries[1].dataSource = lineData.lineChartData1;
     lineCustomSeries[0].dataSource = lineData.lineMax;
     lineCustomSeries[2].dataSource = lineData.lineMin;
+
+    setTest((prev) => prev + 1);
   }, [lineData]);
 
   return (
@@ -33,7 +56,7 @@ const LineChart = ({ height, width, lineChartData, bg }) => {
       height={height}
       width={width}
       primaryXAxis={LinePrimaryXAxis}
-      primaryYAxis={LinePrimaryYAxis}
+      primaryYAxis={selectType[type]}
       chartArea={{ border: { width: 0 } }}
       tooltip={{ enable: true }}
       background={bg}
