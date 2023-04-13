@@ -8,6 +8,8 @@ import { LineChart } from "../components";
 import Tr from "../components/Tr";
 import { useStateContext } from "../contexts/ContextProvider";
 import { compose } from "@mui/system";
+import axios from 'axios';
+
 const DiaLog = (props) => {
   const { currentMode } = useStateContext();
   const [open, setOpen] = React.useState(true);
@@ -258,18 +260,49 @@ const DiaLog = (props) => {
       return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
     } else if (page === "Detail") {
       const interval2 = setInterval(() => {
-        // var request = {
-        //   Start_date: "2022-01",
-        //   End_date: "2022-06",
-        // };
-        // axios
-        //   .post(
-        //     "http://192.168.83.203:8081/AVM20_V2/api/MachineCostDate",
-        //     request
-        //   )
-        //   .then((res) => {
-        //     console.log(res.data);
-        //   });
+        var body = {
+          Machine: "D-005",
+          Product: "0162B00100",
+          Work_type: "Stampers"
+        };
+        var config = {
+          headers: {
+            username: "AirCenterQC",
+            password: "@irQc12#",
+          }
+        };
+        const formData = new URLSearchParams();
+        formData.append('username', 'AirCenterQC');
+        formData.append('password', '@irQc12#');
+        const params = {
+          Machine: 'D-005',
+          Product: '0162B00100',
+          Work_type: 'Stampers'
+        };
+        axios
+          .post(
+            "/api/extract_predict_data",
+            formData,
+            {headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            params: params}
+          )
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch(error => {
+            if (error.response) {
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else if (error.request) {
+              console.log(error.request);
+            } else {
+              console.log('Error', error.message);
+            }
+            console.log(error.config);
+          });
         if (lineData.Detail === "Detail預測") return;
         if (lineData.lineChartData1.length < 7) {
           var temp_data = lineData;
