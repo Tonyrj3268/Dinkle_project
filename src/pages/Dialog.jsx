@@ -259,29 +259,17 @@ const DiaLog = (props) => {
       intervalArray.push(interval);
       return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
     } else if (page === "Detail") {
-      const interval2 = setInterval(() => {
-        var body = {
-          Machine: "D-005",
-          Product: "0162B00100",
-          Work_type: "Stampers"
-        };
-        var config = {
-          headers: {
-            username: "AirCenterQC",
-            password: "@irQc12#",
-          }
-        };
+        const interval2 = setInterval(() => {
         const formData = new URLSearchParams();
-        formData.append('username', 'AirCenterQC');
-        formData.append('password', '@irQc12#');
+        formData.append('username', process.env.REACT_APP_extra_predict_username);
+        formData.append('password', process.env.REACT_APP_extra_predict_password);
         const params = {
-          Machine: 'D-005',
-          Product: '0162B00100',
+          Show_type : 'formal',
           Work_type: 'Stampers'
         };
         axios
           .post(
-            "/api/extract_predict_data",
+            process.env.REACT_APP_extra_predict_url,
             formData,
             {headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -289,6 +277,7 @@ const DiaLog = (props) => {
             params: params}
           )
           .then((res) => {
+            
             console.log(res.data);
           })
           .catch(error => {
