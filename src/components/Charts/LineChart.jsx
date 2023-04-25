@@ -18,7 +18,7 @@ import {
 import { useStateContext } from "../../contexts/ContextProvider";
 
 const LineChart = ({ height, width, bg, type }) => {
-  const { currentMode, lineData, setTest } = useStateContext();
+  const { test, lineData, setTest,passRate } = useStateContext();
   var selectType = {
     Detail: {
       labelFormat: "{value}",
@@ -43,12 +43,10 @@ const LineChart = ({ height, width, bg, type }) => {
   };
 
   useEffect(() => {
-    lineCustomSeries[1].dataSource = lineData.lineChartData1;
-    lineCustomSeries[0].dataSource = lineData.lineMax;
-    lineCustomSeries[2].dataSource = lineData.lineMin;
+    lineCustomSeries[1].dataSource = passRate;
 
-    setTest((prev) => prev + 1);
-  }, [lineData]);
+    
+  }, [passRate.length,test]);
 
   return (
     <ChartComponent

@@ -19,100 +19,16 @@ export const ContextProvider = ({ children }) => {
   const [isClicked, setIsClicked] = useState(initialState);
   const [isTrClicked, setIsTrClicked] = useState(false);
 
-  const [lineData, setLineData] = useState({
-    Detail: "Detail預測",
-    CorrectRange: "",
-    RealRange: "",
-    Status: "",
-    lineChartData1: [],
-    selectChartData1: [],
-    lineChartData2: [],
-    selectChartData2: [],
-    lineNow: [],
-    lineFuture: [],
-    BestRate: "",
-    BestStatus: "",
-    BestTimes: "",
-    times: 0,
-    Shap: {
-      name: "",
-      rate: "",
-      times: "",
-      status: "",
-    },
-    times: 0,
+  const [lineData, setLineData] = useState([
+  ]);
+  const [passRateProps, setPassRateProps] = useState({
+    accumulativeMin:0,
+    accumulativeMinIn20:0,
+    accumulativePassRateIn20:0,
 
-    lineMin: [
-      { x: new Date(2023, 0, 1, 0, 0, 0), y: 10 },
-      { x: new Date(2023, 0, 1, 0, 0, 10), y: 10 },
-      { x: new Date(2023, 0, 1, 0, 0, 20), y: 10 },
-      { x: new Date(2023, 0, 1, 0, 0, 30), y: 10 },
-      { x: new Date(2023, 0, 1, 0, 0, 40), y: 10 },
-      { x: new Date(2023, 0, 1, 0, 0, 50), y: 10 },
-      { x: new Date(2023, 0, 1, 0, 0, 60), y: 10 },
-    ],
-    lineMax: [
-      { x: new Date(2023, 0, 1, 0, 0, 0), y: 90 },
-      { x: new Date(2023, 0, 1, 0, 0, 10), y: 90 },
-      { x: new Date(2023, 0, 1, 0, 0, 20), y: 90 },
-      { x: new Date(2023, 0, 1, 0, 0, 30), y: 90 },
-      { x: new Date(2023, 0, 1, 0, 0, 40), y: 90 },
-      { x: new Date(2023, 0, 1, 0, 0, 50), y: 90 },
-      { x: new Date(2023, 0, 1, 0, 0, 60), y: 90 },
-    ],
   });
-  const [doubleLineData, setDoubleLineData] = useState({
-    Detail: "Detail預測",
-    CorrectRange: "",
-    RealRange: "",
-    Status: "",
-    speed: {
-      lineChartData1: [],
-      selectChartData1: [],
-      lineChartData2: [],
-      selectChartData2: [],
-
-      times: 0,
-      lineMin: [],
-      lineNow: [],
-      lineFuture: [],
-    },
-    frequency: {
-      lineChartData1: [],
-      selectChartData1: [],
-      lineChartData2: [],
-      selectChartData2: [],
-
-      times: 0,
-      lineMin: [],
-      lineNow: [],
-      lineFuture: [],
-    },
-    state: {
-      lineChartData1: [],
-      selectChartData1: [],
-      lineChartData2: [],
-      selectChartData2: [],
-
-      times: 0,
-      lineMin: [],
-      lineNow: [],
-      lineFuture: [],
-    },
-    G: {
-      lineChartData1: [],
-      selectChartData1: [],
-      lineChartData2: [],
-      selectChartData2: [],
-
-      times: 0,
-      lineMin: [],
-      lineNow: [],
-      lineFuture: [],
-    },
-
-    times: 0,
-  });
+  const [passRate, setPassRate] = useState([
+  ]);
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
@@ -153,8 +69,9 @@ export const ContextProvider = ({ children }) => {
         setTest,
         isTrClicked,
         setIsTrClicked,
-        doubleLineData,
-        setDoubleLineData,
+        passRate,
+        setPassRate,
+        passRateProps, setPassRateProps
       }}
     >
       {children}

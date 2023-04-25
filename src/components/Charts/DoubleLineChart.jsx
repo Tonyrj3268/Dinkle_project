@@ -19,10 +19,10 @@ import {
 } from "../../data/dummy";
 import { useStateContext } from "../../contexts/ContextProvider";
 
-const DoubleLineChart = ({ height, width, bg, id, type }) => {
+const DoubleLineChart = ({ height, width, bg, id, type ,location}) => {
   const { currentMode, lineData, doubleLineData, setTest, test } =
     useStateContext();
-
+    
   var selectType = {
     speed: {
       labelFormat: "{value}",
@@ -58,8 +58,8 @@ const DoubleLineChart = ({ height, width, bg, id, type }) => {
       labelFormat: "{value}",
       rangePadding: "None",
       minimum: 0,
-      maximum: 7500,
-      interval: 1500,
+      maximum: 100000,
+      interval: 20000,
       lineStyle: { width: 0 },
       majorTickLines: { width: 0 },
       minorTickLines: { width: 0 },
@@ -69,28 +69,56 @@ const DoubleLineChart = ({ height, width, bg, id, type }) => {
   useEffect(() => {
     // console.log(lineData);
     //機台
-    doubleLineCustomSeriesSpeed[0].dataSource = doubleLineData.speed.lineNow;
-    doubleLineCustomSeriesSpeed[1].dataSource =
-      doubleLineData.speed.lineChartData2;
-    doubleLineCustomSeriesSpeed[2].dataSource = doubleLineData.speed.lineFuture;
+  
+ 
+   
+    var temp=[]
+    for(var i=0;i<lineData[location].Speed.length;i++){
+      temp.push({x:new Date(lineData[location].time[i]),y:lineData[location].Speed[i]})
+    }
+  doubleLineCustomSeriesSpeed[0].dataSource= temp;
+  console.log(doubleLineCustomSeriesSpeed[0].dataSource)
+    // doubleLineCustomSeriesSpeed[1].dataSource =
+    //   doubleLineData.speed.lineChartData2;
+    // doubleLineCustomSeriesSpeed[2].dataSource = doubleLineData.speed.lineFuture;
     //頻率
-    doubleLineCustomSeriesFre[0].dataSource = doubleLineData.frequency.lineNow;
-    doubleLineCustomSeriesFre[1].dataSource =
-      doubleLineData.frequency.lineChartData2;
-    doubleLineCustomSeriesFre[2].dataSource =
-      doubleLineData.frequency.lineFuture;
+    
+    
+    var temp=[]
+    for(var i=0;i<lineData[location].frequency.length;i++){
+      temp.push({x:new Date(lineData[location].time[i]),y:lineData[location].frequency[i]})
+    }
+    doubleLineCustomSeriesFre[0].dataSource = temp;
+ 
+    // doubleLineCustomSeriesFre[1].dataSource =
+    //   doubleLineData.frequency.lineChartData2;
+    // doubleLineCustomSeriesFre[2].dataSource =
+    //   doubleLineData.frequency.lineFuture;
     //狀態
-    doubleLineCustomSeriesState[0].dataSource = doubleLineData.state.lineNow;
-    doubleLineCustomSeriesState[1].dataSource =
-      doubleLineData.state.lineChartData2;
-    doubleLineCustomSeriesState[2].dataSource = doubleLineData.state.lineFuture;
+    
+ 
+ 
+  
+    var temp=[]
+    for(var i=0;i<lineData[location].Status.length;i++){
+      temp.push({x:new Date(lineData[location].time[i]),y:lineData[location].Status[i]})
+    }
+  doubleLineCustomSeriesState[0].dataSource = temp;
+    // doubleLineCustomSeriesState[1].dataSource =
+    //   doubleLineData.state.lineChartData2;
+    // doubleLineCustomSeriesState[2].dataSource = doubleLineData.state.lineFuture;
     //G
-    doubleLineCustomSeriesG[0].dataSource = doubleLineData.G.lineNow;
-    doubleLineCustomSeriesG[1].dataSource = doubleLineData.G.lineChartData2;
-    doubleLineCustomSeriesG[2].dataSource = doubleLineData.G.lineFuture;
-    console.log(doubleLineCustomSeriesState[0].dataSource);
+    var temp=[]
+    for(var i=0;i<lineData[location].g_change.length;i++){
+      temp.push({x:new Date(lineData[location].time[i]),y:lineData[location].g_change[i]})
+    }
+  doubleLineCustomSeriesG[0].dataSource = temp;
+  
+    // doubleLineCustomSeriesG[1].dataSource = doubleLineData.G.lineChartData2;
+    // doubleLineCustomSeriesG[2].dataSource = doubleLineData.G.lineFuture;
+   
     setTest((prev) => prev + 1);
-  }, [doubleLineData.state.lineNow]);
+  }, [lineData[location].Speed.length]);
 
   return (
     <div className=" flex flex-col">
@@ -160,7 +188,7 @@ const DoubleLineChart = ({ height, width, bg, id, type }) => {
           </SeriesCollectionDirective>
         </ChartComponent>
       </div>
-      <div>
+      {lineData[location].have_transient==0 ? <div></div> : <div>
         <p className="text-lg text-gray-600">G合力</p>
         <ChartComponent
           id="4"
@@ -181,7 +209,8 @@ const DoubleLineChart = ({ height, width, bg, id, type }) => {
             ))}
           </SeriesCollectionDirective>
         </ChartComponent>
-      </div>
+      </div>}
+      
     </div>
   );
 };

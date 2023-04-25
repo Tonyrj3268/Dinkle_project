@@ -21,46 +21,7 @@ const Sidebar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
       setActiveMenu(false);
     }
-    setLineData({
-      Detail: "Detail預測",
-      CorrectRange: "",
-      RealRange: "",
-      Status: "",
-      lineChartData1: [],
-      selectChartData1: [],
-      lineChartData2: [],
-      selectChartData2: [],
-      lineNow: [],
-      lineFuture: [],
-      BestRate: "",
-      BestStatus: "",
-      BestTimes: "",
-      times: 0,
-      Shap: {
-        name: "",
-        rate: "",
-        times: "",
-        status: "",
-      },
-      lineMin: [
-        { x: new Date(2023, 0, 1, 0, 0, 0), y: 10 },
-        { x: new Date(2023, 0, 1, 0, 0, 10), y: 10 },
-        { x: new Date(2023, 0, 1, 0, 0, 20), y: 10 },
-        { x: new Date(2023, 0, 1, 0, 0, 30), y: 10 },
-        { x: new Date(2023, 0, 1, 0, 0, 40), y: 10 },
-        { x: new Date(2023, 0, 1, 0, 0, 50), y: 10 },
-        { x: new Date(2023, 0, 1, 0, 0, 60), y: 10 },
-      ],
-      lineMax: [
-        { x: new Date(2023, 0, 1, 0, 0, 0), y: 90 },
-        { x: new Date(2023, 0, 1, 0, 0, 10), y: 90 },
-        { x: new Date(2023, 0, 1, 0, 0, 20), y: 90 },
-        { x: new Date(2023, 0, 1, 0, 0, 30), y: 90 },
-        { x: new Date(2023, 0, 1, 0, 0, 40), y: 90 },
-        { x: new Date(2023, 0, 1, 0, 0, 50), y: 90 },
-        { x: new Date(2023, 0, 1, 0, 0, 60), y: 90 },
-      ],
-    });
+   
     setIsTrClicked("");
   };
 
