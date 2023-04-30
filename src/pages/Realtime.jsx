@@ -210,7 +210,7 @@ const Realtime = () => {
             let unpass_rate_20_min_times = 0
             tem.forEach(obj=> {
               let good= obj.is_qualified.reduce((acc, cur) => acc + (cur ? 1 : 0), 0)
-              unpass_rate_20_min += obj.is_qualified.reduce((acc, cur) => cur === false ? acc + 1 : acc, 0);
+              unpass_rate_20_min += obj.is_qualified.reduce((acc, cur) => cur === true ? acc + 1 : acc, 0);
               unpass_rate_20_min_times += obj.is_qualified.length;
               let good_rate = Number((good / obj.is_qualified.length).toFixed(2));
               obj.good_rate = good_rate;
@@ -233,7 +233,7 @@ const Realtime = () => {
             setPassRateProps({
               accumulativeMin:tem_unpass_rate_props.accumulativeMin + unpass_rate_this_minute,
               accumulativeMinIn20:unpass_rate_20_min,
-              accumulativePassRateIn20: Number((unpass_rate_20_min / unpass_rate_20_min_times).toFixed(2)),
+              accumulativePassRateIn20: Number((1-(unpass_rate_20_min / unpass_rate_20_min_times)).toFixed(2)),
             })
             // console.log(passRate)
             console.log(lineData)
