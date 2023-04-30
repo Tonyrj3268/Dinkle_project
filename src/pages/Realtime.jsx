@@ -160,7 +160,7 @@ const Realtime = () => {
                         obj.Speed.push(json.Speed);
                         obj.Status.push(json.Status);
                         obj.g_change.push(json.g_change);
-                        obj.have_vibration=(json.have_vibration);
+                        obj.have_vibration=json.have_vibration;
                         let is_qualified = true
                         for (let i = 1; i <= 13; i++) {
                             let detailName = `detail_${i}`;
@@ -169,57 +169,56 @@ const Realtime = () => {
                             obj[`standard_min_${detailName}`] = json[`standard_min_${detailName}`]; 
                             obj[`standard_detail_name_${i}`] = json[`standard_detail_name_${i}`]; 
 
-                            if (obj[`pred_avg_${detailName}`] > obj[`standard_max_${detailName}`] || obj[`pred_avg_${detailName}`] < obj[`standard_min_${detailName}`]){
+                            if (obj[`pred_avg_${detailName}`][obj[`pred_avg_${detailName}`].length-1]+1 > obj[`standard_max_${detailName}`] || obj[`pred_avg_${detailName}`][obj[`pred_avg_${detailName}`].length-1] < obj[`standard_min_${detailName}`]-1){
                                 is_qualified = false
-                                unpass_rate_this_minute += 1
+                                
                             }
                         }
-                        obj.is_qualified.push(is_qualified);
-                        let good= obj.is_qualified.reduce((acc, cur) => acc + (cur ? 1 : 0), 0)
-                        unpass_rate_20_min += obj.is_qualified.length - good
-                        unpass_rate_20_min_times += obj.is_qualified.length
-                        let good_rate = Number((good / obj.is_qualified.length).toFixed(2));
-                        obj.good_rate = good_rate;
-                        all_good_rate += good_rate;
-                    
-                  }
-                })
-
-                if(!foundObject){
-                    let is_qualified = true
-                    let machine = new Machine(json.machine);
-                    machine.location = tem.length;
-                    machine.product = json.product
-                    machine.time.push(json.time)
-                    machine.frequency.push(json.frequency);
-                    machine.Speed.push(json.Speed);
-                    machine.Status.push(json.Status);
-                    machine.g_change.push(json.g_change);
-                    machine.have_vibration=(json.have_vibration);
-                    for (let i = 1; i <= 13; i++) {
-                        let detailName = `detail_${i}`;
-                        machine[`pred_avg_${detailName}`].push(Number(((json[`standard_max_${detailName}`]+json[`standard_min_${detailName}`])/2).toFixed(2)));
-                        machine[`standard_max_${detailName}`] = json[`standard_max_${detailName}`];
-                        machine[`standard_min_${detailName}`] = json[`standard_min_${detailName}`];
-                        machine[`standard_detail_name_${i}`] = json[`standard_detail_name_${i}`]; 
-
-                        if (machine[`pred_avg_${detailName}`] > machine[`standard_max_${detailName}`] || machine[`pred_avg_${detailName}`] < machine[`standard_min_${detailName}`]){
-                            is_qualified = false
-                            unpass_rate_this_minute += 1
+                        if(!is_qualified){
+                          unpass_rate_this_minute += 1
                         }
-                    }
-                    machine.is_qualified.push(is_qualified);
-                    let good= machine.is_qualified.reduce((acc, cur) => acc + (cur ? 1 : 0), 0)
-                    unpass_rate_20_min += machine.is_qualified.length - good
-                    unpass_rate_20_min_times += machine.is_qualified.length
-                    let good_rate = Number((good / machine.is_qualified.length).toFixed(2));
-                    machine.good_rate = good_rate;
-                    all_good_rate += good_rate;
+                        obj.is_qualified.push(is_qualified);
+                  } 
+                })
+                if(!foundObject){
+                  let is_qualified = true
+                  let machine = new Machine(json.machine);
+                  machine.location = tem.length;
+                  machine.product = json.product
+                  machine.time.push(json.time)
+                  machine.frequency.push(json.frequency);
+                  machine.Speed.push(json.Speed);
+                  machine.Status.push(json.Status);
+                  machine.g_change.push(json.g_change);
+                  machine.have_vibration=(json.have_vibration);
+                  for (let i = 1; i <= 13; i++) {
+                      let detailName = `detail_${i}`;
+                      machine[`pred_avg_${detailName}`].push(Number(((json[`standard_max_${detailName}`]+json[`standard_min_${detailName}`])/2).toFixed(2)));
+                      machine[`standard_max_${detailName}`] = json[`standard_max_${detailName}`];
+                      machine[`standard_min_${detailName}`] = json[`standard_min_${detailName}`];
+                      machine[`standard_detail_name_${i}`] = json[`standard_detail_name_${i}`]; 
 
-                    tem.push(machine);
-                    
-                }
+                      if (machine[`pred_avg_${detailName}`][machine[`pred_avg_${detailName}`].length-1] > machine[`standard_max_${detailName}`] || machine[`pred_avg_${detailName}`][machine[`pred_avg_${detailName}`].length-1] < machine[`standard_min_${detailName}`]){
+                          is_qualified = false
+                      }
+                  }
+                  if(!is_qualified){
+                    unpass_rate_this_minute += 1
+                  }
+                  machine.is_qualified.push(is_qualified);
+                  tem.push(machine);
+                  
+              }
             }
+
+            tem.forEach(obj=> {
+              let good= obj.is_qualified.reduce((acc, cur) => acc + (cur ? 1 : 0), 0)
+              unpass_rate_20_min += obj.is_qualified.reduce((acc, cur) => cur === false ? acc + 1 : acc, 0);
+              unpass_rate_20_min_times += obj.is_qualified.length;
+              let good_rate = Number((good / obj.is_qualified.length).toFixed(2));
+              obj.good_rate = good_rate;
+              all_good_rate += good_rate;
+            })
             tem_pass_rate.push({x:api_data[0].time,y:all_good_rate/api_data.length*100})
             setLineData(()=>tem);
             var dataArray=[]
@@ -228,13 +227,18 @@ const Realtime = () => {
             }
             setData(dataArray)
             setPassRate(()=>tem_pass_rate)
-            
+            console.log("unpass_rate_this_minute: "+unpass_rate_this_minute)
+            console.log("tem_unpass_rate_props.accumulativeMin: "+tem_unpass_rate_props.accumulativeMin)
+            console.log("unpass_rate_20_min: "+unpass_rate_20_min)
+            console.log("unpass_rate_20_min_times: "+unpass_rate_20_min_times)
+            console.log("unpass_rate_20_min / unpass_rate_20_min_times: "+unpass_rate_20_min / unpass_rate_20_min_times)
+ 
             setPassRateProps({
               accumulativeMin:tem_unpass_rate_props.accumulativeMin + unpass_rate_this_minute,
               accumulativeMinIn20:unpass_rate_20_min,
-              accumulativePassRateIn20:unpass_rate_20_min/unpass_rate_20_min_times,
+              accumulativePassRateIn20: Number((unpass_rate_20_min / unpass_rate_20_min_times).toFixed(2)),
             })
-            console.log(passRate)
+            // console.log(passRate)
             console.log(lineData)
             console.log(passRateProps)
             
