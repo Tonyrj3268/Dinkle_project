@@ -1,7 +1,6 @@
 node_modules
 .DS_Store
 .env
-src/setupProxy.js
 build
 docker-compose.yml
 nginx.conf

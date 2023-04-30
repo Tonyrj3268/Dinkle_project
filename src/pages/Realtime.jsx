@@ -120,8 +120,6 @@ const Realtime = () => {
             params: params}
           )
           .then((res) => {
-            console.log(res.data)
-            
             if (typeof res.data === 'string'){
               return
             }
@@ -131,8 +129,7 @@ const Realtime = () => {
             let api_data = res.data;
             let all_good_rate = 0
             let unpass_rate_this_minute = 0
-            let unpass_rate_20_min = 0
-            let unpass_rate_20_min_times = 0
+
             for (let i = 0; i < api_data.length; i++) {
                 
                 let json = api_data[i];
@@ -170,8 +167,7 @@ const Realtime = () => {
                             obj[`standard_detail_name_${i}`] = json[`standard_detail_name_${i}`]; 
 
                             if (obj[`pred_avg_${detailName}`][obj[`pred_avg_${detailName}`].length-1]+1 > obj[`standard_max_${detailName}`] || obj[`pred_avg_${detailName}`][obj[`pred_avg_${detailName}`].length-1] < obj[`standard_min_${detailName}`]-1){
-                                is_qualified = false
-                                
+                                is_qualified = false   
                             }
                         }
                         if(!is_qualified){
@@ -210,7 +206,8 @@ const Realtime = () => {
                   
               }
             }
-
+            let unpass_rate_20_min = 0
+            let unpass_rate_20_min_times = 0
             tem.forEach(obj=> {
               let good= obj.is_qualified.reduce((acc, cur) => acc + (cur ? 1 : 0), 0)
               unpass_rate_20_min += obj.is_qualified.reduce((acc, cur) => cur === false ? acc + 1 : acc, 0);
