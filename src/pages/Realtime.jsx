@@ -35,6 +35,7 @@ class Machine {
     this.have_vibration = 0;
     this.is_qualified = [];
     this.good_rate = 100;
+    this.accumulativeMin = 0;
     this.pred_avg_detail_1 = [];
     this.pred_avg_detail_2 = [];
     this.pred_avg_detail_3 = [];
@@ -128,7 +129,7 @@ const Realtime = () => {
             let tem_unpass_rate_props = passRateProps
             let api_data = res.data;
             let all_good_rate = 0
-            let unpass_rate_this_minute = 0
+            
 
             for (let i = 0; i < api_data.length; i++) {
                 
@@ -171,7 +172,8 @@ const Realtime = () => {
                             }
                         }
                         if(!is_qualified){
-                          unpass_rate_this_minute += 1
+                    
+                          obj.accumulativeMin += 1
                         }
                         obj.is_qualified.push(is_qualified);
                   } 
@@ -196,10 +198,11 @@ const Realtime = () => {
 
                       if (machine[`pred_avg_${detailName}`][machine[`pred_avg_${detailName}`].length-1] > machine[`standard_max_${detailName}`] || machine[`pred_avg_${detailName}`][machine[`pred_avg_${detailName}`].length-1] < machine[`standard_min_${detailName}`]){
                           is_qualified = false
+                          
                       }
                   }
                   if(!is_qualified){
-                    unpass_rate_this_minute += 1
+                    machine.accumulativeMin += 1
                   }
                   machine.is_qualified.push(is_qualified);
                   tem.push(machine);
@@ -208,9 +211,11 @@ const Realtime = () => {
             }
             let unpass_rate_20_min = 0
             let unpass_rate_20_min_times = 0
+            let unpass_total_minute = 0
             tem.forEach(obj=> {
+              unpass_total_minute += obj.accumulativeMin
               let good= obj.is_qualified.reduce((acc, cur) => acc + (cur ? 1 : 0), 0)
-              unpass_rate_20_min += obj.is_qualified.reduce((acc, cur) => cur === true ? acc + 1 : acc, 0);
+              unpass_rate_20_min += obj.is_qualified.reduce((acc, cur) => cur === false ? acc + 1 : acc, 0);
               unpass_rate_20_min_times += obj.is_qualified.length;
               let good_rate = Number((good / obj.is_qualified.length).toFixed(2));
               obj.good_rate = good_rate;
@@ -222,16 +227,16 @@ const Realtime = () => {
             for(var i=0;i<lineData.length;i++){
               dataArray.push(lineData[i])
             }
-            setData(dataArray)
-            setPassRate(()=>tem_pass_rate)
-            console.log("unpass_rate_this_minute: "+unpass_rate_this_minute)
+
+            console.log("unpass_rate_this_minute: "+unpass_total_minute)
             console.log("tem_unpass_rate_props.accumulativeMin: "+tem_unpass_rate_props.accumulativeMin)
             console.log("unpass_rate_20_min: "+unpass_rate_20_min)
             console.log("unpass_rate_20_min_times: "+unpass_rate_20_min_times)
             console.log("unpass_rate_20_min / unpass_rate_20_min_times: "+unpass_rate_20_min / unpass_rate_20_min_times)
- 
+            setData(dataArray)
+            setPassRate(()=>tem_pass_rate)
             setPassRateProps({
-              accumulativeMin:tem_unpass_rate_props.accumulativeMin + unpass_rate_this_minute,
+              accumulativeMin:unpass_total_minute,
               accumulativeMinIn20:unpass_rate_20_min,
               accumulativePassRateIn20: Number((1-(unpass_rate_20_min / unpass_rate_20_min_times)).toFixed(2)),
             })
