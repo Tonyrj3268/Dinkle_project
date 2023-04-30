@@ -32,7 +32,7 @@ class Machine {
     this.Speed = [];
     this.Status = [];
     this.g_change = [];
-    this.have_transient = 0;
+    this.have_vibration = 0;
     this.is_qualified = [];
     this.good_rate = 100;
     this.pred_avg_detail_1 = [];
@@ -74,6 +74,19 @@ class Machine {
     this.standard_min_detail_11 = 0;
     this.standard_min_detail_12 = 0;
     this.standard_min_detail_13 = 0;
+    this.standard_detail_name_1 = "";
+    this.standard_detail_name_2 = "";
+    this.standard_detail_name_3 = "";
+    this.standard_detail_name_4 = "";
+    this.standard_detail_name_5 = "";
+    this.standard_detail_name_6 = "";
+    this.standard_detail_name_7 = "";
+    this.standard_detail_name_8 = "";
+    this.standard_detail_name_9 = "";
+    this.standard_detail_name_10 = "";
+    this.standard_detail_name_11 = "";
+    this.standard_detail_name_12 = "";
+    this.standard_detail_name_13 = "";
   }
 }
 const Realtime = () => {
@@ -147,13 +160,14 @@ const Realtime = () => {
                         obj.Speed.push(json.Speed);
                         obj.Status.push(json.Status);
                         obj.g_change.push(json.g_change);
-                        obj.have_transient=(json.have_transient);
+                        obj.have_vibration=(json.have_vibration);
                         let is_qualified = true
                         for (let i = 1; i <= 13; i++) {
                             let detailName = `detail_${i}`;
                             obj[`pred_avg_${detailName}`].push(Number(((json[`standard_max_${detailName}`]+json[`standard_min_${detailName}`])/2).toFixed(2)));
                             obj[`standard_max_${detailName}`] = json[`standard_max_${detailName}`];
                             obj[`standard_min_${detailName}`] = json[`standard_min_${detailName}`]; 
+                            obj[`standard_detail_name_${i}`] = json[`standard_detail_name_${i}`]; 
 
                             if (obj[`pred_avg_${detailName}`] > obj[`standard_max_${detailName}`] || obj[`pred_avg_${detailName}`] < obj[`standard_min_${detailName}`]){
                                 is_qualified = false
@@ -181,12 +195,13 @@ const Realtime = () => {
                     machine.Speed.push(json.Speed);
                     machine.Status.push(json.Status);
                     machine.g_change.push(json.g_change);
-                    machine.have_transient=(json.have_transient);
+                    machine.have_vibration=(json.have_vibration);
                     for (let i = 1; i <= 13; i++) {
                         let detailName = `detail_${i}`;
                         machine[`pred_avg_${detailName}`].push(Number(((json[`standard_max_${detailName}`]+json[`standard_min_${detailName}`])/2).toFixed(2)));
                         machine[`standard_max_${detailName}`] = json[`standard_max_${detailName}`];
                         machine[`standard_min_${detailName}`] = json[`standard_min_${detailName}`];
+                        machine[`standard_detail_name_${i}`] = json[`standard_detail_name_${i}`]; 
 
                         if (machine[`pred_avg_${detailName}`] > machine[`standard_max_${detailName}`] || machine[`pred_avg_${detailName}`] < machine[`standard_min_${detailName}`]){
                             is_qualified = false
