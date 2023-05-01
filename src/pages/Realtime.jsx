@@ -416,7 +416,7 @@ const Realtime = () => {
                   </p>
                 </div>
                 <div>
-                  <p>過去二十分鐘機台不良率</p>
+                  <p>過去二十分鐘機台良率</p>
                   <p className="text-2xl font-bold ">
                     {passRateProps.accumulativePassRateIn20}
                   </p>
