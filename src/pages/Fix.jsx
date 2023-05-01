@@ -48,7 +48,7 @@ const Fix = () => {
   ];
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Page" title="維修項目" />
+      <Header category="Page" title="維修項目prototype(開發中)" />
       <div className=" w-full h-full flex flex-col gap-4 font-semibold text-white">
         {data.map((d, i) => (
           <FixData props={d} key={i}></FixData>

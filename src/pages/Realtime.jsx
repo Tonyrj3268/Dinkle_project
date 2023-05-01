@@ -12,7 +12,6 @@ import {
   PdfExport,
   Edit,
   Inject,
-  
 } from "@syncfusion/ej2-react-grids";
 
 import { Pie as PieChart, LineChart } from "../components";
@@ -26,7 +25,7 @@ class Machine {
   constructor(machine) {
     this.machine = machine;
     this.product = "";
-    this.location = 0
+    this.location = 0;
     this.time = [];
     this.frequency = [];
     this.Speed = [];
@@ -95,178 +94,230 @@ const Realtime = () => {
   const [page, setPage] = useState("即時監控");
   const [data, setData] = useState([]);
   function dialogTemplete(props) {
-    
     return <DiaLog {...props} />;
   }
-  const { setLineData,test, setTest, lineData,passRate, setPassRate,passRateProps, setPassRateProps } = useStateContext();
-  const MINUTE_MS = 10000;
+  const {
+    setLineData,
+    test,
+    setTest,
+    lineData,
+    passRate,
+    setPassRate,
+    passRateProps,
+    setPassRateProps,
+  } = useStateContext();
+  const MINUTE_MS = 30000;
   useEffect(() => {
-   
-      const interval = setInterval(() => {
-       
-        const formData = new URLSearchParams();
-        formData.append('username', process.env.REACT_APP_extra_predict_username);
-        formData.append('password', process.env.REACT_APP_extra_predict_password);
-        const params = {
-          Show_type : 'test',
-          Work_type: 'Stampers'
-        };
-        axios
-          .post(
-            process.env.REACT_APP_extra_predict_url,
-            formData,
-            {headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            params: params}
-          )
-          .then((res) => {
-            if (typeof res.data === 'string'){
-              return
-            }
-            let tem = lineData
-            let tem_pass_rate = passRate
-            let tem_unpass_rate_props = passRateProps
-            let api_data = res.data;
-            let all_good_rate = 0
-            
+    const interval = setInterval(() => {
+      const formData = new URLSearchParams();
+      formData.append("username", process.env.REACT_APP_extra_predict_username);
+      formData.append("password", process.env.REACT_APP_extra_predict_password);
+      const params = {
+        Show_type: "test",
+        Work_type: "Stampers",
+      };
+      axios
+        .post(process.env.REACT_APP_extra_predict_url, formData, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          params: params,
+        })
+        .then((res) => {
+          if (typeof res.data === "string") {
+            return;
+          }
+          let tem = lineData;
+          let tem_pass_rate = passRate;
+          let tem_unpass_rate_props = passRateProps;
+          let api_data = res.data;
+          let all_good_rate = 0;
 
-            for (let i = 0; i < api_data.length; i++) {
-                
-                let json = api_data[i];
-                let foundObject = false;
-            
-                tem.forEach(obj => {
-                    if (obj.machine === json.machine) {
-                        foundObject = true;
-                        if (obj.product != json.product){
-                            let index = obj.location; 
-                            obj = new Machine(json.machine);
-                            obj.product = json.product
-                            obj.location = index
-                        }
+          for (let i = 0; i < api_data.length; i++) {
+            let json = api_data[i];
+            let foundObject = false;
 
-                        if (obj.Status.length > 20) {
-                            Object.keys(obj).forEach(key => {
-                                if (Array.isArray(obj[key])) {
-                                    obj[key].shift();
-                                }
-                              });
-                        }
-                        obj.time.push(json.time)
-                        obj.frequency.push(json.frequency);
-                        obj.Speed.push(json.Speed);
-                        obj.Status.push(json.Status);
-                        obj.g_change.push(json.g_change);
-                        obj.have_vibration=json.have_vibration;
-                        let is_qualified = true
-                        for (let i = 1; i <= 13; i++) {
-                            let detailName = `detail_${i}`;
-                            obj[`pred_avg_${detailName}`].push(Number(((json[`standard_max_${detailName}`]+json[`standard_min_${detailName}`])/2).toFixed(2)));
-                            obj[`standard_max_${detailName}`] = json[`standard_max_${detailName}`];
-                            obj[`standard_min_${detailName}`] = json[`standard_min_${detailName}`]; 
-                            obj[`standard_detail_name_${i}`] = json[`standard_detail_name_${i}`]; 
+            tem.forEach((obj) => {
+              if (obj.machine === json.machine) {
+                foundObject = true;
+                if (obj.product != json.product) {
+                  let index = obj.location;
+                  obj = new Machine(json.machine);
+                  obj.product = json.product;
+                  obj.location = index;
+                }
 
-                            if (obj[`pred_avg_${detailName}`][obj[`pred_avg_${detailName}`].length-1]+1 > obj[`standard_max_${detailName}`] || obj[`pred_avg_${detailName}`][obj[`pred_avg_${detailName}`].length-1] < obj[`standard_min_${detailName}`]-1){
-                                is_qualified = false   
-                            }
-                        }
-                        if(!is_qualified){
-                    
-                          obj.accumulativeMin += 1
-                        }
-                        obj.is_qualified.push(is_qualified);
-                  } 
-                })
-                if(!foundObject){
-                  let is_qualified = true
-                  let machine = new Machine(json.machine);
-                  machine.location = tem.length;
-                  machine.product = json.product
-                  machine.time.push(json.time)
-                  machine.frequency.push(json.frequency);
-                  machine.Speed.push(json.Speed);
-                  machine.Status.push(json.Status);
-                  machine.g_change.push(json.g_change);
-                  machine.have_vibration=(json.have_vibration);
-                  for (let i = 1; i <= 13; i++) {
-                      let detailName = `detail_${i}`;
-                      machine[`pred_avg_${detailName}`].push(Number(((json[`standard_max_${detailName}`]+json[`standard_min_${detailName}`])/2).toFixed(2)));
-                      machine[`standard_max_${detailName}`] = json[`standard_max_${detailName}`];
-                      machine[`standard_min_${detailName}`] = json[`standard_min_${detailName}`];
-                      machine[`standard_detail_name_${i}`] = json[`standard_detail_name_${i}`]; 
+                if (obj.Status.length > 20) {
+                  Object.keys(obj).forEach((key) => {
+                    if (Array.isArray(obj[key])) {
+                      obj[key].shift();
+                    }
+                  });
+                }
+                obj.time.push(json.time);
+                obj.frequency.push(json.frequency);
+                obj.Speed.push(json.Speed);
+                obj.Status.push(json.Status);
+                obj.g_change.push(json.g_change);
+                obj.have_vibration = json.have_vibration;
+                let is_qualified = true;
+                for (let i = 1; i <= 13; i++) {
+                  let detailName = `detail_${i}`;
+                  obj[`pred_avg_${detailName}`].push(
+                    Number(
+                      (
+                        (json[`standard_max_${detailName}`] +
+                          json[`standard_min_${detailName}`]) /
+                        2
+                      ).toFixed(2)
+                    )
+                  );
+                  obj[`standard_max_${detailName}`] =
+                    json[`standard_max_${detailName}`];
+                  obj[`standard_min_${detailName}`] =
+                    json[`standard_min_${detailName}`];
+                  obj[`standard_detail_name_${i}`] =
+                    json[`standard_detail_name_${i}`];
 
-                      if (machine[`pred_avg_${detailName}`][machine[`pred_avg_${detailName}`].length-1] > machine[`standard_max_${detailName}`] || machine[`pred_avg_${detailName}`][machine[`pred_avg_${detailName}`].length-1] < machine[`standard_min_${detailName}`]){
-                          is_qualified = false
-                          
-                      }
+                  if (
+                    obj[`pred_avg_${detailName}`][
+                      obj[`pred_avg_${detailName}`].length - 1
+                    ] +
+                      1 >
+                      obj[`standard_max_${detailName}`] ||
+                    obj[`pred_avg_${detailName}`][
+                      obj[`pred_avg_${detailName}`].length - 1
+                    ] <
+                      obj[`standard_min_${detailName}`] - 1
+                  ) {
+                    is_qualified = false;
                   }
-                  if(!is_qualified){
-                    machine.accumulativeMin += 1
-                  }
-                  machine.is_qualified.push(is_qualified);
-                  tem.push(machine);
-                  
+                }
+                if (!is_qualified) {
+                  obj.accumulativeMin += 1;
+                }
+                obj.is_qualified.push(is_qualified);
               }
-            }
-            let unpass_rate_20_min = 0
-            let unpass_rate_20_min_times = 0
-            let unpass_total_minute = 0
-            tem.forEach(obj=> {
-              unpass_total_minute += obj.accumulativeMin
-              let good= obj.is_qualified.reduce((acc, cur) => acc + (cur ? 1 : 0), 0)
-              unpass_rate_20_min += obj.is_qualified.reduce((acc, cur) => cur === false ? acc + 1 : acc, 0);
-              unpass_rate_20_min_times += obj.is_qualified.length;
-              let good_rate = Number((good / obj.is_qualified.length).toFixed(2));
-              obj.good_rate = good_rate;
-              all_good_rate += good_rate;
-            })
-            tem_pass_rate.push({x:api_data[0].time,y:all_good_rate/api_data.length*100})
-            setLineData(()=>tem);
-            var dataArray=[]
-            for(var i=0;i<lineData.length;i++){
-              dataArray.push(lineData[i])
-            }
+            });
+            if (!foundObject) {
+              let is_qualified = true;
+              let machine = new Machine(json.machine);
+              machine.location = tem.length;
+              machine.product = json.product;
+              machine.time.push(json.time);
+              machine.frequency.push(json.frequency);
+              machine.Speed.push(json.Speed);
+              machine.Status.push(json.Status);
+              machine.g_change.push(json.g_change);
+              machine.have_vibration = json.have_vibration;
+              for (let i = 1; i <= 13; i++) {
+                let detailName = `detail_${i}`;
+                machine[`pred_avg_${detailName}`].push(
+                  Number(
+                    (
+                      (json[`standard_max_${detailName}`] +
+                        json[`standard_min_${detailName}`]) /
+                      2
+                    ).toFixed(2)
+                  )
+                );
+                machine[`standard_max_${detailName}`] =
+                  json[`standard_max_${detailName}`];
+                machine[`standard_min_${detailName}`] =
+                  json[`standard_min_${detailName}`];
+                machine[`standard_detail_name_${i}`] =
+                  json[`standard_detail_name_${i}`];
 
-            console.log("unpass_rate_this_minute: "+unpass_total_minute)
-            console.log("tem_unpass_rate_props.accumulativeMin: "+tem_unpass_rate_props.accumulativeMin)
-            console.log("unpass_rate_20_min: "+unpass_rate_20_min)
-            console.log("unpass_rate_20_min_times: "+unpass_rate_20_min_times)
-            console.log("unpass_rate_20_min / unpass_rate_20_min_times: "+unpass_rate_20_min / unpass_rate_20_min_times)
-            setData(dataArray)
-            setPassRate(()=>tem_pass_rate)
-            setPassRateProps({
-              accumulativeMin:unpass_total_minute,
-              accumulativeMinIn20:unpass_rate_20_min,
-              accumulativePassRateIn20: Number((1-(unpass_rate_20_min / unpass_rate_20_min_times)).toFixed(2)),
-            })
-            // console.log(passRate)
-            console.log(lineData)
-            console.log(passRateProps)
-            
-                  })
-          .catch(error => {
-            if (error.response) {
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              console.log(error.request);
-            } else {
-              console.log('Error', error.message);
+                if (
+                  machine[`pred_avg_${detailName}`][
+                    machine[`pred_avg_${detailName}`].length - 1
+                  ] > machine[`standard_max_${detailName}`] ||
+                  machine[`pred_avg_${detailName}`][
+                    machine[`pred_avg_${detailName}`].length - 1
+                  ] < machine[`standard_min_${detailName}`]
+                ) {
+                  is_qualified = false;
+                }
+              }
+              if (!is_qualified) {
+                machine.accumulativeMin += 1;
+              }
+              machine.is_qualified.push(is_qualified);
+              tem.push(machine);
             }
-            console.log(error.config);
+          }
+          let unpass_rate_20_min = 0;
+          let unpass_rate_20_min_times = 0;
+          let unpass_total_minute = 0;
+          tem.forEach((obj) => {
+            unpass_total_minute += obj.accumulativeMin;
+            let good = obj.is_qualified.reduce(
+              (acc, cur) => acc + (cur ? 1 : 0),
+              0
+            );
+            unpass_rate_20_min += obj.is_qualified.reduce(
+              (acc, cur) => (cur === false ? acc + 1 : acc),
+              0
+            );
+            unpass_rate_20_min_times += obj.is_qualified.length;
+            let good_rate = Number((good / obj.is_qualified.length).toFixed(2));
+            obj.good_rate = good_rate;
+            all_good_rate += good_rate;
           });
-          
-          setTest((prev) => prev + 1);
-      
-      }, MINUTE_MS);
-      
-      return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-    
-  }, [test,lineData.length]);
+          tem_pass_rate.push({
+            x: api_data[0].time,
+            y: (all_good_rate / api_data.length) * 100,
+          });
+          setLineData(() => tem);
+          var dataArray = [];
+          for (var i = 0; i < lineData.length; i++) {
+            dataArray.push(lineData[i]);
+          }
+
+          console.log("unpass_rate_this_minute: " + unpass_total_minute);
+          console.log(
+            "tem_unpass_rate_props.accumulativeMin: " +
+              tem_unpass_rate_props.accumulativeMin
+          );
+          console.log("unpass_rate_20_min: " + unpass_rate_20_min);
+          console.log("unpass_rate_20_min_times: " + unpass_rate_20_min_times);
+          console.log(
+            "unpass_rate_20_min / unpass_rate_20_min_times: " +
+              unpass_rate_20_min / unpass_rate_20_min_times
+          );
+          setData(dataArray);
+          setPassRate(() => tem_pass_rate);
+          setPassRateProps({
+            accumulativeMin: unpass_total_minute,
+            accumulativeMinIn20: unpass_rate_20_min,
+            accumulativePassRateIn20: Number(
+              (1 - unpass_rate_20_min / unpass_rate_20_min_times).toFixed(2)
+            ),
+          });
+          // console.log(passRate)
+          console.log(lineData);
+          console.log(passRateProps);
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
+
+      setTest((prev) => prev + 1);
+    }, MINUTE_MS);
+
+    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, [test, lineData.length]);
   var changePage = (value) => {
-    setPage(value)
+    setPage(value);
   };
 
   const editing = {
@@ -286,7 +337,7 @@ const Realtime = () => {
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl  overflow-y-auto">
       <div className=" mb-5">
         <p className="text-3xl font-extrabold tracking-tight text-slate-900">
-          即時監控 {test}
+          即時監控
         </p>
       </div>
       <div className=" flex flex-row gap-4 text-white font-bold">
@@ -306,13 +357,12 @@ const Realtime = () => {
         >
           整體良率
         </button>
-
       </div>
-      
+
       {page === "即時監控" ? (
         <div>
           <div className="flex w-full p-5"></div>
-        
+
           <GridComponent
             id="gridcomp"
             dataSource={data}
@@ -320,7 +370,6 @@ const Realtime = () => {
             contextMenuItems={contextMenuItems}
             editSettings={editing}
             enablePersistence={false}
-          
           >
             <ColumnsDirective>
               {/* eslint-disable-next-line react/jsx-props-no-spreading */}
@@ -352,7 +401,9 @@ const Realtime = () => {
                 </div>
               </div>
               <div className="mt-3">
-                <p className="text-3xl font-bold ">{passRateProps.accumulativeMin}</p>
+                <p className="text-3xl font-bold ">
+                  {passRateProps.accumulativeMin}
+                </p>
               </div>
             </div>
             <div className=" dark:text-gray-200 bg-green-500 h-44 rounded-xl w-2/3 p-5 pt-9 m-3  bg-center">
@@ -360,11 +411,15 @@ const Realtime = () => {
                 <div className="">
                   <p className=" items-baseline">過去二十分鐘機台不良分鐘</p>
 
-                  <p className="text-2xl font-bold ">{passRateProps.accumulativeMinIn20}</p>
+                  <p className="text-2xl font-bold ">
+                    {passRateProps.accumulativeMinIn20}
+                  </p>
                 </div>
                 <div>
                   <p>過去二十分鐘機台不良率</p>
-                  <p className="text-2xl font-bold ">{passRateProps.accumulativePassRateIn20}</p>
+                  <p className="text-2xl font-bold ">
+                    {passRateProps.accumulativePassRateIn20}
+                  </p>
                 </div>
               </div>
             </div>

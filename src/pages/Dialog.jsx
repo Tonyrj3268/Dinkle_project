@@ -4,15 +4,16 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { DoubleLineChart } from "../components";
-import { LineChart } from "../components";
+import { DetailChart } from "../components";
 import Tr from "../components/Tr";
 import { useStateContext } from "../contexts/ContextProvider";
 import { compose } from "@mui/system";
-import axios from 'axios';
+import axios from "axios";
 
 const DiaLog = (props) => {
   const { currentMode } = useStateContext();
   const [open, setOpen] = React.useState(true);
+  const [details, setDetails] = React.useState([]);
   const [page, setPage] = React.useState("選擇畫面");
   const {
     activeMenu,
@@ -21,24 +22,32 @@ const DiaLog = (props) => {
     test,
     setTest,
     doubleLineData,
-    
+    detailData,
     setIsTrClicked,
+    isTrClicked,
   } = useStateContext();
-  var data=[]
-  const MINUTE_MS = 3000;
-  var intervalArray = [];
   useEffect(() => {
-    if (page === "機台") {
-     
-    } else if (page === "Detail") {
-       
+    var tem = [];
+    for (let i = 1; i <= 13; i++) {
+      if (lineData[props.location][`standard_detail_name_${i}`] !== undefined) {
+        tem.push({
+          name:
+            lineData[props.location][`standard_detail_name_${i}`] +
+            "(Detail預測)" +
+            i,
+          details: lineData[props.location][`pred_avg_detail_${i}`],
+          max: lineData[props.location][`standard_max_detail_${i}`],
+          min: lineData[props.location][`standard_min_detail_${i}`],
+          location: props.location,
+          detail_i: i,
+        });
       }
-      console.log("----------------------------")
-     console.log(lineData)
-  }, [
-    test,
-    page,
-  ]);
+    }
+    setDetails(tem);
+
+    console.log("----------------------------");
+    console.log(details);
+  }, [test, page]);
 
   const handleClose = () => {
     setPage("選擇畫面");
@@ -48,8 +57,7 @@ const DiaLog = (props) => {
     setPage(value);
     console.log(value);
   };
-  
-  
+
   if (page === "機台") {
     return (
       <Dialog
@@ -63,32 +71,64 @@ const DiaLog = (props) => {
         <h1 className=" p-3 text-3xl font-semibold">{props.Name}</h1>
         <h1 className=" px-7 py-1 text-xl font-semibold">
           {lineData[props.location].time.length > 0
-            ? new Date(lineData[props.location].time[lineData[props.location].time.length-1]).getFullYear() +
-            "年" +
-            (new Date(lineData[props.location].time[lineData[props.location].time.length-1]).getMonth()+1) +
-            "月" +
-            new Date(lineData[props.location].time[lineData[props.location].time.length-1]).getDate() +
-            "日"
+            ? new Date(
+                lineData[props.location].time[
+                  lineData[props.location].time.length - 1
+                ]
+              ).getFullYear() +
+              "年" +
+              (new Date(
+                lineData[props.location].time[
+                  lineData[props.location].time.length - 1
+                ]
+              ).getMonth() +
+                1) +
+              "月" +
+              new Date(
+                lineData[props.location].time[
+                  lineData[props.location].time.length - 1
+                ]
+              ).getDate() +
+              "日"
             : "等待更新"}
         </h1>
         <DialogContent>
-        <DoubleLineChart location={props.location}></DoubleLineChart>
+          <DoubleLineChart location={props.location}></DoubleLineChart>
           <div className=" flex flex-row px-5 gap-10 relative">
-           
-
             <div className="flex flex-col p-5 w-[340px]  bg-slate-500 rounded-xl justify-start items-start text-white fixed top-40 right-40">
               <p className=" text-2xl p-2">機台料號：{props.product}</p>
               <p className=" text-2xl p-2">機台名稱：{props.machine}</p>
               <div className="p-2 flex items-center gap-2">
-                <p className=" text-2xl">轉速：{lineData[props.location].Speed[lineData[props.location].Speed.length-1]}</p>
+                <p className=" text-2xl">
+                  轉速：
+                  {
+                    lineData[props.location].Speed[
+                      lineData[props.location].Speed.length - 1
+                    ]
+                  }
+                </p>
               </div>
               <div className="p-2 flex items-center gap-2">
-                <p className=" text-2xl">頻率：{lineData[props.location].frequency[lineData[props.location].Status.length-1]}</p>
+                <p className=" text-2xl">
+                  頻率：
+                  {
+                    lineData[props.location].frequency[
+                      lineData[props.location].Status.length - 1
+                    ]
+                  }
+                </p>
               </div>
               <div className="p-2 flex items-center gap-2">
-                <p className=" text-2xl">狀態：{lineData[props.location].Status[lineData[props.location].Status.length-1]}</p>
+                <p className=" text-2xl">
+                  狀態：
+                  {
+                    lineData[props.location].Status[
+                      lineData[props.location].Status.length - 1
+                    ]
+                  }
+                </p>
               </div>
-              
+
               <button
                 className="px-8 py-4 bg-green-400 text-xl cursor-pointer hover:bg-green-500 text-white"
                 onClick={(e) => handlePage("Detail")}
@@ -117,9 +157,7 @@ const DiaLog = (props) => {
           <div className="m-2  bg-white dark:bg-secondary-dark-bg rounded-3xl ">
             <div className="">
               <div>
-                <p className="text-3xl font-extrabold tracking-tight dark:text-gray-200 text-slate-900 p-4">
-                  {lineData.Detail}
-                </p>
+                <p className="text-3xl font-extrabold tracking-tight dark:text-gray-200 text-slate-900 p-4"></p>
               </div>
             </div>
             <div className=" flex gap-5 px-5 py-1">
@@ -132,7 +170,7 @@ const DiaLog = (props) => {
             </div>
 
             <div className=" flex px-2 items-center w-full mt-2">
-              {lineData.selectChartData1.length < 6 ? (
+              {detailData.detail_i == 0 ? (
                 <div>
                   {activeMenu ? (
                     <div className=" w-[580px] h-[350px] p-4 bg-slate-500 rounded-2xl text-white">
@@ -160,15 +198,18 @@ const DiaLog = (props) => {
                 </div>
               ) : (
                 <div className="">
+                  <div className=" text-xl font-semibold px-3">
+                    {isTrClicked}
+                  </div>
                   {activeMenu ? (
-                    <LineChart
+                    <DetailChart
                       height={"350px"}
                       width={"700px"}
                       bg={"#33373E"}
                       type={"Detail"}
                     />
                   ) : (
-                    <LineChart
+                    <DetailChart
                       height={"350px"}
                       width={"700px"}
                       bg={"#33373E"}
@@ -182,10 +223,10 @@ const DiaLog = (props) => {
                 <div className=" flex py-4 items-center justify-center gap-2 text-sm bg-slate-500  p-3 sticky top-0">
                   <p className=" font-bold  ">名稱 </p>
                   <p className=" font-bold ">合格範圍</p>
-                  <p className="font-bold ">預測範圍 </p>
+                  <p className="font-bold ">預測值 </p>
                   <p className="font-bold ">目前狀態</p>
                 </div>
-                {data.map((d, id) => (
+                {details.map((d, id) => (
                   <Tr key={id} props={d}></Tr>
                 ))}
               </div>
@@ -221,12 +262,6 @@ const DiaLog = (props) => {
               onClick={(e) => handlePage("Detail")}
             >
               Detail預測
-            </button>
-            <button
-              className="px-8 py-4 bg-green-400 text-xl cursor-pointer hover:bg-green-500 text-white"
-              onClick={(e) => handlePage("Detail")}
-            >
-              機台良率
             </button>
           </div>
         </div>

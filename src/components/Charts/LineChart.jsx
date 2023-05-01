@@ -11,14 +11,14 @@ import {
 } from "@syncfusion/ej2-react-charts";
 
 import {
-  lineCustomSeries,
+  passRateLineCustomSeries,
   LinePrimaryXAxis,
   LinePrimaryYAxis,
 } from "../../data/dummy";
 import { useStateContext } from "../../contexts/ContextProvider";
 
 const LineChart = ({ height, width, bg, type }) => {
-  const { test, lineData, setTest,passRate } = useStateContext();
+  const { test, lineData, setTest, passRate } = useStateContext();
   var selectType = {
     Detail: {
       labelFormat: "{value}",
@@ -43,10 +43,8 @@ const LineChart = ({ height, width, bg, type }) => {
   };
 
   useEffect(() => {
-    lineCustomSeries[1].dataSource = passRate;
-
-    
-  }, [passRate.length,test]);
+    passRateLineCustomSeries[0].dataSource = passRate;
+  }, [passRate.length, test]);
 
   return (
     <ChartComponent
@@ -63,7 +61,7 @@ const LineChart = ({ height, width, bg, type }) => {
       <Inject services={[LineSeries, DateTime, Legend, Tooltip]} />
       <SeriesCollectionDirective>
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        {lineCustomSeries.map((item, index) => (
+        {passRateLineCustomSeries.map((item, index) => (
           <SeriesDirective fill={item.color} key={index} {...item} />
         ))}
       </SeriesCollectionDirective>

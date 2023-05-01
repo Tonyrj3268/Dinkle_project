@@ -19,16 +19,19 @@ export const ContextProvider = ({ children }) => {
   const [isClicked, setIsClicked] = useState(initialState);
   const [isTrClicked, setIsTrClicked] = useState(false);
 
-  const [lineData, setLineData] = useState([
-  ]);
-  const [passRateProps, setPassRateProps] = useState({
-    accumulativeMin:0,
-    accumulativeMinIn20:0,
-    accumulativePassRateIn20:0,
-
+  const [lineData, setLineData] = useState([]);
+  const [detailData, setDetailData] = useState({
+    max: 0,
+    min: 0,
+    details: 0,
+    location: 0,
   });
-  const [passRate, setPassRate] = useState([
-  ]);
+  const [passRateProps, setPassRateProps] = useState({
+    accumulativeMin: 0,
+    accumulativeMinIn20: 0,
+    accumulativePassRateIn20: 0,
+  });
+  const [passRate, setPassRate] = useState([]);
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
@@ -71,7 +74,10 @@ export const ContextProvider = ({ children }) => {
         setIsTrClicked,
         passRate,
         setPassRate,
-        passRateProps, setPassRateProps
+        passRateProps,
+        setPassRateProps,
+        detailData,
+        setDetailData,
       }}
     >
       {children}

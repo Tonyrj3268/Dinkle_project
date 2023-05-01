@@ -19,10 +19,29 @@ import {
 } from "../../data/dummy";
 import { useStateContext } from "../../contexts/ContextProvider";
 
-const DoubleLineChart = ({ height, width, bg, id, type ,location}) => {
+// {
+//   dataSource: douleLineChartData[2],
+//   xName: "x",
+//   yName: "y",
+//   name: "現在時間",
+//   width: "2",
+//   type: "Line",
+//   color: "black",
+// },
+// {
+//   dataSource: douleLineChartData[3],
+//   xName: "x",
+//   yName: "y",
+//   name: "預測資料",
+//   width: "2",
+//   type: "Line",
+//   color: "#34ebd2",
+// },
+
+const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   const { currentMode, lineData, doubleLineData, setTest, test } =
     useStateContext();
-    
+
   var selectType = {
     speed: {
       labelFormat: "{value}",
@@ -69,54 +88,60 @@ const DoubleLineChart = ({ height, width, bg, id, type ,location}) => {
   useEffect(() => {
     // console.log(lineData);
     //機台
-  
- 
-   
-    var temp=[]
-    for(var i=0;i<lineData[location].Speed.length;i++){
-      temp.push({x:new Date(lineData[location].time[i]),y:lineData[location].Speed[i]})
+
+    var temp = [];
+    for (var i = 0; i < lineData[location].Speed.length; i++) {
+      temp.push({
+        x: new Date(lineData[location].time[i]),
+        y: lineData[location].Speed[i],
+      });
     }
-  doubleLineCustomSeriesSpeed[0].dataSource= temp;
-  console.log(doubleLineCustomSeriesSpeed[0].dataSource)
+    doubleLineCustomSeriesSpeed[0].dataSource = temp;
+    console.log(doubleLineCustomSeriesSpeed[0].dataSource);
     // doubleLineCustomSeriesSpeed[1].dataSource =
     //   doubleLineData.speed.lineChartData2;
     // doubleLineCustomSeriesSpeed[2].dataSource = doubleLineData.speed.lineFuture;
     //頻率
-    
-    
-    var temp=[]
-    for(var i=0;i<lineData[location].frequency.length;i++){
-      temp.push({x:new Date(lineData[location].time[i]),y:lineData[location].frequency[i]})
+
+    var temp = [];
+    for (var i = 0; i < lineData[location].frequency.length; i++) {
+      temp.push({
+        x: new Date(lineData[location].time[i]),
+        y: lineData[location].frequency[i],
+      });
     }
     doubleLineCustomSeriesFre[0].dataSource = temp;
- 
+
     // doubleLineCustomSeriesFre[1].dataSource =
     //   doubleLineData.frequency.lineChartData2;
     // doubleLineCustomSeriesFre[2].dataSource =
     //   doubleLineData.frequency.lineFuture;
     //狀態
-    
- 
- 
-  
-    var temp=[]
-    for(var i=0;i<lineData[location].Status.length;i++){
-      temp.push({x:new Date(lineData[location].time[i]),y:lineData[location].Status[i]})
+
+    var temp = [];
+    for (var i = 0; i < lineData[location].Status.length; i++) {
+      temp.push({
+        x: new Date(lineData[location].time[i]),
+        y: lineData[location].Status[i],
+      });
     }
-  doubleLineCustomSeriesState[0].dataSource = temp;
+    doubleLineCustomSeriesState[0].dataSource = temp;
     // doubleLineCustomSeriesState[1].dataSource =
     //   doubleLineData.state.lineChartData2;
     // doubleLineCustomSeriesState[2].dataSource = doubleLineData.state.lineFuture;
     //G
-    var temp=[]
-    for(var i=0;i<lineData[location].g_change.length;i++){
-      temp.push({x:new Date(lineData[location].time[i]),y:lineData[location].g_change[i]})
+    var temp = [];
+    for (var i = 0; i < lineData[location].g_change.length; i++) {
+      temp.push({
+        x: new Date(lineData[location].time[i]),
+        y: lineData[location].g_change[i],
+      });
     }
-  doubleLineCustomSeriesG[0].dataSource = temp;
-  
+    doubleLineCustomSeriesG[0].dataSource = temp;
+
     // doubleLineCustomSeriesG[1].dataSource = doubleLineData.G.lineChartData2;
     // doubleLineCustomSeriesG[2].dataSource = doubleLineData.G.lineFuture;
-   
+
     setTest((prev) => prev + 1);
   }, [lineData[location].Speed.length]);
 
@@ -188,29 +213,32 @@ const DoubleLineChart = ({ height, width, bg, id, type ,location}) => {
           </SeriesCollectionDirective>
         </ChartComponent>
       </div>
-      {lineData[location].have_transient==0 ? <div></div> : <div>
-        <p className="text-lg text-gray-600">G合力</p>
-        <ChartComponent
-          id="4"
-          height="140px"
-          width="700px"
-          primaryXAxis={LinePrimaryXAxis}
-          primaryYAxis={selectType["G"]}
-          chartArea={{ border: { width: 0 } }}
-          tooltip={{ enable: true }}
-          background={bg}
-          legendSettings={{ background: "white" }}
-        >
-          <Inject services={[LineSeries, DateTime, Legend, Tooltip]} />
-          <SeriesCollectionDirective>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            {doubleLineCustomSeriesG.map((item, index) => (
-              <SeriesDirective fill={item.color} key={index} {...item} />
-            ))}
-          </SeriesCollectionDirective>
-        </ChartComponent>
-      </div>}
-      
+      {lineData[location].have_vibration == 0 ? (
+        <div></div>
+      ) : (
+        <div>
+          <p className="text-lg text-gray-600">G合力</p>
+          <ChartComponent
+            id="4"
+            height="140px"
+            width="700px"
+            primaryXAxis={LinePrimaryXAxis}
+            primaryYAxis={selectType["G"]}
+            chartArea={{ border: { width: 0 } }}
+            tooltip={{ enable: true }}
+            background={bg}
+            legendSettings={{ background: "white" }}
+          >
+            <Inject services={[LineSeries, DateTime, Legend, Tooltip]} />
+            <SeriesCollectionDirective>
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              {doubleLineCustomSeriesG.map((item, index) => (
+                <SeriesDirective fill={item.color} key={index} {...item} />
+              ))}
+            </SeriesCollectionDirective>
+          </ChartComponent>
+        </div>
+      )}
     </div>
   );
 };

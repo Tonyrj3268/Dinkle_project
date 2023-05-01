@@ -5,6 +5,61 @@ import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import { links } from "../data/dummy";
+//{
+//   title: "歷史品質分析",
+//   links: [
+//     {
+//       name: "次數統計",
+//       icon: <AiOutlineCalendar />,
+//     },
+//     {
+//       name: "原因分析",
+//       icon: <BsKanban />,
+//     },
+//     {
+//       name: "預測趨勢",
+//       icon: <FiEdit />,
+//     },
+//   ],
+// },
+// {
+//   title: "Charts",
+//   links: [
+//     {
+//       name: "line",
+//       icon: <AiOutlineStock />,
+//     },
+//     {
+//       name: "area",
+//       icon: <AiOutlineAreaChart />,
+//     },
+
+//     {
+//       name: "bar",
+//       icon: <AiOutlineBarChart />,
+//     },
+//     {
+//       name: "pie",
+//       icon: <FiPieChart />,
+//     },
+//     {
+//       name: "financial",
+//       icon: <RiStockLine />,
+//     },
+//     {
+//       name: "color-mapping",
+//       icon: <BsBarChart />,
+//     },
+//     {
+//       name: "pyramid",
+//       icon: <GiLouvrePyramid />,
+//     },
+//     {
+//       name: "stacked",
+//       icon: <AiOutlineBarChart />,
+//     },
+//   ],
+// },
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
@@ -14,14 +69,13 @@ const Sidebar = () => {
     setActiveMenu,
     screenSize,
     setIsTrClicked,
-    setLineData,
   } = useStateContext();
 
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
       setActiveMenu(false);
     }
-   
+
     setIsTrClicked("");
   };
 

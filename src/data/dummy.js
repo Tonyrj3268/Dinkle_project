@@ -55,18 +55,18 @@ export const gridOrderImage = (props) => (
 );
 
 export const gridOrderStatus = (props) => {
-
-  if(props.good_rate<1){
-    return(<button
-      type="button"
-      style={{ background: "red"}}
-      className="text-white py-1 px-2 capitalize rounded-2xl text-md"
-    >
-      不合格
-    </button>)
-  }else{
-    return(
- 
+  if (props.good_rate < 1) {
+    return (
+      <button
+        type="button"
+        style={{ background: "red" }}
+        className="text-white py-1 px-2 capitalize rounded-2xl text-md"
+      >
+        不合格
+      </button>
+    );
+  } else {
+    return (
       <button
         type="button"
         style={{ background: "green" }}
@@ -74,9 +74,9 @@ export const gridOrderStatus = (props) => {
       >
         合格
       </button>
-    )
+    );
   }
-  };
+};
 
 export const kanbanGrid = [
   { headerText: "To Do", keyField: "Open", allowToggle: true },
@@ -552,61 +552,6 @@ export const links = [
       },
     ],
   },
-  {
-    title: "歷史品質分析",
-    links: [
-      {
-        name: "次數統計",
-        icon: <AiOutlineCalendar />,
-      },
-      {
-        name: "原因分析",
-        icon: <BsKanban />,
-      },
-      {
-        name: "預測趨勢",
-        icon: <FiEdit />,
-      },
-    ],
-  },
-  {
-    title: "Charts",
-    links: [
-      {
-        name: "line",
-        icon: <AiOutlineStock />,
-      },
-      {
-        name: "area",
-        icon: <AiOutlineAreaChart />,
-      },
-
-      {
-        name: "bar",
-        icon: <AiOutlineBarChart />,
-      },
-      {
-        name: "pie",
-        icon: <FiPieChart />,
-      },
-      {
-        name: "financial",
-        icon: <RiStockLine />,
-      },
-      {
-        name: "color-mapping",
-        icon: <BsBarChart />,
-      },
-      {
-        name: "pyramid",
-        icon: <GiLouvrePyramid />,
-      },
-      {
-        name: "stacked",
-        icon: <AiOutlineBarChart />,
-      },
-    ],
-  },
 ];
 
 export const cartData = [
@@ -930,486 +875,130 @@ export const realtimeGrid = [
 
 export const realtimeData = [
   {
-      "machine": "D-003",
-      "product": "0070B00100",
-      "location": 0,
-      "time": [
-          "2023-04-25 21:07:53",
-          "2023-04-25 21:08:03",
-          "2023-04-25 21:08:13",
-          "2023-04-25 21:08:34",
-          "2023-04-25 21:09:15",
-          "2023-04-25 21:09:37",
-          "2023-04-25 21:09:49",
-          "2023-04-25 21:10:21"
-      ],
-      "frequency": [
-          5.4667,
-          5.4667,
-          5.4667,
-          5.4667,
-          5.4667,
-          5.4667,
-          5.4667,
-          5.4667
-      ],
-      "Speed": [
-          328,
-          328,
-          328,
-          328,
-          328,
-          328,
-          328,
-          328
-      ],
-      "Status": [
-          2,
-          2,
-          2,
-          2,
-          2,
-          2,
-          2,
-          2
-      ],
-      "g_change": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-      ],
-      "have_transient": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-      ],
-      "is_qualified": [
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true
-      ],
-      "good_rate": 1,
-      "pred_avg_detail_1": [
-          60,
-          60,
-          60,
-          60,
-          60,
-          60,
-          60,
-          60
-      ],
-      "pred_avg_detail_2": [
-          91.5,
-          91.5,
-          91.5,
-          91.5,
-          91.5,
-          91.5,
-          91.5,
-          91.5
-      ],
-      "pred_avg_detail_3": [
-          0.4,
-          0.4,
-          0.4,
-          0.4,
-          0.4,
-          0.4,
-          0.4,
-          0.4
-      ],
-      "pred_avg_detail_4": [
-          1.45,
-          1.45,
-          1.45,
-          1.45,
-          1.45,
-          1.45,
-          1.45,
-          1.45
-      ],
-      "pred_avg_detail_5": [
-          5.75,
-          5.75,
-          5.75,
-          5.75,
-          5.75,
-          5.75,
-          5.75,
-          5.75
-      ],
-      "pred_avg_detail_6": [
-          11.51,
-          11.51,
-          11.51,
-          11.51,
-          11.51,
-          11.51,
-          11.51,
-          11.51
-      ],
-      "pred_avg_detail_7": [
-          2.35,
-          2.35,
-          2.35,
-          2.35,
-          2.35,
-          2.35,
-          2.35,
-          2.35
-      ],
-      "pred_avg_detail_8": [
-          1.57,
-          1.57,
-          1.57,
-          1.57,
-          1.57,
-          1.57,
-          1.57,
-          1.57
-      ],
-      "pred_avg_detail_9": [
-          0.8,
-          0.8,
-          0.8,
-          0.8,
-          0.8,
-          0.8,
-          0.8,
-          0.8
-      ],
-      "pred_avg_detail_10": [
-          0.3,
-          0.3,
-          0.3,
-          0.3,
-          0.3,
-          0.3,
-          0.3,
-          0.3
-      ],
-      "pred_avg_detail_11": [
-          1.7,
-          1.7,
-          1.7,
-          1.7,
-          1.7,
-          1.7,
-          1.7,
-          1.7
-      ],
-      "pred_avg_detail_12": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-      ],
-      "pred_avg_detail_13": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-      ],
-      "standard_max_detail_1": 61,
-      "standard_max_detail_2": 93,
-      "standard_max_detail_3": 0.45,
-      "standard_max_detail_4": 1.5,
-      "standard_max_detail_5": 5.85,
-      "standard_max_detail_6": 11.71,
-      "standard_max_detail_7": 2.4,
-      "standard_max_detail_8": 1.65,
-      "standard_max_detail_9": 0.9,
-      "standard_max_detail_10": 0.32,
-      "standard_max_detail_11": 1.8,
-      "standard_min_detail_1": 59,
-      "standard_min_detail_2": 90,
-      "standard_min_detail_3": 0.35,
-      "standard_min_detail_4": 1.4,
-      "standard_min_detail_5": 5.65,
-      "standard_min_detail_6": 11.31,
-      "standard_min_detail_7": 2.3,
-      "standard_min_detail_8": 1.5,
-      "standard_min_detail_9": 0.7,
-      "standard_min_detail_10": 0.28,
-      "standard_min_detail_11": 1.6
+    machine: "D-003",
+    product: "0070B00100",
+    location: 0,
+    time: [
+      "2023-04-25 21:07:53",
+      "2023-04-25 21:08:03",
+      "2023-04-25 21:08:13",
+      "2023-04-25 21:08:34",
+      "2023-04-25 21:09:15",
+      "2023-04-25 21:09:37",
+      "2023-04-25 21:09:49",
+      "2023-04-25 21:10:21",
+    ],
+    frequency: [5.4667, 5.4667, 5.4667, 5.4667, 5.4667, 5.4667, 5.4667, 5.4667],
+    Speed: [328, 328, 328, 328, 328, 328, 328, 328],
+    Status: [2, 2, 2, 2, 2, 2, 2, 2],
+    g_change: [null, null, null, null, null, null, null, null],
+    have_transient: [0, 0, 0, 0, 0, 0, 0, 0],
+    is_qualified: [true, true, true, true, true, true, true, true],
+    good_rate: 1,
+    pred_avg_detail_1: [60, 60, 60, 60, 60, 60, 60, 60],
+    pred_avg_detail_2: [91.5, 91.5, 91.5, 91.5, 91.5, 91.5, 91.5, 91.5],
+    pred_avg_detail_3: [0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4],
+    pred_avg_detail_4: [1.45, 1.45, 1.45, 1.45, 1.45, 1.45, 1.45, 1.45],
+    pred_avg_detail_5: [5.75, 5.75, 5.75, 5.75, 5.75, 5.75, 5.75, 5.75],
+    pred_avg_detail_6: [11.51, 11.51, 11.51, 11.51, 11.51, 11.51, 11.51, 11.51],
+    pred_avg_detail_7: [2.35, 2.35, 2.35, 2.35, 2.35, 2.35, 2.35, 2.35],
+    pred_avg_detail_8: [1.57, 1.57, 1.57, 1.57, 1.57, 1.57, 1.57, 1.57],
+    pred_avg_detail_9: [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
+    pred_avg_detail_10: [0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3],
+    pred_avg_detail_11: [1.7, 1.7, 1.7, 1.7, 1.7, 1.7, 1.7, 1.7],
+    pred_avg_detail_12: [null, null, null, null, null, null, null, null],
+    pred_avg_detail_13: [null, null, null, null, null, null, null, null],
+    standard_max_detail_1: 61,
+    standard_max_detail_2: 93,
+    standard_max_detail_3: 0.45,
+    standard_max_detail_4: 1.5,
+    standard_max_detail_5: 5.85,
+    standard_max_detail_6: 11.71,
+    standard_max_detail_7: 2.4,
+    standard_max_detail_8: 1.65,
+    standard_max_detail_9: 0.9,
+    standard_max_detail_10: 0.32,
+    standard_max_detail_11: 1.8,
+    standard_min_detail_1: 59,
+    standard_min_detail_2: 90,
+    standard_min_detail_3: 0.35,
+    standard_min_detail_4: 1.4,
+    standard_min_detail_5: 5.65,
+    standard_min_detail_6: 11.31,
+    standard_min_detail_7: 2.3,
+    standard_min_detail_8: 1.5,
+    standard_min_detail_9: 0.7,
+    standard_min_detail_10: 0.28,
+    standard_min_detail_11: 1.6,
   },
   {
-      "machine": "D-005",
-      "product": "0162B00100-S",
-      "location": 1,
-      "time": [
-          "2023-04-25 21:07:53",
-          "2023-04-25 21:08:03",
-          "2023-04-25 21:08:24",
-          "2023-04-25 21:08:45",
-          "2023-04-25 21:08:55",
-          "2023-04-25 21:09:37",
-          "2023-04-25 21:09:49",
-          "2023-04-25 21:09:59",
-          "2023-04-25 21:10:21"
-      ],
-      "frequency": [
-          4.4667,
-          0.2667,
-          0.2667,
-          0.2667,
-          0.2667,
-          0.2667,
-          4.4667,
-          0.2667,
-          4.4667
-      ],
-      "Speed": [
-          321,
-          188,
-          188,
-          188,
-          188,
-          188,
-          321,
-          188,
-          321
-      ],
-      "Status": [
-          2,
-          4,
-          4,
-          4,
-          4,
-          4,
-          2,
-          4,
-          2
-      ],
-      "g_change": [
-          90010.1239,
-          27251.6244,
-          27251.6244,
-          27251.6244,
-          27251.6244,
-          27251.6244,
-          90010.1239,
-          27251.6244,
-          90010.1239
-      ],
-      "have_transient": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1
-      ],
-      "is_qualified": [
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true,
-          true
-      ],
-      "good_rate": 1,
-      "pred_avg_detail_1": [
-          3.3,
-          3.3,
-          3.3,
-          3.3,
-          3.3,
-          3.3,
-          3.3,
-          3.3,
-          3.3
-      ],
-      "pred_avg_detail_2": [
-          2.25,
-          2.25,
-          2.25,
-          2.25,
-          2.25,
-          2.25,
-          2.25,
-          2.25,
-          2.25
-      ],
-      "pred_avg_detail_3": [
-          6.22,
-          6.22,
-          6.22,
-          6.22,
-          6.22,
-          6.22,
-          6.22,
-          6.22,
-          6.22
-      ],
-      "pred_avg_detail_4": [
-          2.7,
-          2.7,
-          2.7,
-          2.7,
-          2.7,
-          2.7,
-          2.7,
-          2.7,
-          2.7
-      ],
-      "pred_avg_detail_5": [
-          2.2,
-          2.2,
-          2.2,
-          2.2,
-          2.2,
-          2.2,
-          2.2,
-          2.2,
-          2.2
-      ],
-      "pred_avg_detail_6": [
-          3.3,
-          3.3,
-          3.3,
-          3.3,
-          3.3,
-          3.3,
-          3.3,
-          3.3,
-          3.3
-      ],
-      "pred_avg_detail_7": [
-          2.44,
-          2.44,
-          2.44,
-          2.44,
-          2.44,
-          2.44,
-          2.44,
-          2.44,
-          2.44
-      ],
-      "pred_avg_detail_8": [
-          0.4,
-          0.4,
-          0.4,
-          0.4,
-          0.4,
-          0.4,
-          0.4,
-          0.4,
-          0.4
-      ],
-      "pred_avg_detail_9": [
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58
-      ],
-      "pred_avg_detail_10": [
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58
-      ],
-      "pred_avg_detail_11": [
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58
-      ],
-      "pred_avg_detail_12": [
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58
-      ],
-      "pred_avg_detail_13": [
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58,
-          0.58
-      ],
-      "standard_max_detail_1": 3.35,
-      "standard_max_detail_2": 2.3,
-      "standard_max_detail_3": 6.3,
-      "standard_max_detail_4": 2.77,
-      "standard_max_detail_5": 2.3,
-      "standard_max_detail_6": 3.37,
-      "standard_max_detail_7": 2.54,
-      "standard_max_detail_8": 0.42,
-      "standard_max_detail_9": 0.63,
-      "standard_max_detail_10": 0.63,
-      "standard_max_detail_11": 0.63,
-      "standard_max_detail_12": 0.63,
-      "standard_max_detail_13": 0.63,
-      "standard_min_detail_1": 3.25,
-      "standard_min_detail_2": 2.2,
-      "standard_min_detail_3": 6.14,
-      "standard_min_detail_4": 2.63,
-      "standard_min_detail_5": 2.1,
-      "standard_min_detail_6": 3.23,
-      "standard_min_detail_7": 2.34,
-      "standard_min_detail_8": 0.38,
-      "standard_min_detail_9": 0.53,
-      "standard_min_detail_10": 0.53,
-      "standard_min_detail_11": 0.53,
-      "standard_min_detail_12": 0.53,
-      "standard_min_detail_13": 0.53
-  }
-]
+    machine: "D-005",
+    product: "0162B00100-S",
+    location: 1,
+    time: [
+      "2023-04-25 21:07:53",
+      "2023-04-25 21:08:03",
+      "2023-04-25 21:08:24",
+      "2023-04-25 21:08:45",
+      "2023-04-25 21:08:55",
+      "2023-04-25 21:09:37",
+      "2023-04-25 21:09:49",
+      "2023-04-25 21:09:59",
+      "2023-04-25 21:10:21",
+    ],
+    frequency: [
+      4.4667, 0.2667, 0.2667, 0.2667, 0.2667, 0.2667, 4.4667, 0.2667, 4.4667,
+    ],
+    Speed: [321, 188, 188, 188, 188, 188, 321, 188, 321],
+    Status: [2, 4, 4, 4, 4, 4, 2, 4, 2],
+    g_change: [
+      90010.1239, 27251.6244, 27251.6244, 27251.6244, 27251.6244, 27251.6244,
+      90010.1239, 27251.6244, 90010.1239,
+    ],
+    have_transient: [1, 1, 1, 1, 1, 1, 1, 1, 1],
+    is_qualified: [true, true, true, true, true, true, true, true, true],
+    good_rate: 1,
+    pred_avg_detail_1: [3.3, 3.3, 3.3, 3.3, 3.3, 3.3, 3.3, 3.3, 3.3],
+    pred_avg_detail_2: [2.25, 2.25, 2.25, 2.25, 2.25, 2.25, 2.25, 2.25, 2.25],
+    pred_avg_detail_3: [6.22, 6.22, 6.22, 6.22, 6.22, 6.22, 6.22, 6.22, 6.22],
+    pred_avg_detail_4: [2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7, 2.7],
+    pred_avg_detail_5: [2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 2.2],
+    pred_avg_detail_6: [3.3, 3.3, 3.3, 3.3, 3.3, 3.3, 3.3, 3.3, 3.3],
+    pred_avg_detail_7: [2.44, 2.44, 2.44, 2.44, 2.44, 2.44, 2.44, 2.44, 2.44],
+    pred_avg_detail_8: [0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4],
+    pred_avg_detail_9: [0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58],
+    pred_avg_detail_10: [0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58],
+    pred_avg_detail_11: [0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58],
+    pred_avg_detail_12: [0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58],
+    pred_avg_detail_13: [0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58],
+    standard_max_detail_1: 3.35,
+    standard_max_detail_2: 2.3,
+    standard_max_detail_3: 6.3,
+    standard_max_detail_4: 2.77,
+    standard_max_detail_5: 2.3,
+    standard_max_detail_6: 3.37,
+    standard_max_detail_7: 2.54,
+    standard_max_detail_8: 0.42,
+    standard_max_detail_9: 0.63,
+    standard_max_detail_10: 0.63,
+    standard_max_detail_11: 0.63,
+    standard_max_detail_12: 0.63,
+    standard_max_detail_13: 0.63,
+    standard_min_detail_1: 3.25,
+    standard_min_detail_2: 2.2,
+    standard_min_detail_3: 6.14,
+    standard_min_detail_4: 2.63,
+    standard_min_detail_5: 2.1,
+    standard_min_detail_6: 3.23,
+    standard_min_detail_7: 2.34,
+    standard_min_detail_8: 0.38,
+    standard_min_detail_9: 0.53,
+    standard_min_detail_10: 0.53,
+    standard_min_detail_11: 0.53,
+    standard_min_detail_12: 0.53,
+    standard_min_detail_13: 0.53,
+  },
+];
 export const employeesData = [{ Id: 1, Name: "機台一" }];
 export const ordersData = [{ Id: 1, Name: "機台一" }];
 export const customersData = [{ Id: 1, Name: "機台一" }];
@@ -1666,6 +1255,18 @@ export const lineCustomSeries = [
     color: "red",
   },
 ];
+export const passRateLineCustomSeries = [
+  {
+    dataSource: lineChartData[1],
+    xName: "x",
+    yName: "y",
+    name: "良率",
+    width: "2",
+    marker: { visible: true, width: 10, height: 10 },
+    type: "Line",
+    color: "#34ebd2",
+  },
+];
 
 export const doubleLineCustomSeriesSpeed = [
   {
@@ -1675,25 +1276,6 @@ export const doubleLineCustomSeriesSpeed = [
     name: "現在資料",
     type: "Line",
     color: "red",
-  },
-
-  {
-    dataSource: douleLineChartData[2],
-    xName: "x",
-    yName: "y",
-    name: "現在時間",
-    width: "2",
-    type: "Line",
-    color: "black",
-  },
-  {
-    dataSource: douleLineChartData[3],
-    xName: "x",
-    yName: "y",
-    name: "預測資料",
-    width: "2",
-    type: "Line",
-    color: "#34ebd2",
   },
 ];
 export const doubleLineCustomSeriesFre = [
@@ -1705,25 +1287,6 @@ export const doubleLineCustomSeriesFre = [
     type: "Line",
     color: "red",
   },
-
-  {
-    dataSource: douleLineChartData[2],
-    xName: "x",
-    yName: "y",
-    name: "現在時間",
-    width: "2",
-    type: "Line",
-    color: "black",
-  },
-  {
-    dataSource: douleLineChartData[3],
-    xName: "x",
-    yName: "y",
-    name: "預測資料",
-    width: "2",
-    type: "Line",
-    color: "#34ebd2",
-  },
 ];
 export const doubleLineCustomSeriesState = [
   {
@@ -1734,25 +1297,6 @@ export const doubleLineCustomSeriesState = [
     type: "Line",
     color: "red",
   },
-
-  {
-    dataSource: douleLineChartData[2],
-    xName: "x",
-    yName: "y",
-    name: "現在時間",
-    width: "2",
-    type: "Line",
-    color: "black",
-  },
-  {
-    dataSource: douleLineChartData[3],
-    xName: "x",
-    yName: "y",
-    name: "預測資料",
-    width: "2",
-    type: "Line",
-    color: "#34ebd2",
-  },
 ];
 export const doubleLineCustomSeriesG = [
   {
@@ -1762,25 +1306,6 @@ export const doubleLineCustomSeriesG = [
     name: "現在資料",
     type: "Line",
     color: "red",
-  },
-
-  {
-    dataSource: douleLineChartData[2],
-    xName: "x",
-    yName: "y",
-    name: "現在時間",
-    width: "2",
-    type: "Line",
-    color: "black",
-  },
-  {
-    dataSource: douleLineChartData[3],
-    xName: "x",
-    yName: "y",
-    name: "預測資料",
-    width: "2",
-    type: "Line",
-    color: "#34ebd2",
   },
 ];
 

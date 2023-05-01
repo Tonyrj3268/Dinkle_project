@@ -10,6 +10,7 @@ export { default as Notification } from "./Notification";
 export { default as UserProfile } from "./UserProfile";
 export { default as SparkLine } from "./Charts/SparkLine";
 export { default as LineChart } from "./Charts/LineChart";
+export { default as DetailChart } from "./Charts/DetailChart";
 export { default as DoubleLineChart } from "./Charts/DoubleLineChart";
 export { default as Stacked } from "./Charts/Stacked";
 export { default as Bar } from "./Charts/Bar";
