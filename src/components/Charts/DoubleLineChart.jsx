@@ -84,6 +84,60 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
       minorTickLines: { width: 0 },
     },
   };
+  //機台
+
+  var temp = [];
+  for (var i = 0; i < lineData[location].Speed.length; i++) {
+    temp.push({
+      x: new Date(lineData[location].time[i]),
+      y: lineData[location].Speed[i],
+    });
+  }
+  doubleLineCustomSeriesSpeed[0].dataSource = temp;
+  console.log(doubleLineCustomSeriesSpeed[0].dataSource);
+  // doubleLineCustomSeriesSpeed[1].dataSource =
+  //   doubleLineData.speed.lineChartData2;
+  // doubleLineCustomSeriesSpeed[2].dataSource = doubleLineData.speed.lineFuture;
+  //頻率
+
+  var temp = [];
+  for (var i = 0; i < lineData[location].frequency.length; i++) {
+    temp.push({
+      x: new Date(lineData[location].time[i]),
+      y: lineData[location].frequency[i],
+    });
+  }
+  doubleLineCustomSeriesFre[0].dataSource = temp;
+
+  // doubleLineCustomSeriesFre[1].dataSource =
+  //   doubleLineData.frequency.lineChartData2;
+  // doubleLineCustomSeriesFre[2].dataSource =
+  //   doubleLineData.frequency.lineFuture;
+  //狀態
+
+  var temp = [];
+  for (var i = 0; i < lineData[location].Status.length; i++) {
+    temp.push({
+      x: new Date(lineData[location].time[i]),
+      y: lineData[location].Status[i],
+    });
+  }
+  doubleLineCustomSeriesState[0].dataSource = temp;
+  // doubleLineCustomSeriesState[1].dataSource =
+  //   doubleLineData.state.lineChartData2;
+  // doubleLineCustomSeriesState[2].dataSource = doubleLineData.state.lineFuture;
+  //G
+  var temp = [];
+  for (var i = 0; i < lineData[location].g_change.length; i++) {
+    temp.push({
+      x: new Date(lineData[location].time[i]),
+      y: lineData[location].g_change[i],
+    });
+  }
+  doubleLineCustomSeriesG[0].dataSource = temp;
+
+  // doubleLineCustomSeriesG[1].dataSource = doubleLineData.G.lineChartData2;
+  // doubleLineCustomSeriesG[2].dataSource = doubleLineData.G.lineFuture;
 
   useEffect(() => {
     // console.log(lineData);
@@ -141,9 +195,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
 
     // doubleLineCustomSeriesG[1].dataSource = doubleLineData.G.lineChartData2;
     // doubleLineCustomSeriesG[2].dataSource = doubleLineData.G.lineFuture;
-
-    setTest((prev) => prev + 1);
-  }, [lineData[location].Speed.length]);
+  }, [lineData[location].Speed.length, test]);
 
   return (
     <div className=" flex flex-col">

@@ -53,7 +53,42 @@ const DetailChart = ({ height, width, bg, type }) => {
       color: "red",
     },
   ];
-  // const [data, setData] = useState();
+
+  var tem1 = [];
+  var tem2 = [];
+  var tem3 = [];
+  if (detailData.details !== 0) {
+    for (
+      var i = 0;
+      i <
+      lineData[detailData.location][`pred_avg_detail_${detailData.details}`]
+        .length;
+      i++
+    ) {
+      tem1.push({
+        x: lineData[detailData.location].time[i],
+        y: lineData[detailData.location][
+          `standard_max_detail_${detailData.details}`
+        ],
+      });
+      tem2.push({
+        x: lineData[detailData.location].time[i],
+        y: lineData[detailData.location][
+          `standard_min_detail_${detailData.details}`
+        ],
+      });
+      tem3.push({
+        x: lineData[detailData.location].time[i],
+        y: lineData[detailData.location][
+          `pred_avg_detail_${detailData.details}`
+        ][i],
+      });
+    }
+    lineCustomSeries[0].dataSource = tem1;
+    lineCustomSeries[1].dataSource = tem3;
+    lineCustomSeries[2].dataSource = tem2;
+    console.log("update detail");
+  }
   useEffect(() => {
     var tem1 = [];
     var tem2 = [];

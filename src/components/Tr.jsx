@@ -30,10 +30,10 @@ const Tr = ({ props }) => {
         >
           <p className=" font-bold  ">{props.name} </p>
           <p className=" font-bold ">
-            {props.details[props.details.length - 1]}
+            {props.min}-{props.max}{" "}
           </p>
           <p className="font-bold ">
-            {props.min}-{props.max}{" "}
+            {props.details[props.details.length - 1]}
           </p>
           {props.details[props.details.length - 1] >= props.max ||
           props.details[props.details.length - 1] <= props.min ? (

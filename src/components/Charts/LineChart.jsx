@@ -41,6 +41,7 @@ const LineChart = ({ height, width, bg, type }) => {
       minorTickLines: { width: 0 },
     },
   };
+  passRateLineCustomSeries[0].dataSource = passRate;
 
   useEffect(() => {
     passRateLineCustomSeries[0].dataSource = passRate;

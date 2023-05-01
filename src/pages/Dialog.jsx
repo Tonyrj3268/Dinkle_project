@@ -31,10 +31,7 @@ const DiaLog = (props) => {
     for (let i = 1; i <= 13; i++) {
       if (lineData[props.location][`standard_detail_name_${i}`] !== undefined) {
         tem.push({
-          name:
-            lineData[props.location][`standard_detail_name_${i}`] +
-            "(Detail預測)" +
-            i,
+          name: lineData[props.location][`standard_detail_name_${i}`],
           details: lineData[props.location][`pred_avg_detail_${i}`],
           max: lineData[props.location][`standard_max_detail_${i}`],
           min: lineData[props.location][`standard_min_detail_${i}`],
@@ -93,9 +90,9 @@ const DiaLog = (props) => {
             : "等待更新"}
         </h1>
         <DialogContent>
-          <DoubleLineChart location={props.location}></DoubleLineChart>
-          <div className=" flex flex-row px-5 gap-10 relative">
-            <div className="flex flex-col p-5 w-[340px]  bg-slate-500 rounded-xl justify-start items-start text-white fixed top-40 right-40">
+          <div className=" flex flex-row px-5 gap-10 ">
+            <DoubleLineChart location={props.location}></DoubleLineChart>
+            <div className="flex flex-col p-5 w-[340px] h-[400px]  bg-slate-500 rounded-xl justify-start items-start text-white ">
               <p className=" text-2xl p-2">機台料號：{props.product}</p>
               <p className=" text-2xl p-2">機台名稱：{props.machine}</p>
               <div className="p-2 flex items-center gap-2">
