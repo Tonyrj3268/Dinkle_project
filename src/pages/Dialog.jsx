@@ -33,6 +33,8 @@ const DiaLog = (props) => {
         tem.push({
           name: lineData[props.location][`standard_detail_name_${i}`],
           details: lineData[props.location][`pred_avg_detail_${i}`],
+          details_max: lineData[props.location][`pred_max_detail_${i}`],
+          details_min: lineData[props.location][`pred_min_detail_${i}`],
           max: lineData[props.location][`standard_max_detail_${i}`],
           min: lineData[props.location][`standard_min_detail_${i}`],
           location: props.location,
@@ -48,6 +50,7 @@ const DiaLog = (props) => {
 
   const handleClose = () => {
     setPage("選擇畫面");
+    setDetails([]);
     setOpen(false);
   };
   const handlePage = (value) => {
@@ -125,6 +128,16 @@ const DiaLog = (props) => {
                   }
                 </p>
               </div>
+              {lineData[props.location].have_vibration ==1 ? <div className="p-2 flex items-center gap-2">
+                <p className=" text-2xl">
+                  G合力：
+                  {
+                    lineData[props.location].g_change[
+                      lineData[props.location].g_change.length - 1
+                    ]
+                  }
+                </p>
+              </div> : <div></div>}
 
               <button
                 className="px-8 py-4 bg-green-400 text-xl cursor-pointer hover:bg-green-500 text-white"

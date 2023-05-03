@@ -35,8 +35,8 @@ const Tr = ({ props }) => {
           <p className="font-bold ">
             {props.details[props.details.length - 1]}
           </p>
-          {props.details[props.details.length - 1] >= props.max ||
-          props.details[props.details.length - 1] <= props.min ? (
+          {props.details_max[props.details_max.length - 1] > props.max ||
+          props.details_min[props.details_min.length - 1] < props.min ? (
             <p className="font-bold p-1 bg-red-600 rounded-full ">不合格</p>
           ) : (
             <p className="font-bold  p-1 bg-green-400  rounded-full">合格</p>
@@ -57,8 +57,8 @@ const Tr = ({ props }) => {
           <p className="font-bold ">
             {props.details[props.details.length - 1]}
           </p>
-          {props.details[props.details.length - 1] >= props.max ||
-          props.details[props.details.length - 1] <= props.min ? (
+          {props.details_max[props.details_max.length - 1] > props.max ||
+          props.details_min[props.details_min.length - 1] < props.min ? (
             <p className="font-bold p-1 bg-red-600 rounded-full ">不合格</p>
           ) : (
             <p className="font-bold  p-1 bg-green-400  rounded-full">合格</p>

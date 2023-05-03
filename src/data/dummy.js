@@ -413,7 +413,7 @@ export const FinancialPrimaryYAxis = {
 
 export const LinePrimaryXAxis = {
   valueType: "DateTime",
-  labelFormat: "h時m分s秒",
+  labelFormat: "h時m分",
   intervalType: "Minutes",
   edgeLabelPlacement: "Shift",
   majorGridLines: { width: 0 },
@@ -1320,18 +1320,7 @@ export const pieChartData = [
 ];
 
 export const contextMenuItems = [
-  "AutoFit",
-  "AutoFitAll",
-  "SortAscending",
-  "SortDescending",
-  "Copy",
-  "Edit",
-  "Delete",
-  "Save",
-  "Cancel",
-  "PdfExport",
-  "ExcelExport",
-  "CsvExport",
+  
   "FirstPage",
   "PrevPage",
   "LastPage",
