@@ -173,6 +173,7 @@ const Realtime = () => {
 
       
   }
+  //new
   const CallApi20 = () =>{
     const formData = new URLSearchParams();
         formData.append('username', process.env.REACT_APP_extra_predict_username);
