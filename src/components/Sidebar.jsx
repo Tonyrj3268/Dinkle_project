@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-
+import dinkle_logo from "../data/dinkle_logo.jpg"
 import { links } from "../data/dummy";
 //{
 //   title: "歷史品質分析",
@@ -109,7 +109,7 @@ const Sidebar = () => {
               onClick={handleCloseSideBar}
               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
             >
-              <SiShopware /> <span>Dinkle</span>
+              <img src={dinkle_logo} className="h-10"/> <span className="text-xl" >即時監控平台</span>
             </Link>
             <TooltipComponent content="Menu" position="BottomCenter">
               <button

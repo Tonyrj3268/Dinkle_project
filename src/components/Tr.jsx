@@ -33,7 +33,7 @@ const Tr = ({ props }) => {
             {props.min}-{props.max}{" "}
           </p>
           <p className="font-bold ">
-            {props.details[props.details.length - 1]}
+          {props.details_min[props.details_min.length - 1]}- {props.details_max[props.details_max.length - 1]}
           </p>
           {props.details_max[props.details_max.length - 1] > props.max ||
           props.details_min[props.details_min.length - 1] < props.min ? (
@@ -55,7 +55,7 @@ const Tr = ({ props }) => {
             {props.min}-{props.max}{" "}
           </p>
           <p className="font-bold ">
-            {props.details[props.details.length - 1]}
+          {props.details_min[props.details_min.length - 1]}- {props.details_max[props.details_max.length - 1]}
           </p>
           {props.details_max[props.details_max.length - 1] > props.max ||
           props.details_min[props.details_min.length - 1] < props.min ? (

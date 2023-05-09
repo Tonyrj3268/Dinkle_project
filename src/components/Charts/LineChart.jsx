@@ -45,7 +45,7 @@ const LineChart = ({ height, width, bg, type }) => {
 
   useEffect(() => {
     passRateLineCustomSeries[0].dataSource = passRate;
-  }, [passRate.length, test]);
+  }, [passRate]);
 
   return (
     <ChartComponent
