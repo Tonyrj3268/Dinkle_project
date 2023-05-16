@@ -3,7 +3,9 @@ import React from "react";
 import { employeesData } from "../data/dummy";
 import { Header } from "../components";
 import FixData from "../components/FixData";
+import { useStateContext } from "../contexts/ContextProvider";
 const Fix = () => {
+  const { repairData, setRepairData } = useStateContext();
   var data = [
     {
       date1: "7/21 下午1:33",
@@ -50,7 +52,7 @@ const Fix = () => {
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
       <Header category="Page" title="維修項目prototype(開發中)" />
       <div className=" w-full h-full flex flex-col gap-4 font-semibold text-white">
-        {data.map((d, i) => (
+        {repairData.map((d, i) => (
           <FixData props={d} key={i}></FixData>
         ))}
         <div className="p-4 flex justify-center gap-4 ">
