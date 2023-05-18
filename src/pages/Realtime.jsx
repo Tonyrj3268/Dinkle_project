@@ -137,119 +137,106 @@ const Realtime = () => {
     setPassRateProps,
   } = useStateContext();
 
-
-  const CallApi = () =>{
+  const CallApi = () => {
     const formData = new URLSearchParams();
-        formData.append('username', process.env.REACT_APP_extra_predict_username);
-        formData.append('password', process.env.REACT_APP_extra_predict_password);
-        const params = {
-          Show_type : process.env.REACT_APP_Show_type,
-          Work_type: process.env.REACT_APP_Work_type,
-          Number_min: 1
-        };
-        let url ="/api"+process.env.REACT_APP_extra_predict_url
-        axios
-          .post(
-            url,
-            formData,
-            {headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            params: params}
-          )
-          .then(ProcessData)
-        .catch((error) => {
-          if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-        });
-
-      
-  }
+    formData.append("username", process.env.REACT_APP_extra_predict_username);
+    formData.append("password", process.env.REACT_APP_extra_predict_password);
+    const params = {
+      Show_type: process.env.REACT_APP_Show_type,
+      Work_type: process.env.REACT_APP_Work_type,
+      Min_ago: 1,
+    };
+    let url = "/api" + process.env.REACT_APP_extra_predict_url;
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: params,
+      })
+      .then(ProcessData)
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  };
   //new
-  const CallApi20 = () =>{
+  const CallApi20 = () => {
     const formData = new URLSearchParams();
-        formData.append('username', process.env.REACT_APP_extra_predict_username);
-        formData.append('password', process.env.REACT_APP_extra_predict_password);
-        const params = {
-          Show_type : process.env.REACT_APP_Show_type,
-          Work_type: process.env.REACT_APP_Work_type
-        };
-        axios
-          .post(
-            process.env.REACT_APP_extra_predict_url,
-            formData,
-            {headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            params: params}
-          )
-          .then(ProcessData20)
-        .catch((error) => {
-          if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-        });
-
-      
-  }
-  const CallApi40 = async() =>{
+    formData.append("username", process.env.REACT_APP_extra_predict_username);
+    formData.append("password", process.env.REACT_APP_extra_predict_password);
+    const params = {
+      Show_type: process.env.REACT_APP_Show_type,
+      Work_type: process.env.REACT_APP_Work_type,
+    };
+    axios
+      .post(process.env.REACT_APP_extra_predict_url, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: params,
+      })
+      .then(ProcessData20)
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  };
+  const CallApi40 = async () => {
     const formData = new URLSearchParams();
-        formData.append('username', process.env.REACT_APP_extra_predict_username);
-        formData.append('password', process.env.REACT_APP_extra_predict_password);
-        const params = {
-          Show_type : process.env.REACT_APP_Show_type,
-          Work_type: process.env.REACT_APP_Work_type,
-          Number_min: 40
-        };
-        let url ="/api"+process.env.REACT_APP_extra_predict_url
-        axios
-          .post(
-            url,
-            formData,
-            {headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            params: params}
-          )
-          .then(ProcessData40)
-        .catch((error) => {
-          if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-        });
-
-      
-  }
+    formData.append("username", process.env.REACT_APP_extra_predict_username);
+    formData.append("password", process.env.REACT_APP_extra_predict_password);
+    const params = {
+      Show_type: process.env.REACT_APP_Show_type,
+      Work_type: process.env.REACT_APP_Work_type,
+      Min_ago: 40,
+    };
+    let url = "/api" + process.env.REACT_APP_extra_predict_url;
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: params,
+      })
+      .then(ProcessData40)
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  };
   const ProcessData = (res) => {
-    console.log(res)
-    if (typeof res.data === 'string'){
-      return
+    console.log(res);
+    if (typeof res.data === "string") {
+      return;
     }
-    let all_machine = lineData
+    let all_machine = lineData;
     let api_data = res.data;
-    let all_good_rate = 0
+    let all_good_rate = 0;
 
     for (let i = 0; i < api_data.length; i++) {
       let json = api_data[i];
@@ -270,7 +257,7 @@ const Realtime = () => {
               }
             });
           }
-        
+
           machine.time.push(json.time);
           machine.frequency.push(json.frequency);
           machine.Speed.push(json.Speed);
@@ -280,8 +267,8 @@ const Realtime = () => {
           let is_qualified = true;
           for (let num = 1; num <= 13; num++) {
             let detailName = `detail_${num}`;
-            if (json[`standard_detail_name_${num}`] === undefined){
-              break
+            if (json[`standard_detail_name_${num}`] === undefined) {
+              break;
             }
             machine[`pred_avg_${detailName}`].push(
               Number(
@@ -294,18 +281,23 @@ const Realtime = () => {
             );
             machine[`pred_max_${detailName}`].push(
               json[`pred_max_${detailName}`].toFixed(3)
-            )
+            );
             machine[`pred_min_${detailName}`].push(
               json[`pred_min_${detailName}`].toFixed(3)
-            )
+            );
             machine[`standard_max_${detailName}`] =
               json[`standard_max_${detailName}`];
             machine[`standard_min_${detailName}`] =
               json[`standard_min_${detailName}`];
             machine[`standard_detail_name_${num}`] =
               json[`standard_detail_name_${num}`];
-  
-            if (json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] || json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]){
+
+            if (
+              json[`pred_max_${detailName}`] >
+                json[`standard_max_${detailName}`] ||
+              json[`pred_min_${detailName}`] <
+                json[`standard_min_${detailName}`]
+            ) {
               is_qualified = false;
             }
           }
@@ -325,12 +317,16 @@ const Realtime = () => {
         machine.have_vibration = json.have_vibration;
         for (let num = 1; num <= 13; num++) {
           let detailName = `detail_${num}`;
-          if (json[`standard_detail_name_${num}`] === undefined){
-            break
+          if (json[`standard_detail_name_${num}`] === undefined) {
+            break;
           }
           machine[`pred_avg_${detailName}`].push(
             Number(
-              ((json[`pred_max_${detailName}`] + json[`pred_min_${detailName}`]) / 2).toFixed(2)
+              (
+                (json[`pred_max_${detailName}`] +
+                  json[`pred_min_${detailName}`]) /
+                2
+              ).toFixed(2)
             )
           );
           machine[`pred_max_${detailName}`].push(
@@ -345,7 +341,11 @@ const Realtime = () => {
             json[`standard_min_${detailName}`];
           machine[`standard_detail_name_${num}`] =
             json[`standard_detail_name_${num}`];
-          if (json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] || json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]){
+          if (
+            json[`pred_max_${detailName}`] >
+              json[`standard_max_${detailName}`] ||
+            json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
+          ) {
             is_qualified = false;
           }
         }
@@ -356,99 +356,156 @@ const Realtime = () => {
     let unpass_rate_20_min = 0;
     let unpass_rate_20_min_times = 0;
     let unpass_total_minute = 0;
-    let unpass_rate_20_min_total = 0
+    let unpass_rate_20_min_total = 0;
     all_machine.forEach((obj) => {
       obj.accumulativeMin = obj.is_qualified.reduce(
         (acc, cur) => (cur === false ? acc + 1 : acc),
         0
       );
       unpass_total_minute += obj.accumulativeMin;
-      unpass_rate_20_min = obj.accumulativeMin
-      unpass_rate_20_min_total += unpass_rate_20_min
+      unpass_rate_20_min = obj.accumulativeMin;
+      unpass_rate_20_min_total += unpass_rate_20_min;
       unpass_rate_20_min_times = 20;
-        
-      let good_rate = Number((1-(unpass_rate_20_min / unpass_rate_20_min_times)).toFixed(2));
+
+      let good_rate = Number(
+        (1 - unpass_rate_20_min / unpass_rate_20_min_times).toFixed(2)
+      );
       obj.good_rate = good_rate;
       all_good_rate += good_rate;
     });
 
-  all_good_rate = all_good_rate*100/all_machine.length +"%"
+    all_good_rate = (all_good_rate * 100) / all_machine.length + "%";
 
-  
-  let unpass = 0
-  let unpass_interval = 0
-  all_machine.forEach((obj) => {
-    unpass += obj.is_qualified.reduce(
-      (acc, cur) => (cur === false ? acc + 1 : acc),
-      0
-    );
-    unpass_interval += 20;
-  })
+    let unpass = 0;
+    let unpass_interval = 0;
+    all_machine.forEach((obj) => {
+      unpass += obj.is_qualified.reduce(
+        (acc, cur) => (cur === false ? acc + 1 : acc),
+        0
+      );
+      unpass_interval += 20;
+    });
 
-  console.log(((1 - unpass / unpass_interval) * 100).toFixed(2))
-  let tempassRate = passRate
-  if(tempassRate.length >= 20){
-    tempassRate.shift()
-  }
-  tempassRate.push({
-    x: api_data[0].time,
-    y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
-  });
-  setPassRate(()=> tempassRate)
+    console.log(((1 - unpass / unpass_interval) * 100).toFixed(2));
+    let tempassRate = passRate;
+    if (tempassRate.length >= 20) {
+      tempassRate.shift();
+    }
+    tempassRate.push({
+      x: api_data[0].time,
+      y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
+    });
+    setPassRate(() => tempassRate);
 
-  setLineData(() => all_machine);
-  var dataArray = [];
-  for (var i = 0; i < all_machine.length; i++) {
-    dataArray.push(all_machine[i]);
-  }
-  
-  setData(dataArray);
-  setPassRateProps({
-    accumulativeMin: unpass_total_minute,
-    accumulativeMinIn20: unpass_rate_20_min_total,
-    accumulativePassRateIn20: all_good_rate,
-  });
-}
+    setLineData(() => all_machine);
+    var dataArray = [];
+    for (var i = 0; i < all_machine.length; i++) {
+      dataArray.push(all_machine[i]);
+    }
+
+    setData(dataArray);
+    setPassRateProps({
+      accumulativeMin: unpass_total_minute,
+      accumulativeMinIn20: unpass_rate_20_min_total,
+      accumulativePassRateIn20: all_good_rate,
+    });
+  };
 
   const ProcessData20 = (res) => {
-    console.log("==============")
-    console.log(res)
+    console.log("==============");
+    console.log(res);
 
-    if (typeof res.data === 'string'){
-      return
+    if (typeof res.data === "string") {
+      return;
     }
-    let tem = lineData
-    let tem_pass_rate = []
-    let tem_unpass_rate_props = passRateProps
+    let tem = lineData;
+    let tem_pass_rate = [];
+    let tem_unpass_rate_props = passRateProps;
     let api_data = res.data;
-    let all_good_rate = 0
-    let new_20_min = []
-  for (let i = api_data.length - 1; i >= 0; i--) {
-    let json = api_data[i];
-    let foundObject = false;
-    new_20_min.forEach((obj) => {
-      if (obj.machine === json.machine) {
-        foundObject = true;
-        if (obj.product != json.product) {
-          let index = obj.location;
-          obj = new Machine(json.machine);
-          obj.product = json.product;
-          obj.location = index;
-        }
+    let all_good_rate = 0;
+    let new_20_min = [];
+    for (let i = api_data.length - 1; i >= 0; i--) {
+      let json = api_data[i];
+      let foundObject = false;
+      new_20_min.forEach((obj) => {
+        if (obj.machine === json.machine) {
+          foundObject = true;
+          if (obj.product != json.product) {
+            let index = obj.location;
+            obj = new Machine(json.machine);
+            obj.product = json.product;
+            obj.location = index;
+          }
 
-        obj.time.push(json.time);
-        obj.frequency.push(json.frequency);
-        obj.Speed.push(json.Speed);
-        obj.Status.push(json.Status);
-        obj.g_change.push(json.g_change);
-        obj.have_vibration = json.have_vibration;
+          obj.time.push(json.time);
+          obj.frequency.push(json.frequency);
+          obj.Speed.push(json.Speed);
+          obj.Status.push(json.Status);
+          obj.g_change.push(json.g_change);
+          obj.have_vibration = json.have_vibration;
+          let is_qualified = true;
+          for (let num = 1; num <= 13; num++) {
+            let detailName = `detail_${num}`;
+            if (json[`standard_detail_name_${num}`] === undefined) {
+              break;
+            }
+            obj[`pred_avg_${detailName}`].push(
+              Number(
+                (
+                  (json[`pred_max_${detailName}`] +
+                    json[`pred_min_${detailName}`]) /
+                  2
+                ).toFixed(2)
+              )
+            );
+            obj[`pred_max_${detailName}`].push(
+              json[`pred_max_${detailName}`].toFixed(2)
+            );
+            obj[`pred_min_${detailName}`].push(
+              json[`pred_min_${detailName}`].toFixed(2)
+            );
+            obj[`standard_max_${detailName}`] =
+              json[`standard_max_${detailName}`];
+            obj[`standard_min_${detailName}`] =
+              json[`standard_min_${detailName}`];
+            obj[`standard_detail_name_${i}`] =
+              json[`standard_detail_name_${i}`];
+
+            if (
+              json[`pred_max_${detailName}`] >
+                json[`standard_max_${detailName}`] ||
+              json[`pred_min_${detailName}`] <
+                json[`standard_min_${detailName}`]
+            ) {
+              is_qualified = false;
+            }
+            if (i % 3 == 0) {
+              is_qualified = false;
+            }
+          }
+          if (!is_qualified) {
+            obj.accumulativeMin += 1;
+          }
+          obj.is_qualified.push(is_qualified);
+        }
+      });
+      if (!foundObject) {
         let is_qualified = true;
+        let machine = new Machine(json.machine);
+        machine.location = new_20_min.length;
+        machine.product = json.product;
+        machine.time.push(json.time);
+        machine.frequency.push(json.frequency);
+        machine.Speed.push(json.Speed);
+        machine.Status.push(json.Status);
+        machine.g_change.push(json.g_change);
+        machine.have_vibration = json.have_vibration;
         for (let num = 1; num <= 13; num++) {
           let detailName = `detail_${num}`;
-          if (json[`standard_detail_name_${num}`] === undefined){
-            break
+          if (json[`standard_detail_name_${num}`] === undefined) {
+            break;
           }
-          obj[`pred_avg_${detailName}`].push(
+          machine[`pred_avg_${detailName}`].push(
             Number(
               (
                 (json[`pred_max_${detailName}`] +
@@ -457,175 +514,180 @@ const Realtime = () => {
               ).toFixed(2)
             )
           );
-          obj[`pred_max_${detailName}`].push(
+          machine[`pred_max_${detailName}`].push(
             json[`pred_max_${detailName}`].toFixed(2)
-          )
-          obj[`pred_min_${detailName}`].push(
+          );
+          machine[`pred_min_${detailName}`].push(
             json[`pred_min_${detailName}`].toFixed(2)
-          )
-          obj[`standard_max_${detailName}`] =
+          );
+          machine[`standard_max_${detailName}`] =
             json[`standard_max_${detailName}`];
-          obj[`standard_min_${detailName}`] =
+          machine[`standard_min_${detailName}`] =
             json[`standard_min_${detailName}`];
-          obj[`standard_detail_name_${i}`] =
+          machine[`standard_detail_name_${i}`] =
             json[`standard_detail_name_${i}`];
-
-          if (json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] || json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]){
-            is_qualified = false;
-          }
-          if(i%3==0){
+          if (
+            json[`pred_max_${detailName}`] >
+              json[`standard_max_${detailName}`] ||
+            json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
+          ) {
             is_qualified = false;
           }
         }
         if (!is_qualified) {
-          obj.accumulativeMin += 1;
+          machine.accumulativeMin += 1;
         }
-        obj.is_qualified.push(is_qualified);
-      }
-    });
-    if (!foundObject) {
-      let is_qualified = true;
-      let machine = new Machine(json.machine);
-      machine.location = new_20_min.length;
-      machine.product = json.product;
-      machine.time.push(json.time);
-      machine.frequency.push(json.frequency);
-      machine.Speed.push(json.Speed);
-      machine.Status.push(json.Status);
-      machine.g_change.push(json.g_change);
-      machine.have_vibration = json.have_vibration;
-      for (let num = 1; num <= 13; num++) {
-        let detailName = `detail_${num}`;
-        if (json[`standard_detail_name_${num}`] === undefined){
-          break
-        }
-        machine[`pred_avg_${detailName}`].push(
-          Number(
-            ((json[`pred_max_${detailName}`] + json[`pred_min_${detailName}`]) / 2).toFixed(2)
-          )
-        );
-        machine[`pred_max_${detailName}`].push(
-          json[`pred_max_${detailName}`].toFixed(2)
-        );
-        machine[`pred_min_${detailName}`].push(
-          json[`pred_min_${detailName}`].toFixed(2)
-        );
-        machine[`standard_max_${detailName}`] =
-          json[`standard_max_${detailName}`];
-        machine[`standard_min_${detailName}`] =
-          json[`standard_min_${detailName}`];
-        machine[`standard_detail_name_${i}`] =
-          json[`standard_detail_name_${i}`];
-        if (json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] || json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]){
-          is_qualified = false;
-        }
-        
-      }
-      if (!is_qualified) {
-        machine.accumulativeMin += 1;
-      }
-      machine.is_qualified.push(is_qualified);
-      new_20_min.push(machine);
-    }
-  }
-  let unpass_rate_20_min = 0;
-  let unpass_rate_20_min_times = 0;
-  let unpass_total_minute = tem_unpass_rate_props.accumulativeMin;
-  let unpass_rate_20_min_total = 0
-  new_20_min.forEach((obj) => {
-    if (tem_unpass_rate_props.accumulativeMin!=0){
-      if(obj.is_qualified[-1]==false){
-        unpass_total_minute += 1;
+        machine.is_qualified.push(is_qualified);
+        new_20_min.push(machine);
       }
     }
-    else{
-      unpass_total_minute += obj.accumulativeMin;
-    }
-    unpass_rate_20_min = obj.is_qualified.reduce(
-      (acc, cur) => (cur === false ? acc + 1 : acc),
-      0
-    );
-    unpass_rate_20_min_total += unpass_rate_20_min
-    unpass_rate_20_min_times = obj.is_qualified.length;
-      
-    let good_rate = Number((1-(unpass_rate_20_min / unpass_rate_20_min_times)).toFixed(2));
-    obj.good_rate = good_rate;
-    all_good_rate += good_rate;
-    console.log(obj.is_qualified)
-    })
-    all_good_rate = all_good_rate*100/new_20_min.length +"%"
-//broken
-  for (let i = 0; i < new_20_min[0].is_qualified.length; i++) {
-    let unpass = 0
-    let unpass_interval = 0
+    let unpass_rate_20_min = 0;
+    let unpass_rate_20_min_times = 0;
+    let unpass_total_minute = tem_unpass_rate_props.accumulativeMin;
+    let unpass_rate_20_min_total = 0;
     new_20_min.forEach((obj) => {
-      unpass += obj.is_qualified.slice(i,i+1).reduce(
+      if (tem_unpass_rate_props.accumulativeMin != 0) {
+        if (obj.is_qualified[-1] == false) {
+          unpass_total_minute += 1;
+        }
+      } else {
+        unpass_total_minute += obj.accumulativeMin;
+      }
+      unpass_rate_20_min = obj.is_qualified.reduce(
         (acc, cur) => (cur === false ? acc + 1 : acc),
         0
       );
-      unpass_interval += obj.is_qualified.slice(i,i+1).length;
-        
-    })
-    tem_pass_rate.push({
-      x: new_20_min[0].time[i],
-      y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
+      unpass_rate_20_min_total += unpass_rate_20_min;
+      unpass_rate_20_min_times = obj.is_qualified.length;
+
+      let good_rate = Number(
+        (1 - unpass_rate_20_min / unpass_rate_20_min_times).toFixed(2)
+      );
+      obj.good_rate = good_rate;
+      all_good_rate += good_rate;
+      console.log(obj.is_qualified);
     });
-};
-  setLineData(() => new_20_min);
-  var dataArray = [];
-  for (var i = 0; i < new_20_min.length; i++) {
-    dataArray.push(new_20_min[i]);
-  }
-  
-  setData(dataArray);
-  setPassRate(() => tem_pass_rate);
-  setPassRateProps({
-    accumulativeMin: unpass_total_minute,
-    accumulativeMinIn20: unpass_rate_20_min_total,
-    accumulativePassRateIn20: all_good_rate,
-  });
-  }
-  const ProcessData40 = (res) => {
-    console.log(res)
-    if (typeof res.data === 'string'){
-      return
+    all_good_rate = (all_good_rate * 100) / new_20_min.length + "%";
+    //broken
+    for (let i = 0; i < new_20_min[0].is_qualified.length; i++) {
+      let unpass = 0;
+      let unpass_interval = 0;
+      new_20_min.forEach((obj) => {
+        unpass += obj.is_qualified
+          .slice(i, i + 1)
+          .reduce((acc, cur) => (cur === false ? acc + 1 : acc), 0);
+        unpass_interval += obj.is_qualified.slice(i, i + 1).length;
+      });
+      tem_pass_rate.push({
+        x: new_20_min[0].time[i],
+        y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
+      });
     }
-    let tem = lineData
-    let tem_pass_rate = []
-    let tem_unpass_rate_props = passRateProps
+    setLineData(() => new_20_min);
+    var dataArray = [];
+    for (var i = 0; i < new_20_min.length; i++) {
+      dataArray.push(new_20_min[i]);
+    }
+
+    setData(dataArray);
+    setPassRate(() => tem_pass_rate);
+    setPassRateProps({
+      accumulativeMin: unpass_total_minute,
+      accumulativeMinIn20: unpass_rate_20_min_total,
+      accumulativePassRateIn20: all_good_rate,
+    });
+  };
+  const ProcessData40 = (res) => {
+    console.log(res);
+    if (typeof res.data === "string") {
+      return;
+    }
+    let tem = lineData;
+    let tem_pass_rate = [];
+    let tem_unpass_rate_props = passRateProps;
     let api_data = res.data;
-    let all_good_rate = 0
-    let all_machine = []
-  for (let i = api_data.length - 1; i >= 0; i--) {
-    let json = api_data[i];
-    let foundObject = false;
-    all_machine.forEach((machine) => {
-      if (machine.machine === json.machine) {
-        foundObject = true;
-        if (machine.product != json.product) {
-          let index = machine.location;
-          machine = new Machine(json.machine);
-          machine.product = json.product;
-          machine.location = index;
-        }
-        if (machine.Status.length >= 20) {
-          Object.keys(machine).forEach((key) => {
-            if (Array.isArray(machine[key]) && key != "is_qualified") {
-              machine[key].shift();
+    let all_good_rate = 0;
+    let all_machine = [];
+    for (let i = api_data.length - 1; i >= 0; i--) {
+      let json = api_data[i];
+      let foundObject = false;
+      all_machine.forEach((machine) => {
+        if (machine.machine === json.machine) {
+          foundObject = true;
+          if (machine.product != json.product) {
+            let index = machine.location;
+            machine = new Machine(json.machine);
+            machine.product = json.product;
+            machine.location = index;
+          }
+          if (machine.Status.length >= 20) {
+            Object.keys(machine).forEach((key) => {
+              if (Array.isArray(machine[key]) && key != "is_qualified") {
+                machine[key].shift();
+              }
+            });
+          }
+          machine.time.push(json.time);
+          machine.frequency.push(json.frequency);
+          machine.Speed.push(json.Speed);
+          machine.Status.push(json.Status);
+          machine.g_change.push(json.g_change);
+          machine.have_vibration = json.have_vibration;
+          let is_qualified = true;
+          for (let num = 1; num <= 13; num++) {
+            let detailName = `detail_${num}`;
+            if (json[`standard_detail_name_${num}`] === undefined) {
+              break;
             }
-          });
+            machine[`pred_avg_${detailName}`].push(
+              Number(
+                (
+                  (json[`pred_max_${detailName}`] +
+                    json[`pred_min_${detailName}`]) /
+                  2
+                ).toFixed(2)
+              )
+            );
+            machine[`pred_max_${detailName}`].push(
+              json[`pred_max_${detailName}`].toFixed(3)
+            );
+            machine[`pred_min_${detailName}`].push(
+              json[`pred_min_${detailName}`].toFixed(3)
+            );
+            machine[`standard_max_${detailName}`] =
+              json[`standard_max_${detailName}`];
+            machine[`standard_min_${detailName}`] =
+              json[`standard_min_${detailName}`];
+            machine[`standard_detail_name_${num}`] =
+              json[`standard_detail_name_${num}`];
+
+            if (
+              json[`pred_max_${detailName}`] >
+                json[`standard_max_${detailName}`] ||
+              json[`pred_min_${detailName}`] <
+                json[`standard_min_${detailName}`]
+            ) {
+              is_qualified = false;
+            }
+          }
+          machine.is_qualified.push(is_qualified);
         }
+      });
+      if (!foundObject) {
+        let is_qualified = true;
+        let machine = new Machine(json.machine);
+        machine.location = all_machine.length;
+        machine.product = json.product;
         machine.time.push(json.time);
         machine.frequency.push(json.frequency);
         machine.Speed.push(json.Speed);
         machine.Status.push(json.Status);
         machine.g_change.push(json.g_change);
         machine.have_vibration = json.have_vibration;
-        let is_qualified = true;
         for (let num = 1; num <= 13; num++) {
           let detailName = `detail_${num}`;
-          if (json[`standard_detail_name_${num}`] === undefined){
-            break
+          if (json[`standard_detail_name_${num}`] === undefined) {
+            break;
           }
           machine[`pred_avg_${detailName}`].push(
             Number(
@@ -638,132 +700,95 @@ const Realtime = () => {
           );
           machine[`pred_max_${detailName}`].push(
             json[`pred_max_${detailName}`].toFixed(3)
-          )
+          );
           machine[`pred_min_${detailName}`].push(
             json[`pred_min_${detailName}`].toFixed(3)
-          )
+          );
           machine[`standard_max_${detailName}`] =
             json[`standard_max_${detailName}`];
           machine[`standard_min_${detailName}`] =
             json[`standard_min_${detailName}`];
           machine[`standard_detail_name_${num}`] =
             json[`standard_detail_name_${num}`];
-
-          if (json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] || json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]){
+          if (
+            json[`pred_max_${detailName}`] >
+              json[`standard_max_${detailName}`] ||
+            json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
+          ) {
             is_qualified = false;
           }
         }
         machine.is_qualified.push(is_qualified);
+        all_machine.push(machine);
       }
-    });
-    if (!foundObject) {
-      let is_qualified = true;
-      let machine = new Machine(json.machine);
-      machine.location = all_machine.length;
-      machine.product = json.product;
-      machine.time.push(json.time);
-      machine.frequency.push(json.frequency);
-      machine.Speed.push(json.Speed);
-      machine.Status.push(json.Status);
-      machine.g_change.push(json.g_change);
-      machine.have_vibration = json.have_vibration;
-      for (let num = 1; num <= 13; num++) {
-        let detailName = `detail_${num}`;
-        if (json[`standard_detail_name_${num}`] === undefined){
-          break
-        }
-        machine[`pred_avg_${detailName}`].push(
-          Number(
-            ((json[`pred_max_${detailName}`] + json[`pred_min_${detailName}`]) / 2).toFixed(2)
-          )
-        );
-        machine[`pred_max_${detailName}`].push(
-          json[`pred_max_${detailName}`].toFixed(3)
-        );
-        machine[`pred_min_${detailName}`].push(
-          json[`pred_min_${detailName}`].toFixed(3)
-        );
-        machine[`standard_max_${detailName}`] =
-          json[`standard_max_${detailName}`];
-        machine[`standard_min_${detailName}`] =
-          json[`standard_min_${detailName}`];
-        machine[`standard_detail_name_${num}`] =
-          json[`standard_detail_name_${num}`];
-        if (json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] || json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]){
-          is_qualified = false;
-        }
-      }
-      machine.is_qualified.push(is_qualified);
-      all_machine.push(machine);
     }
-  }
-  let unpass_rate_20_min = 0;
-  let unpass_rate_20_min_times = 0;
-  let unpass_total_minute = tem_unpass_rate_props.accumulativeMin;
-  let unpass_rate_20_min_total = 0
-  all_machine.forEach((obj) => {
-    obj.accumulativeMin = obj.is_qualified.slice(-20).reduce(
-      (acc, cur) => (cur === false ? acc + 1 : acc),
-      0
-    );
-    unpass_total_minute += obj.accumulativeMin;
-    unpass_rate_20_min = obj.accumulativeMin
-    unpass_rate_20_min_total += unpass_rate_20_min
-    unpass_rate_20_min_times = 20;
-      
-    let good_rate = Number((1-(unpass_rate_20_min / unpass_rate_20_min_times)).toFixed(2));
-    obj.good_rate = good_rate;
-    all_good_rate += good_rate;
-    })
-    all_good_rate = all_good_rate*100/all_machine.length +"%"
-
-  for (let i = 0; i < 20; i++) {
-    let unpass = 0
-    let unpass_interval = 0
+    let unpass_rate_20_min = 0;
+    let unpass_rate_20_min_times = 0;
+    let unpass_total_minute = tem_unpass_rate_props.accumulativeMin;
+    let unpass_rate_20_min_total = 0;
     all_machine.forEach((obj) => {
-      unpass += obj.is_qualified.slice(i,i+20).reduce(
-        (acc, cur) => (cur === false ? acc + 1 : acc),
-        0
+      obj.accumulativeMin = obj.is_qualified
+        .slice(-20)
+        .reduce((acc, cur) => (cur === false ? acc + 1 : acc), 0);
+      unpass_total_minute += obj.accumulativeMin;
+      unpass_rate_20_min = obj.accumulativeMin;
+      unpass_rate_20_min_total += unpass_rate_20_min;
+      unpass_rate_20_min_times = 20;
+
+      let good_rate = Number(
+        (1 - unpass_rate_20_min / unpass_rate_20_min_times).toFixed(2)
       );
-      unpass_interval += 20;
-    })
-    tem_pass_rate.push({
-      x: all_machine[0].time[i],
-      y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
+      obj.good_rate = good_rate;
+      all_good_rate += good_rate;
+    });
+    all_good_rate = (all_good_rate * 100) / all_machine.length + "%";
+
+    for (let i = 0; i < 20; i++) {
+      let unpass = 0;
+      let unpass_interval = 0;
+      all_machine.forEach((obj) => {
+        unpass += obj.is_qualified
+          .slice(i, i + 20)
+          .reduce((acc, cur) => (cur === false ? acc + 1 : acc), 0);
+        unpass_interval += 20;
+      });
+      tem_pass_rate.push({
+        x: all_machine[0].time[i],
+        y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
+      });
+    }
+    all_machine.forEach((obj) => {
+      obj.is_qualified = obj.is_qualified.slice(-20);
+    });
+    setLineData(() => all_machine);
+    var dataArray = [];
+    for (var i = 0; i < all_machine.length; i++) {
+      dataArray.push(all_machine[i]);
+    }
+
+    setData(dataArray);
+    setPassRate(() => tem_pass_rate);
+    setPassRateProps({
+      accumulativeMin: unpass_total_minute,
+      accumulativeMinIn20: unpass_rate_20_min_total,
+      accumulativePassRateIn20: all_good_rate,
     });
   };
-  all_machine.forEach((obj) => {
-    obj.is_qualified = obj.is_qualified.slice(-20)
-  })
-  setLineData(() => all_machine);
-  var dataArray = [];
-  for (var i = 0; i < all_machine.length; i++) {
-    dataArray.push(all_machine[i]);
-  }
-  
-  setData(dataArray);
-  setPassRate(() => tem_pass_rate);
-  setPassRateProps({
-    accumulativeMin: unpass_total_minute,
-    accumulativeMinIn20: unpass_rate_20_min_total,
-    accumulativePassRateIn20: all_good_rate,
-  });
-  }
   const MINUTE_MS = 60000;
   useEffect(() => {
     CallApi40();
     return; // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
   }, []);
 
-  useEffect( ()=>{
+  useEffect(() => {
     const interval = setInterval(() => {
       CallApi();
     }, MINUTE_MS);
-    return ()=>{
+    return () => {
       clearInterval(interval);
-    }
-  },[passRateProps])
-  
+    };
+  }, [passRateProps]);
+
   var changePage = (value) => {
     setPage(value);
   };
@@ -772,7 +797,6 @@ const Realtime = () => {
     mode: "Normal",
     allowEditing: true,
     template: dialogTemplete,
-    
   };
 
   var pieChartData = [
@@ -826,18 +850,7 @@ const Realtime = () => {
                 <ColumnDirective key={index} {...item} />
               ))}
             </ColumnsDirective>
-            <Inject
-              services={[
-                
-                Sort,
-                ContextMenu,
-                
-                Page,
-               
-                Edit,
-             
-              ]}
-            />
+            <Inject services={[Sort, ContextMenu, Page, Edit]} />
           </GridComponent>
         </div>
       ) : (
