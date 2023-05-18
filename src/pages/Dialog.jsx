@@ -128,16 +128,20 @@ const DiaLog = (props) => {
                   }
                 </p>
               </div>
-              {lineData[props.location].have_vibration ==1 ? <div className="p-2 flex items-center gap-2">
-                <p className=" text-2xl">
-                  G合力：
-                  {
-                    lineData[props.location].g_change[
-                      lineData[props.location].g_change.length - 1
-                    ]
-                  }
-                </p>
-              </div> : <div></div>}
+              {lineData[props.location].have_vibration == 1 ? (
+                <div className="p-2 flex items-center gap-2">
+                  <p className=" text-2xl">
+                    G合力：
+                    {
+                      lineData[props.location].g_change[
+                        lineData[props.location].g_change.length - 1
+                      ]
+                    }
+                  </p>
+                </div>
+              ) : (
+                <div></div>
+              )}
 
               <button
                 className="px-8 py-4 bg-green-400 text-xl cursor-pointer hover:bg-green-500 text-white"

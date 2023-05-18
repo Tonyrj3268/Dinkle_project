@@ -119,6 +119,26 @@ class Machine {
     this.standard_detail_name_13 = "";
   }
 }
+class Repair {
+  constructor() {
+    this.machine = "";
+    this.product = "";
+    this.detail_name = "";
+    this.pred_time = "";
+    this.alarm_status_time = "";
+    this.alarm_status = "";
+  }
+}
+
+const formatTime = (date) => {
+  let year = date.getFullYear();
+  let month = String(date.getMonth() + 1).padStart(2, "0");
+  let day = String(date.getDate()).padStart(2, "0");
+  let hours = String(date.getHours()).padStart(2, "0");
+  let minutes = String(date.getMinutes()).padStart(2, "0");
+  let seconds = String(date.getSeconds()).padStart(2, "0");
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
 const Realtime = () => {
   // const { currentColor, currentMod } = useStateContext();
   const [page, setPage] = useState("即時監控");
@@ -135,6 +155,8 @@ const Realtime = () => {
     setPassRate,
     passRateProps,
     setPassRateProps,
+    repairData,
+    setRepairData,
   } = useStateContext();
 
   const CallApi = () => {
@@ -155,36 +177,6 @@ const Realtime = () => {
         params: params,
       })
       .then(ProcessData)
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      });
-  };
-  //new
-  const CallApi20 = () => {
-    const formData = new URLSearchParams();
-    formData.append("username", process.env.REACT_APP_extra_predict_username);
-    formData.append("password", process.env.REACT_APP_extra_predict_password);
-    const params = {
-      Show_type: process.env.REACT_APP_Show_type,
-      Work_type: process.env.REACT_APP_Work_type,
-    };
-    axios
-      .post(process.env.REACT_APP_extra_predict_url, formData, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        params: params,
-      })
-      .then(ProcessData20)
       .catch((error) => {
         if (error.response) {
           console.log(error.response.data);
@@ -229,8 +221,133 @@ const Realtime = () => {
         console.log(error.config);
       });
   };
+
+  const CallAlarmStampersDataApi = () => {
+    const formData = new URLSearchParams();
+    formData.append("username", process.env.REACT_APP_extra_predict_username);
+    formData.append("password", process.env.REACT_APP_extra_predict_password);
+
+    let now = new Date(); // 取得現在的時間
+
+    // 計算一個月前的時間
+    let oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(now.getMonth() - 1);
+
+    // 格式化時間為 yyyy-MM-dd HH:mm:ss 格式
+
+    const params = {
+      Start_time: "2023-05-15", //formatTime(oneMonthAgo),
+      End_time: "2023-05-16", //formatTime(now),
+    };
+
+    let url = "/api" + process.env.REACT_APP_extract_alarm_stampers_data;
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: params,
+      })
+      .then(GetRepairObj)
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  };
+
+  const CallInsertAlarmStampersDataApi = (InsertData) => {
+    const formData = new URLSearchParams();
+    formData.append("username", process.env.REACT_APP_extra_predict_username);
+    formData.append("password", process.env.REACT_APP_extra_predict_password);
+    console.log(InsertData);
+    const params = {
+      Machine: InsertData.machine,
+      Product: InsertData.product,
+      Pred_time: InsertData.Pred_time,
+      Detail_name: InsertData.Detail_name,
+    };
+    console.log(params);
+    let url = "/api" + process.env.REACT_APP_insert_alarm_stampers_data;
+    console.log(url);
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: params,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data == "data insert to db") {
+          CallAlarmStampersDataApi();
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  };
+
+  const CallUpdateAlarmStampersDataApi = (UpdateData) => {
+    const formData = new URLSearchParams();
+    formData.append("username", process.env.REACT_APP_extra_predict_username);
+    formData.append("password", process.env.REACT_APP_extra_predict_password);
+    let now = new Date(); // 取得現在的時間
+
+    const params = {
+      Machine: UpdateData.machine,
+      Product: UpdateData.product,
+      Pred_time: UpdateData.Pred_time,
+      Alarm_status_time: formatTime(now),
+      Alarm_status: UpdateData.Alarm_status,
+    };
+
+    let url = "/api" + process.env.REACT_APP_update_alarm_stampers_data;
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: params,
+      })
+      .then((res) => {
+        if (res.data == "update success") {
+          CallAlarmStampersDataApi();
+        } else {
+          console.log("更新維修項目API問題");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  };
+
   const ProcessData = (res) => {
-    console.log(res);
     if (typeof res.data === "string") {
       return;
     }
@@ -244,7 +361,7 @@ const Realtime = () => {
       all_machine.forEach((machine) => {
         if (machine.machine === json.machine) {
           foundObject = true;
-          if (machine.product != json.product) {
+          if (machine.product !== json.product) {
             let index = machine.location;
             machine = new Machine(json.machine);
             machine.product = json.product;
@@ -265,6 +382,7 @@ const Realtime = () => {
           machine.g_change.push(json.g_change);
           machine.have_vibration = json.have_vibration;
           let is_qualified = true;
+          let unpass_predict_name = "";
           for (let num = 1; num <= 13; num++) {
             let detailName = `detail_${num}`;
             if (json[`standard_detail_name_${num}`] === undefined) {
@@ -299,9 +417,52 @@ const Realtime = () => {
                 json[`standard_min_${detailName}`]
             ) {
               is_qualified = false;
+              unpass_predict_name += json[`standard_detail_name_${num}`] + ",";
             }
           }
           machine.is_qualified.push(is_qualified);
+          if (!is_qualified) {
+            console.log(unpass_predict_name);
+            let data = repairData;
+            let now = new Date(); // 取得現在的時間
+            let timeThreshold = 20; // 分鐘數閾值
+
+            // 檢查時間是否在閾值內的函式
+            let isWithinTimeThreshold = (timeString, thresholdMinutes) => {
+              let time = new Date(timeString);
+              let diffMilliseconds = now - time;
+              let diffMinutes = Math.floor(diffMilliseconds / (1000 * 60));
+              return diffMinutes <= thresholdMinutes;
+            };
+
+            // 找出符合條件的資料
+            let filteredData = data.filter((item) =>
+              isWithinTimeThreshold(item.pred_time, timeThreshold)
+            );
+            console.log(json.machine);
+            console.log(filteredData);
+            let not_have_this_reapir = true;
+            for (let num = 0; num < filteredData.length; num++) {
+              if (
+                filteredData[num].machine == json.machine &&
+                filteredData[num].product == json.product
+              ) {
+                not_have_this_reapir = false;
+              }
+            }
+            if (not_have_this_reapir) {
+              let InsertData = {
+                machine: json.machine,
+                product: json.product,
+                Pred_time: json.time,
+                Detail_name: unpass_predict_name.slice(
+                  0,
+                  unpass_predict_name.length - 1
+                ),
+              };
+              CallInsertAlarmStampersDataApi(InsertData);
+            }
+          }
         }
       });
       if (!foundObject) {
@@ -315,6 +476,7 @@ const Realtime = () => {
         machine.Status.push(json.Status);
         machine.g_change.push(json.g_change);
         machine.have_vibration = json.have_vibration;
+        let unpass_predict_name = "";
         for (let num = 1; num <= 13; num++) {
           let detailName = `detail_${num}`;
           if (json[`standard_detail_name_${num}`] === undefined) {
@@ -347,10 +509,46 @@ const Realtime = () => {
             json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
           ) {
             is_qualified = false;
+            unpass_predict_name += json[`standard_detail_name_${num}`] + ",";
           }
         }
         machine.is_qualified.push(is_qualified);
         all_machine.push(machine);
+        if (!is_qualified) {
+          let data = repairData;
+          let now = new Date(); // 取得現在的時間
+          let timeThreshold = 20; // 分鐘數閾值
+
+          // 檢查時間是否在閾值內的函式
+          let isWithinTimeThreshold = (timeString, thresholdMinutes) => {
+            let time = new Date(timeString);
+            let diffMilliseconds = now - time;
+            let diffMinutes = Math.floor(diffMilliseconds / (1000 * 60));
+            return diffMinutes <= thresholdMinutes;
+          };
+
+          // 找出符合條件的資料
+          let filteredData = data.filter((item) =>
+            isWithinTimeThreshold(item.pred_time, timeThreshold)
+          );
+          for (let num = 1; num <= filteredData.length; num++) {
+            if (
+              filteredData.machine !== json.machine &&
+              filteredData.product !== json.product
+            ) {
+              let InsertData = {
+                machine: json.machine,
+                product: json.product,
+                Pred_time: json.time,
+                Detail_name: unpass_predict_name.slice(
+                  0,
+                  unpass_predict_name.length - 1
+                ),
+              };
+              CallInsertAlarmStampersDataApi(InsertData);
+            }
+          }
+        }
       }
     }
     let unpass_rate_20_min = 0;
@@ -386,7 +584,6 @@ const Realtime = () => {
       unpass_interval += 20;
     });
 
-    console.log(((1 - unpass / unpass_interval) * 100).toFixed(2));
     let tempassRate = passRate;
     if (tempassRate.length >= 20) {
       tempassRate.shift();
@@ -411,194 +608,7 @@ const Realtime = () => {
     });
   };
 
-  const ProcessData20 = (res) => {
-    console.log("==============");
-    console.log(res);
-
-    if (typeof res.data === "string") {
-      return;
-    }
-    let tem = lineData;
-    let tem_pass_rate = [];
-    let tem_unpass_rate_props = passRateProps;
-    let api_data = res.data;
-    let all_good_rate = 0;
-    let new_20_min = [];
-    for (let i = api_data.length - 1; i >= 0; i--) {
-      let json = api_data[i];
-      let foundObject = false;
-      new_20_min.forEach((obj) => {
-        if (obj.machine === json.machine) {
-          foundObject = true;
-          if (obj.product != json.product) {
-            let index = obj.location;
-            obj = new Machine(json.machine);
-            obj.product = json.product;
-            obj.location = index;
-          }
-
-          obj.time.push(json.time);
-          obj.frequency.push(json.frequency);
-          obj.Speed.push(json.Speed);
-          obj.Status.push(json.Status);
-          obj.g_change.push(json.g_change);
-          obj.have_vibration = json.have_vibration;
-          let is_qualified = true;
-          for (let num = 1; num <= 13; num++) {
-            let detailName = `detail_${num}`;
-            if (json[`standard_detail_name_${num}`] === undefined) {
-              break;
-            }
-            obj[`pred_avg_${detailName}`].push(
-              Number(
-                (
-                  (json[`pred_max_${detailName}`] +
-                    json[`pred_min_${detailName}`]) /
-                  2
-                ).toFixed(2)
-              )
-            );
-            obj[`pred_max_${detailName}`].push(
-              json[`pred_max_${detailName}`].toFixed(2)
-            );
-            obj[`pred_min_${detailName}`].push(
-              json[`pred_min_${detailName}`].toFixed(2)
-            );
-            obj[`standard_max_${detailName}`] =
-              json[`standard_max_${detailName}`];
-            obj[`standard_min_${detailName}`] =
-              json[`standard_min_${detailName}`];
-            obj[`standard_detail_name_${i}`] =
-              json[`standard_detail_name_${i}`];
-
-            if (
-              json[`pred_max_${detailName}`] >
-                json[`standard_max_${detailName}`] ||
-              json[`pred_min_${detailName}`] <
-                json[`standard_min_${detailName}`]
-            ) {
-              is_qualified = false;
-            }
-            if (i % 3 == 0) {
-              is_qualified = false;
-            }
-          }
-          if (!is_qualified) {
-            obj.accumulativeMin += 1;
-          }
-          obj.is_qualified.push(is_qualified);
-        }
-      });
-      if (!foundObject) {
-        let is_qualified = true;
-        let machine = new Machine(json.machine);
-        machine.location = new_20_min.length;
-        machine.product = json.product;
-        machine.time.push(json.time);
-        machine.frequency.push(json.frequency);
-        machine.Speed.push(json.Speed);
-        machine.Status.push(json.Status);
-        machine.g_change.push(json.g_change);
-        machine.have_vibration = json.have_vibration;
-        for (let num = 1; num <= 13; num++) {
-          let detailName = `detail_${num}`;
-          if (json[`standard_detail_name_${num}`] === undefined) {
-            break;
-          }
-          machine[`pred_avg_${detailName}`].push(
-            Number(
-              (
-                (json[`pred_max_${detailName}`] +
-                  json[`pred_min_${detailName}`]) /
-                2
-              ).toFixed(2)
-            )
-          );
-          machine[`pred_max_${detailName}`].push(
-            json[`pred_max_${detailName}`].toFixed(2)
-          );
-          machine[`pred_min_${detailName}`].push(
-            json[`pred_min_${detailName}`].toFixed(2)
-          );
-          machine[`standard_max_${detailName}`] =
-            json[`standard_max_${detailName}`];
-          machine[`standard_min_${detailName}`] =
-            json[`standard_min_${detailName}`];
-          machine[`standard_detail_name_${i}`] =
-            json[`standard_detail_name_${i}`];
-          if (
-            json[`pred_max_${detailName}`] >
-              json[`standard_max_${detailName}`] ||
-            json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
-          ) {
-            is_qualified = false;
-          }
-        }
-        if (!is_qualified) {
-          machine.accumulativeMin += 1;
-        }
-        machine.is_qualified.push(is_qualified);
-        new_20_min.push(machine);
-      }
-    }
-    let unpass_rate_20_min = 0;
-    let unpass_rate_20_min_times = 0;
-    let unpass_total_minute = tem_unpass_rate_props.accumulativeMin;
-    let unpass_rate_20_min_total = 0;
-    new_20_min.forEach((obj) => {
-      if (tem_unpass_rate_props.accumulativeMin != 0) {
-        if (obj.is_qualified[-1] == false) {
-          unpass_total_minute += 1;
-        }
-      } else {
-        unpass_total_minute += obj.accumulativeMin;
-      }
-      unpass_rate_20_min = obj.is_qualified.reduce(
-        (acc, cur) => (cur === false ? acc + 1 : acc),
-        0
-      );
-      unpass_rate_20_min_total += unpass_rate_20_min;
-      unpass_rate_20_min_times = obj.is_qualified.length;
-
-      let good_rate = Number(
-        (1 - unpass_rate_20_min / unpass_rate_20_min_times).toFixed(2)
-      );
-      obj.good_rate = good_rate;
-      all_good_rate += good_rate;
-      console.log(obj.is_qualified);
-    });
-    all_good_rate = (all_good_rate * 100) / new_20_min.length + "%";
-    //broken
-    for (let i = 0; i < new_20_min[0].is_qualified.length; i++) {
-      let unpass = 0;
-      let unpass_interval = 0;
-      new_20_min.forEach((obj) => {
-        unpass += obj.is_qualified
-          .slice(i, i + 1)
-          .reduce((acc, cur) => (cur === false ? acc + 1 : acc), 0);
-        unpass_interval += obj.is_qualified.slice(i, i + 1).length;
-      });
-      tem_pass_rate.push({
-        x: new_20_min[0].time[i],
-        y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
-      });
-    }
-    setLineData(() => new_20_min);
-    var dataArray = [];
-    for (var i = 0; i < new_20_min.length; i++) {
-      dataArray.push(new_20_min[i]);
-    }
-
-    setData(dataArray);
-    setPassRate(() => tem_pass_rate);
-    setPassRateProps({
-      accumulativeMin: unpass_total_minute,
-      accumulativeMinIn20: unpass_rate_20_min_total,
-      accumulativePassRateIn20: all_good_rate,
-    });
-  };
   const ProcessData40 = (res) => {
-    console.log(res);
     if (typeof res.data === "string") {
       return;
     }
@@ -614,7 +624,7 @@ const Realtime = () => {
       all_machine.forEach((machine) => {
         if (machine.machine === json.machine) {
           foundObject = true;
-          if (machine.product != json.product) {
+          if (machine.product !== json.product) {
             let index = machine.location;
             machine = new Machine(json.machine);
             machine.product = json.product;
@@ -622,7 +632,7 @@ const Realtime = () => {
           }
           if (machine.Status.length >= 20) {
             Object.keys(machine).forEach((key) => {
-              if (Array.isArray(machine[key]) && key != "is_qualified") {
+              if (Array.isArray(machine[key]) && key !== "is_qualified") {
                 machine[key].shift();
               }
             });
@@ -774,9 +784,30 @@ const Realtime = () => {
       accumulativePassRateIn20: all_good_rate,
     });
   };
-  const MINUTE_MS = 60000;
+
+  const GetRepairObj = (res) => {
+    let all_repair = [];
+    let limit = Math.min(100, res.data.length);
+    for (let i = 0; i < limit; i++) {
+      let obj = res.data[i];
+      let repair = new Repair();
+      repair.machine = obj.machine;
+      repair.product = obj.product;
+      repair.detail_name = obj.detail_name;
+      repair.pred_time = obj.pred_time;
+      repair.alarm_status = obj.alarm_status;
+      repair.alarm_status_time = obj.alarm_status_time;
+
+      all_repair.push(repair);
+    }
+    setRepairData(all_repair);
+    console.log(all_repair);
+  };
+
+  const MINUTE_MS = 6000;
   useEffect(() => {
     CallApi40();
+    CallAlarmStampersDataApi();
     return; // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
   }, []);
 
