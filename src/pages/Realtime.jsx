@@ -773,8 +773,12 @@ const Realtime = () => {
 
   const MINUTE_MS = 6000;
   useEffect(() => {
-    CallApi40();
-    CallAlarmStampersDataApi();
+    if (lineData.length === 0) {
+      CallApi40();
+      CallAlarmStampersDataApi();
+    }
+    setData(lineData);
+
     return; // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
   }, []);
 
