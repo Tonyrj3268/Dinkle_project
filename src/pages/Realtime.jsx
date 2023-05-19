@@ -91,13 +91,13 @@ class Machine {
     this.standard_max_detail_11 = 0;
     this.standard_max_detail_12 = 0;
     this.standard_max_detail_13 = 0;
-    this.standard_min_detail_1 = 3;
-    this.standard_min_detail_2 = 2;
-    this.standard_min_detail_3 = 6;
-    this.standard_min_detail_4 = 2;
-    this.standard_min_detail_5 = 2;
-    this.standard_min_detail_6 = 3;
-    this.standard_min_detail_7 = 2;
+    this.standard_min_detail_1 = 0;
+    this.standard_min_detail_2 = 0;
+    this.standard_min_detail_3 = 0;
+    this.standard_min_detail_4 = 0;
+    this.standard_min_detail_5 = 0;
+    this.standard_min_detail_6 = 0;
+    this.standard_min_detail_7 = 0;
     this.standard_min_detail_8 = 0;
     this.standard_min_detail_9 = 0;
     this.standard_min_detail_10 = 0;
@@ -117,6 +117,9 @@ class Machine {
     this.standard_detail_name_11 = "";
     this.standard_detail_name_12 = "";
     this.standard_detail_name_13 = "";
+    this.recommand_speed = [];
+    this.recommand_g_change = [];
+    this.recommand_frequency = [];
   }
 }
 class Repair {
@@ -159,16 +162,16 @@ const Realtime = () => {
     setRepairData,
   } = useStateContext();
 
-  const CallApi = () => {
+  const CallApi = (minAgo) => {
     const formData = new URLSearchParams();
     formData.append("username", process.env.REACT_APP_extra_predict_username);
     formData.append("password", process.env.REACT_APP_extra_predict_password);
     const params = {
       Show_type: process.env.REACT_APP_Show_type,
       Work_type: process.env.REACT_APP_Work_type,
-      Min_ago: 1,
+      Min_ago: minAgo,
     };
-    let url = "/api" + process.env.REACT_APP_extra_predict_url;
+    let url = process.env.REACT_APP_extra_predict_url;
     axios
       .post(url, formData, {
         headers: {
@@ -176,38 +179,13 @@ const Realtime = () => {
         },
         params: params,
       })
-      .then(ProcessData)
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
+      .then((res) => {
+        if (minAgo === 1) {
+          ProcessData(res);
+        } else if (minAgo === 40) {
+          ProcessData40(res);
         }
-        console.log(error.config);
-      });
-  };
-  const CallApi40 = () => {
-    const formData = new URLSearchParams();
-    formData.append("username", process.env.REACT_APP_extra_predict_username);
-    formData.append("password", process.env.REACT_APP_extra_predict_password);
-    const params = {
-      Show_type: process.env.REACT_APP_Show_type,
-      Work_type: process.env.REACT_APP_Work_type,
-      Min_ago: 40,
-    };
-    let url = "/api" + process.env.REACT_APP_extra_predict_url;
-    axios
-      .post(url, formData, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        params: params,
       })
-      .then(ProcessData40)
       .catch((error) => {
         if (error.response) {
           console.log(error.response.data);
@@ -228,18 +206,15 @@ const Realtime = () => {
     formData.append("password", process.env.REACT_APP_extra_predict_password);
 
     let now = new Date(); // 取得現在的時間
-
-    // 計算一個月前的時間
     let oneMonthAgo = new Date();
     oneMonthAgo.setMonth(now.getMonth() - 1);
 
     // 格式化時間為 yyyy-MM-dd HH:mm:ss 格式
-
     const params = {
       Start_time: formatTime(oneMonthAgo),
       End_time: formatTime(now),
     };
-    let url = "/api" + process.env.REACT_APP_extract_alarm_stampers_data;
+    let url = process.env.REACT_APP_extract_alarm_stampers_data;
     axios
       .post(url, formData, {
         headers: {
@@ -283,7 +258,7 @@ const Realtime = () => {
       Pred_time: InsertData.Pred_time,
       Detail_name: InsertData.Detail_name,
     };
-    let url = "/api" + process.env.REACT_APP_insert_alarm_stampers_data;
+    let url = process.env.REACT_APP_insert_alarm_stampers_data;
     axios
       .post(url, formData, {
         headers: {
@@ -316,7 +291,7 @@ const Realtime = () => {
     if (typeof res.data === "string") {
       return;
     }
-    let all_machine = lineData;
+    let all_machine = lineData.slice();
     let api_data = res.data;
     let all_good_rate = 0;
 
@@ -384,6 +359,16 @@ const Realtime = () => {
               is_qualified = false;
               unpass_predict_name += json[`standard_detail_name_${num}`] + ",";
             }
+          }
+          machine.recommand_speed = [];
+          machine.recommand_g_change = [];
+          machine.recommand_frequency = [];
+          for (let num = 1; num <= 4; num++) {
+            machine.recommand_speed.push(json[`recommand_speed_${num}`]);
+            machine.recommand_g_change.push(json[`recommand_g_change_${num}`]);
+            machine.recommand_frequency.push(
+              json[`recommand_frequency_${num}`]
+            );
           }
           machine.is_qualified.push(is_qualified);
           if (!is_qualified) {
@@ -476,6 +461,14 @@ const Realtime = () => {
             is_qualified = false;
             unpass_predict_name += json[`standard_detail_name_${num}`] + ",";
           }
+        }
+        machine.recommand_speed = [];
+        machine.recommand_g_change = [];
+        machine.recommand_frequency = [];
+        for (let num = 1; num <= 4; num++) {
+          machine.recommand_speed.push(json[`recommand_speed_${num}`]);
+          machine.recommand_g_change.push(json[`recommand_g_change_${num}`]);
+          machine.recommand_frequency.push(json[`recommand_frequency_${num}`]);
         }
         machine.is_qualified.push(is_qualified);
         all_machine.push(machine);
@@ -572,7 +565,59 @@ const Realtime = () => {
       accumulativePassRateIn20: all_good_rate,
     });
   };
+  const AddDataInMachine = (machine, json) => {
+    machine.time.push(json.time);
+    machine.frequency.push(json.frequency);
+    machine.Speed.push(json.Speed);
+    machine.Status.push(json.Status);
+    machine.g_change.push(json.g_change);
+    machine.have_vibration = json.have_vibration;
+    let is_qualified = true;
+    for (let num = 1; num <= 13; num++) {
+      let detailName = `detail_${num}`;
+      if (json[`standard_detail_name_${num}`] === undefined) {
+        break;
+      }
+      machine[`pred_avg_${detailName}`].push(
+        Number(
+          (
+            (json[`pred_max_${detailName}`] + json[`pred_min_${detailName}`]) /
+            2
+          ).toFixed(2)
+        )
+      );
+      machine[`pred_max_${detailName}`].push(
+        json[`pred_max_${detailName}`].toFixed(3)
+      );
+      machine[`pred_min_${detailName}`].push(
+        json[`pred_min_${detailName}`].toFixed(3)
+      );
+      machine[`standard_max_${detailName}`] =
+        json[`standard_max_${detailName}`];
+      machine[`standard_min_${detailName}`] =
+        json[`standard_min_${detailName}`];
+      machine[`standard_detail_name_${num}`] =
+        json[`standard_detail_name_${num}`];
 
+      if (
+        json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] ||
+        json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
+      ) {
+        is_qualified = false;
+      }
+    }
+    //預測值
+    machine.recommand_speed = [];
+    machine.recommand_g_change = [];
+    machine.recommand_frequency = [];
+    for (let num = 1; num <= 4; num++) {
+      machine.recommand_speed.push(json[`recommand_speed_${num}`]);
+      machine.recommand_g_change.push(json[`recommand_g_change_${num}`]);
+      machine.recommand_frequency.push(json[`recommand_frequency_${num}`]);
+    }
+    machine.is_qualified.push(is_qualified);
+    return machine;
+  };
   const ProcessData40 = (res) => {
     console.log(res.data);
     if (typeof res.data === "string") {
@@ -598,103 +643,19 @@ const Realtime = () => {
           }
           if (machine.Status.length >= 20) {
             Object.keys(machine).forEach((key) => {
-              if (Array.isArray(machine[key]) && key !== "is_qualified") {
+              if (Array.isArray(machine[key])) {
                 machine[key].shift();
               }
             });
           }
-          machine.time.push(json.time);
-          machine.frequency.push(json.frequency);
-          machine.Speed.push(json.Speed);
-          machine.Status.push(json.Status);
-          machine.g_change.push(json.g_change);
-          machine.have_vibration = json.have_vibration;
-          let is_qualified = true;
-          for (let num = 1; num <= 13; num++) {
-            let detailName = `detail_${num}`;
-            if (json[`standard_detail_name_${num}`] === undefined) {
-              break;
-            }
-            machine[`pred_avg_${detailName}`].push(
-              Number(
-                (
-                  (json[`pred_max_${detailName}`] +
-                    json[`pred_min_${detailName}`]) /
-                  2
-                ).toFixed(2)
-              )
-            );
-            machine[`pred_max_${detailName}`].push(
-              json[`pred_max_${detailName}`].toFixed(3)
-            );
-            machine[`pred_min_${detailName}`].push(
-              json[`pred_min_${detailName}`].toFixed(3)
-            );
-            machine[`standard_max_${detailName}`] =
-              json[`standard_max_${detailName}`];
-            machine[`standard_min_${detailName}`] =
-              json[`standard_min_${detailName}`];
-            machine[`standard_detail_name_${num}`] =
-              json[`standard_detail_name_${num}`];
-
-            if (
-              json[`pred_max_${detailName}`] >
-                json[`standard_max_${detailName}`] ||
-              json[`pred_min_${detailName}`] <
-                json[`standard_min_${detailName}`]
-            ) {
-              is_qualified = false;
-            }
-          }
-          machine.is_qualified.push(is_qualified);
+          machine = AddDataInMachine(machine, json);
         }
       });
       if (!foundObject) {
-        let is_qualified = true;
         let machine = new Machine(json.machine);
         machine.location = all_machine.length;
         machine.product = json.product;
-        machine.time.push(json.time);
-        machine.frequency.push(json.frequency);
-        machine.Speed.push(json.Speed);
-        machine.Status.push(json.Status);
-        machine.g_change.push(json.g_change);
-        machine.have_vibration = json.have_vibration;
-        for (let num = 1; num <= 13; num++) {
-          let detailName = `detail_${num}`;
-          if (json[`standard_detail_name_${num}`] === undefined) {
-            break;
-          }
-          machine[`pred_avg_${detailName}`].push(
-            Number(
-              (
-                (json[`pred_max_${detailName}`] +
-                  json[`pred_min_${detailName}`]) /
-                2
-              ).toFixed(2)
-            )
-          );
-          machine[`pred_max_${detailName}`].push(
-            json[`pred_max_${detailName}`].toFixed(3)
-          );
-          machine[`pred_min_${detailName}`].push(
-            json[`pred_min_${detailName}`].toFixed(3)
-          );
-          machine[`standard_max_${detailName}`] =
-            json[`standard_max_${detailName}`];
-          machine[`standard_min_${detailName}`] =
-            json[`standard_min_${detailName}`];
-          machine[`standard_detail_name_${num}`] =
-            json[`standard_detail_name_${num}`];
-          if (
-            json[`pred_max_${detailName}`] >
-              json[`standard_max_${detailName}`] ||
-            json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
-          ) {
-            is_qualified = false;
-          }
-        }
-        machine.is_qualified.push(is_qualified);
+        machine = AddDataInMachine(machine, json);
         all_machine.push(machine);
       }
     }
@@ -771,10 +732,10 @@ const Realtime = () => {
     console.log(all_repair);
   };
 
-  const MINUTE_MS = 6000;
+  const MINUTE_MS = 60000;
   useEffect(() => {
     if (lineData.length === 0) {
-      CallApi40();
+      CallApi(40);
       CallAlarmStampersDataApi();
     }
     setData(lineData);
@@ -784,7 +745,7 @@ const Realtime = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      CallApi();
+      CallApi(1);
     }, MINUTE_MS);
     return () => {
       clearInterval(interval);

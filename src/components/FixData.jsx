@@ -59,7 +59,7 @@ const FixData = ({ props }) => {
       End_time: formatTime(now),
     };
 
-    let url = "/api" + process.env.REACT_APP_extract_alarm_stampers_data;
+    let url = process.env.REACT_APP_extract_alarm_stampers_data;
     axios
       .post(url, formData, {
         headers: {
@@ -103,7 +103,7 @@ const FixData = ({ props }) => {
       Alarm_status: status,
     };
 
-    let url = "/api" + process.env.REACT_APP_update_alarm_stampers_data;
+    let url = process.env.REACT_APP_update_alarm_stampers_data;
     axios
       .post(url, formData, {
         headers: {
