@@ -55,8 +55,8 @@ const FixData = ({ props }) => {
     // 格式化時間為 yyyy-MM-dd HH:mm:ss 格式
 
     const params = {
-      Start_time: "2023-05-15", //formatTime(oneMonthAgo),
-      End_time: "2023-05-16", //formatTime(now),
+      Start_time: formatTime(oneMonthAgo),
+      End_time: formatTime(now),
     };
 
     let url = "/api" + process.env.REACT_APP_extract_alarm_stampers_data;
@@ -86,7 +86,15 @@ const FixData = ({ props }) => {
     formData.append("username", process.env.REACT_APP_extra_predict_username);
     formData.append("password", process.env.REACT_APP_extra_predict_password);
     let now = new Date(); // 取得現在的時間
-
+    //check if props.machine、product、pred_time is undefined
+    if (
+      props.machine === undefined ||
+      props.product === undefined ||
+      props.pred_time === undefined
+    ) {
+      console.log("props.machine、product、pred_time is undefined");
+      return;
+    }
     const params = {
       Machine: props.machine,
       Product: props.product,
@@ -158,7 +166,7 @@ const FixData = ({ props }) => {
         </div>
       </div>
     );
-  } else if (props.result === "不處理") {
+  } else if (props.alarm_status === "不處理") {
     return (
       <div
         onClick={(e) => {

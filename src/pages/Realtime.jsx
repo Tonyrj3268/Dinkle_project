@@ -190,7 +190,7 @@ const Realtime = () => {
         console.log(error.config);
       });
   };
-  const CallApi40 = async () => {
+  const CallApi40 = () => {
     const formData = new URLSearchParams();
     formData.append("username", process.env.REACT_APP_extra_predict_username);
     formData.append("password", process.env.REACT_APP_extra_predict_password);
@@ -236,10 +236,9 @@ const Realtime = () => {
     // 格式化時間為 yyyy-MM-dd HH:mm:ss 格式
 
     const params = {
-      Start_time: "2023-05-15", //formatTime(oneMonthAgo),
-      End_time: "2023-05-16", //formatTime(now),
+      Start_time: formatTime(oneMonthAgo),
+      End_time: formatTime(now),
     };
-
     let url = "/api" + process.env.REACT_APP_extract_alarm_stampers_data;
     axios
       .post(url, formData, {
@@ -268,15 +267,23 @@ const Realtime = () => {
     formData.append("username", process.env.REACT_APP_extra_predict_username);
     formData.append("password", process.env.REACT_APP_extra_predict_password);
     console.log(InsertData);
+    //check if InsertData.machine、product、Pred_time、Detail_name is undefined
+    if (
+      InsertData.machine == undefined ||
+      InsertData.product == undefined ||
+      InsertData.Pred_time == undefined ||
+      InsertData.Detail_name == undefined
+    ) {
+      alert("have undefined data");
+      return;
+    }
     const params = {
       Machine: InsertData.machine,
       Product: InsertData.product,
       Pred_time: InsertData.Pred_time,
       Detail_name: InsertData.Detail_name,
     };
-    console.log(params);
     let url = "/api" + process.env.REACT_APP_insert_alarm_stampers_data;
-    console.log(url);
     axios
       .post(url, formData, {
         headers: {
@@ -304,50 +311,8 @@ const Realtime = () => {
       });
   };
 
-  const CallUpdateAlarmStampersDataApi = (UpdateData) => {
-    const formData = new URLSearchParams();
-    formData.append("username", process.env.REACT_APP_extra_predict_username);
-    formData.append("password", process.env.REACT_APP_extra_predict_password);
-    let now = new Date(); // 取得現在的時間
-
-    const params = {
-      Machine: UpdateData.machine,
-      Product: UpdateData.product,
-      Pred_time: UpdateData.Pred_time,
-      Alarm_status_time: formatTime(now),
-      Alarm_status: UpdateData.Alarm_status,
-    };
-
-    let url = "/api" + process.env.REACT_APP_update_alarm_stampers_data;
-    axios
-      .post(url, formData, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        params: params,
-      })
-      .then((res) => {
-        if (res.data == "update success") {
-          CallAlarmStampersDataApi();
-        } else {
-          console.log("更新維修項目API問題");
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      });
-  };
-
   const ProcessData = (res) => {
+    console.log(res.data);
     if (typeof res.data === "string") {
       return;
     }
@@ -441,26 +406,26 @@ const Realtime = () => {
             );
             console.log(json.machine);
             console.log(filteredData);
-            let not_have_this_reapir = true;
+            console.log(json.machine);
+            console.log(json.product);
             for (let num = 0; num < filteredData.length; num++) {
               if (
-                filteredData[num].machine == json.machine &&
-                filteredData[num].product == json.product
+                filteredData[num].machine === json.machine &&
+                filteredData[num].product === json.product
               ) {
-                not_have_this_reapir = false;
+                let InsertData = {
+                  machine: json.machine,
+                  product: json.product,
+                  Pred_time: json.time,
+                  Detail_name: unpass_predict_name.slice(
+                    0,
+                    unpass_predict_name.length - 1
+                  ),
+                };
+                console.log("InsertData");
+                CallInsertAlarmStampersDataApi(InsertData);
+                break;
               }
-            }
-            if (not_have_this_reapir) {
-              let InsertData = {
-                machine: json.machine,
-                product: json.product,
-                Pred_time: json.time,
-                Detail_name: unpass_predict_name.slice(
-                  0,
-                  unpass_predict_name.length - 1
-                ),
-              };
-              CallInsertAlarmStampersDataApi(InsertData);
             }
           }
         }
@@ -531,7 +496,7 @@ const Realtime = () => {
           let filteredData = data.filter((item) =>
             isWithinTimeThreshold(item.pred_time, timeThreshold)
           );
-          for (let num = 1; num <= filteredData.length; num++) {
+          for (let num = 0; num <= filteredData.length; num++) {
             if (
               filteredData.machine !== json.machine &&
               filteredData.product !== json.product
@@ -595,8 +560,8 @@ const Realtime = () => {
     setPassRate(() => tempassRate);
 
     setLineData(() => all_machine);
-    var dataArray = [];
-    for (var i = 0; i < all_machine.length; i++) {
+    let dataArray = [];
+    for (let i = 0; i < all_machine.length; i++) {
       dataArray.push(all_machine[i]);
     }
 
@@ -609,6 +574,7 @@ const Realtime = () => {
   };
 
   const ProcessData40 = (res) => {
+    console.log(res.data);
     if (typeof res.data === "string") {
       return;
     }
@@ -751,7 +717,8 @@ const Realtime = () => {
       obj.good_rate = good_rate;
       all_good_rate += good_rate;
     });
-    all_good_rate = (all_good_rate * 100) / all_machine.length + "%";
+    all_good_rate =
+      ((all_good_rate * 100) / all_machine.length).toFixed(2) + "%";
 
     for (let i = 0; i < 20; i++) {
       let unpass = 0;
@@ -771,8 +738,8 @@ const Realtime = () => {
       obj.is_qualified = obj.is_qualified.slice(-20);
     });
     setLineData(() => all_machine);
-    var dataArray = [];
-    for (var i = 0; i < all_machine.length; i++) {
+    let dataArray = [];
+    for (let i = 0; i < all_machine.length; i++) {
       dataArray.push(all_machine[i]);
     }
 
