@@ -1229,7 +1229,7 @@ export const lineCustomSeries = [
     yName: "y",
     name: "Maximum",
     width: "2",
-    marker: { visible: true, width: 10, height: 10 },
+
     type: "Line",
     color: "red",
   },
@@ -1238,7 +1238,7 @@ export const lineCustomSeries = [
     dataSource: lineChartData[1],
     xName: "x",
     yName: "y",
-    name: "PredictLine",
+    name: "Avg_PredictLine",
     width: "2",
     marker: { visible: true, width: 10, height: 10 },
     type: "Line",
@@ -1250,7 +1250,7 @@ export const lineCustomSeries = [
     yName: "y",
     name: "Mimimum",
     width: "2",
-    marker: { visible: true, width: 10, height: 10 },
+
     type: "Line",
     color: "red",
   },
@@ -1320,7 +1320,6 @@ export const pieChartData = [
 ];
 
 export const contextMenuItems = [
-  
   "FirstPage",
   "PrevPage",
   "LastPage",

@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { GoPrimitiveDot } from "react-icons/go";
 import { IoIosMore } from "react-icons/io";
@@ -19,7 +19,6 @@ import { useStateContext } from "../contexts/ContextProvider";
 import product9 from "../data/product9.jpg";
 import { useNavigate } from "react-router-dom";
 
-
 const DropDown = ({ currentMode }) => (
   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
     <DropDownListComponent
@@ -37,110 +36,111 @@ const DropDown = ({ currentMode }) => (
 const Admin = () => {
   const { currentColor, currentMode } = useStateContext();
   const navigate = useNavigate();
-  const queryParams = new URLSearchParams(window.location.search)
- var verlified=true
-  var query=["id1","id2","id3"]
-  var ans_query=["1","2","3"]
-  var getQuery=()=>{
-    const queryParams = new URLSearchParams(window.location.search)
-    
-    for (var i=0;i<query.length;i++){
-      if(ans_query[i]!==queryParams.get(query[i])){
-        verlified=false
-        break
+  const queryParams = new URLSearchParams(window.location.search);
+  var verlified = true;
+  var query = ["id1", "id2", "id3"];
+  var ans_query = ["1", "2", "3"];
+  var getQuery = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    for (var i = 0; i < query.length; i++) {
+      if (ans_query[i] !== queryParams.get(query[i])) {
+        verlified = false;
+        break;
       }
     }
-  }
-  getQuery()
+  };
+  getQuery();
   useEffect(() => {
-    
-     console.log("The verlified is "+verlified)
-     if(verlified===false){
-      navigate('/404')
-     }
-     
+    console.log("The verlified is " + verlified);
+    if (verlified === false) {
+      navigate("/404");
+    }
+
     return; // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
   }, [verlified]);
 
   return (
-    
     <div className="mt-24">
-      {verlified ? <div className="flex flex-wrap lg:flex-nowrap ml-20 ">
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3  bg-center">
-          <div className="flex justify-between items-cente ">
-            <div>
-              <p className="font-bold text-gray-400">Settings</p>
-              <p className="text-2xl font-bold ">即時監控分析</p>
+      {verlified ? (
+        <div className="flex flex-wrap lg:flex-nowrap ml-20 ">
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3  bg-center">
+            <div className="flex justify-between items-cente ">
+              <div>
+                <p className="font-bold text-gray-400">Settings</p>
+                <p className="text-2xl font-bold ">即時監控分析</p>
+              </div>
+              <button
+                type="button"
+                style={{ backgroundColor: currentColor }}
+                className="text-2xl opacity-0.9 text-white hover:drop-shadow-xl rounded-full  p-4"
+              >
+                <BsCurrencyDollar />
+              </button>
             </div>
-            <button
-              type="button"
-              style={{ backgroundColor: currentColor }}
-              className="text-2xl opacity-0.9 text-white hover:drop-shadow-xl rounded-full  p-4"
-            >
-              <BsCurrencyDollar />
-            </button>
-          </div>
-          <div className="mt-8">
-            <Link
-              to={"/realtime"}
-              className=" rounded-xl text-white px-[14px] py-[14px]"
-              style={{ backgroundColor: currentColor }}
-            >
-              Check
-            </Link>
-          </div>
-        </div>
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3  bg-center">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="font-bold text-gray-400">Settings</p>
-              <p className="text-2xl font-bold ">Detail預測分析</p>
+            <div className="mt-8">
+              <Link
+                to={"/realtime"}
+                className=" rounded-xl text-white px-[14px] py-[14px]"
+                style={{ backgroundColor: currentColor }}
+              >
+                Check
+              </Link>
             </div>
-            <button
-              type="button"
-              style={{ backgroundColor: currentColor }}
-              className="text-2xl opacity-0.9 text-white hover:drop-shadow-xl rounded-full  p-4"
-            >
-              <BsCurrencyDollar />
-            </button>
           </div>
-          <div className="mt-8">
-            <Link
-              to={"/realtime"}
-              className=" rounded-xl text-white px-[14px] py-[14px]"
-              style={{ backgroundColor: currentColor }}
-            >
-              Check
-            </Link>
-          </div>
-        </div>
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3  bg-center">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="font-bold text-gray-400">Settings</p>
-              <p className="text-2xl font-bold ">維修項目</p>
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3  bg-center">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="font-bold text-gray-400">Settings</p>
+                <p className="text-2xl font-bold ">Detail預測分析</p>
+              </div>
+              <button
+                type="button"
+                style={{ backgroundColor: currentColor }}
+                className="text-2xl opacity-0.9 text-white hover:drop-shadow-xl rounded-full  p-4"
+              >
+                <BsCurrencyDollar />
+              </button>
             </div>
+            <div className="mt-8">
+              <Link
+                to={"/realtime"}
+                className=" rounded-xl text-white px-[14px] py-[14px]"
+                style={{ backgroundColor: currentColor }}
+              >
+                Check
+              </Link>
+            </div>
+          </div>
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3  bg-center">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="font-bold text-gray-400">Settings</p>
+                <p className="text-2xl font-bold ">維修項目</p>
+              </div>
 
-            <button
-              type="button"
-              style={{ backgroundColor: currentColor }}
-              className="text-2xl opacity-0.9 text-white hover:drop-shadow-xl rounded-full  p-4"
-            >
-              <BsCurrencyDollar />
-            </button>
-          </div>
-          <div className="mt-8">
-            <Link
-              to={"/fix"}
-              className=" rounded-xl text-white px-[14px] py-[14px]"
-              style={{ backgroundColor: currentColor }}
-            >
-              Check
-            </Link>
+              <button
+                type="button"
+                style={{ backgroundColor: currentColor }}
+                className="text-2xl opacity-0.9 text-white hover:drop-shadow-xl rounded-full  p-4"
+              >
+                <BsCurrencyDollar />
+              </button>
+            </div>
+            <div className="mt-8">
+              <Link
+                to={"/fix"}
+                className=" rounded-xl text-white px-[14px] py-[14px]"
+                style={{ backgroundColor: currentColor }}
+              >
+                Check
+              </Link>
+            </div>
           </div>
         </div>
-      </div> : < div>false</div>}
-      
+      ) : (
+        <div>false</div>
+      )}
     </div>
   );
 };
