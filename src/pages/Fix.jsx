@@ -1,12 +1,92 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import { employeesData } from "../data/dummy";
 import { Header } from "../components";
 import FixData from "../components/FixData";
 import { useStateContext } from "../contexts/ContextProvider";
-const Fix = () => {
-  const { repairData, setRepairData } = useStateContext();
+import axios from "axios";
 
+class Repair {
+  constructor() {
+    this.machine = "";
+    this.product = "";
+    this.detail_name = "";
+    this.pred_time = "";
+    this.alarm_status_time = "";
+    this.alarm_status = "";
+  }
+}
+const Fix = () => {
+  const formatTime = (date) => {
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, "0");
+    let day = String(date.getDate()).padStart(2, "0");
+    let hours = String(date.getHours()).padStart(2, "0");
+    let minutes = String(date.getMinutes()).padStart(2, "0");
+    let seconds = String(date.getSeconds()).padStart(2, "0");
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+  const GetRepairObj = (res) => {
+    let all_repair = [];
+    let limit = Math.min(100, res.data.length);
+    for (let i = 0; i < limit; i++) {
+      let obj = res.data[i];
+      let repair = new Repair();
+      repair.machine = obj.machine;
+      repair.product = obj.product;
+      repair.detail_name = obj.detail_name;
+      repair.pred_time = obj.pred_time;
+      repair.alarm_status = obj.alarm_status;
+      repair.alarm_status_time = obj.alarm_status_time;
+
+      all_repair.push(repair);
+    }
+    setRepairData(all_repair);
+    console.log(all_repair);
+  };
+  const CallAlarmStampersDataApi = () => {
+    const formData = new URLSearchParams();
+    formData.append("username", process.env.REACT_APP_extra_predict_username);
+    formData.append("password", process.env.REACT_APP_extra_predict_password);
+
+    let now = new Date(); // 取得現在的時間
+
+    // 計算一個月前的時間
+    let oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(now.getMonth() - 1);
+
+    // 格式化時間為 yyyy-MM-dd HH:mm:ss 格式
+
+    const params = {
+      Start_time: formatTime(oneMonthAgo),
+      End_time: formatTime(now),
+    };
+
+    let url = process.env.REACT_APP_extract_alarm_stampers_data;
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: params,
+      })
+      .then(GetRepairObj)
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  };
+  const { repairData, setRepairData } = useStateContext();
+  useEffect(() => {
+    CallAlarmStampersDataApi();
+  }, []);
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
       <Header category="Page" title="維修項目" />

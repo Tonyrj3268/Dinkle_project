@@ -87,7 +87,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   //機台
 
   var temp = [];
-  for (var i = 0; i < lineData[location].Speed.length; i++) {
+  for (var i = 0; i < 16; i++) {
     temp.push({
       x: new Date(lineData[location].time[i]),
       y: lineData[location].Speed[i],
@@ -95,37 +95,79 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   }
   doubleLineCustomSeriesSpeed[0].dataSource = temp;
   console.log(doubleLineCustomSeriesSpeed[0].dataSource);
-  // doubleLineCustomSeriesSpeed[1].dataSource =
-  //   doubleLineData.speed.lineChartData2;
+  doubleLineCustomSeriesSpeed[1].dataSource = [
+    {
+      x: new Date(lineData[location].time[15]),
+      y: selectType.speed.maximum,
+    },
+    {
+      x: new Date(lineData[location].time[15]),
+      y: selectType.speed.minimum,
+    },
+  ];
+  var temp = [];
+  for (var i = 0; i < lineData[location].recommand_speed.length; i++) {
+    if (i !== 0) {
+      temp.push({
+        x: new Date(lineData[location].time[15 + i]),
+        y: lineData[location].recommand_speed[i],
+      });
+    } else {
+      temp.push({
+        x: new Date(lineData[location].time[15 + i]),
+        y: lineData[location].recommand_speed[i],
+      });
+    }
+  }
+  doubleLineCustomSeriesSpeed[2].dataSource = temp;
+  console.log(doubleLineCustomSeriesSpeed[2].dataSource);
   // doubleLineCustomSeriesSpeed[2].dataSource = doubleLineData.speed.lineFuture;
   //頻率
 
   var temp = [];
-  for (var i = 0; i < lineData[location].frequency.length; i++) {
+  for (var i = 0; i < 16; i++) {
     temp.push({
       x: new Date(lineData[location].time[i]),
       y: lineData[location].frequency[i],
     });
   }
   doubleLineCustomSeriesFre[0].dataSource = temp;
-
-  // doubleLineCustomSeriesFre[1].dataSource =
-  //   doubleLineData.frequency.lineChartData2;
-  // doubleLineCustomSeriesFre[2].dataSource =
-  //   doubleLineData.frequency.lineFuture;
-  //狀態
-
+  doubleLineCustomSeriesFre[1].dataSource = [
+    {
+      x: new Date(lineData[location].time[15]),
+      y: selectType.frequency.maximum,
+    },
+    {
+      x: new Date(lineData[location].time[15]),
+      y: selectType.frequency.minimum,
+    },
+  ];
   var temp = [];
-  for (var i = 0; i < lineData[location].Status.length; i++) {
+  for (var i = 0; i < lineData[location].recommand_frequency.length; i++) {
+    if (i !== 0) {
+      temp.push({
+        x: new Date(lineData[location].time[15 + i]),
+        y: lineData[location].recommand_frequency[i],
+      });
+    } else {
+      temp.push({
+        x: new Date(lineData[location].time[15 + i]),
+        y: lineData[location].recommand_frequency[i],
+      });
+    }
+  }
+  doubleLineCustomSeriesFre[2].dataSource = temp;
+
+  //Status
+  var temp = [];
+  for (var i = 0; i < 16; i++) {
     temp.push({
       x: new Date(lineData[location].time[i]),
       y: lineData[location].Status[i],
     });
   }
   doubleLineCustomSeriesState[0].dataSource = temp;
-  // doubleLineCustomSeriesState[1].dataSource =
-  //   doubleLineData.state.lineChartData2;
-  // doubleLineCustomSeriesState[2].dataSource = doubleLineData.state.lineFuture;
+
   //G
   var temp = [];
   for (var i = 0; i < lineData[location].g_change.length; i++) {
@@ -135,16 +177,36 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     });
   }
   doubleLineCustomSeriesG[0].dataSource = temp;
-
-  // doubleLineCustomSeriesG[1].dataSource = doubleLineData.G.lineChartData2;
-  // doubleLineCustomSeriesG[2].dataSource = doubleLineData.G.lineFuture;
+  doubleLineCustomSeriesG[1].dataSource = [
+    {
+      x: new Date(lineData[location].time[15]),
+      y: selectType.G.maximum,
+    },
+    {
+      x: new Date(lineData[location].time[15]),
+      y: selectType.G.minimum,
+    },
+  ];
+  var temp = [];
+  for (var i = 0; i < lineData[location].recommand_g_change.length; i++) {
+    if (i !== 0) {
+      temp.push({
+        x: new Date(lineData[location].time[15 + i]),
+        y: lineData[location].recommand_g_change[i],
+      });
+    } else {
+      temp.push({
+        x: new Date(lineData[location].time[15 + i]),
+        y: lineData[location].recommand_g_change[i],
+      });
+    }
+  }
 
   useEffect(() => {
-    // console.log(lineData);
     //機台
 
     var temp = [];
-    for (var i = 0; i < lineData[location].Speed.length; i++) {
+    for (var i = 0; i < 16; i++) {
       temp.push({
         x: new Date(lineData[location].time[i]),
         y: lineData[location].Speed[i],
@@ -152,37 +214,79 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     }
     doubleLineCustomSeriesSpeed[0].dataSource = temp;
     console.log(doubleLineCustomSeriesSpeed[0].dataSource);
-    // doubleLineCustomSeriesSpeed[1].dataSource =
-    //   doubleLineData.speed.lineChartData2;
+    doubleLineCustomSeriesSpeed[1].dataSource = [
+      {
+        x: new Date(lineData[location].time[15]),
+        y: selectType.speed.maximum,
+      },
+      {
+        x: new Date(lineData[location].time[15]),
+        y: selectType.speed.minimum,
+      },
+    ];
+    var temp = [];
+    for (var i = 0; i < lineData[location].recommand_speed.length; i++) {
+      if (i !== 0) {
+        temp.push({
+          x: new Date(lineData[location].time[15 + i]),
+          y: lineData[location].recommand_speed[i],
+        });
+      } else {
+        temp.push({
+          x: new Date(lineData[location].time[15 + i]),
+          y: lineData[location].recommand_speed[i],
+        });
+      }
+    }
+    doubleLineCustomSeriesSpeed[2].dataSource = temp;
+    console.log(doubleLineCustomSeriesSpeed[2].dataSource);
     // doubleLineCustomSeriesSpeed[2].dataSource = doubleLineData.speed.lineFuture;
     //頻率
 
     var temp = [];
-    for (var i = 0; i < lineData[location].frequency.length; i++) {
+    for (var i = 0; i < 16; i++) {
       temp.push({
         x: new Date(lineData[location].time[i]),
         y: lineData[location].frequency[i],
       });
     }
     doubleLineCustomSeriesFre[0].dataSource = temp;
-
-    // doubleLineCustomSeriesFre[1].dataSource =
-    //   doubleLineData.frequency.lineChartData2;
-    // doubleLineCustomSeriesFre[2].dataSource =
-    //   doubleLineData.frequency.lineFuture;
-    //狀態
-
+    doubleLineCustomSeriesFre[1].dataSource = [
+      {
+        x: new Date(lineData[location].time[15]),
+        y: selectType.frequency.maximum,
+      },
+      {
+        x: new Date(lineData[location].time[15]),
+        y: selectType.frequency.minimum,
+      },
+    ];
     var temp = [];
-    for (var i = 0; i < lineData[location].Status.length; i++) {
+    for (var i = 0; i < lineData[location].recommand_frequency.length; i++) {
+      if (i !== 0) {
+        temp.push({
+          x: new Date(lineData[location].time[15 + i]),
+          y: lineData[location].recommand_frequency[i],
+        });
+      } else {
+        temp.push({
+          x: new Date(lineData[location].time[15 + i]),
+          y: lineData[location].recommand_frequency[i],
+        });
+      }
+    }
+    doubleLineCustomSeriesFre[2].dataSource = temp;
+
+    //Status
+    var temp = [];
+    for (var i = 0; i < 16; i++) {
       temp.push({
         x: new Date(lineData[location].time[i]),
         y: lineData[location].Status[i],
       });
     }
     doubleLineCustomSeriesState[0].dataSource = temp;
-    // doubleLineCustomSeriesState[1].dataSource =
-    //   doubleLineData.state.lineChartData2;
-    // doubleLineCustomSeriesState[2].dataSource = doubleLineData.state.lineFuture;
+
     //G
     var temp = [];
     for (var i = 0; i < lineData[location].g_change.length; i++) {
@@ -192,9 +296,30 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
       });
     }
     doubleLineCustomSeriesG[0].dataSource = temp;
-
-    // doubleLineCustomSeriesG[1].dataSource = doubleLineData.G.lineChartData2;
-    // doubleLineCustomSeriesG[2].dataSource = doubleLineData.G.lineFuture;
+    doubleLineCustomSeriesG[1].dataSource = [
+      {
+        x: new Date(lineData[location].time[15]),
+        y: selectType.G.maximum,
+      },
+      {
+        x: new Date(lineData[location].time[15]),
+        y: selectType.G.minimum,
+      },
+    ];
+    var temp = [];
+    for (var i = 0; i < lineData[location].recommand_g_change.length; i++) {
+      if (i !== 0) {
+        temp.push({
+          x: new Date(lineData[location].time[15 + i]),
+          y: lineData[location].recommand_g_change[i],
+        });
+      } else {
+        temp.push({
+          x: new Date(lineData[location].time[15 + i]),
+          y: lineData[location].recommand_g_change[i],
+        });
+      }
+    }
   }, [lineData[location].Speed.length, test]);
 
   return (

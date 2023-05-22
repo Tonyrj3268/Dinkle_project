@@ -550,6 +550,10 @@ export const links = [
         name: "維修項目",
         icon: <FiEdit />,
       },
+      {
+        name: "歷史分析",
+        icon: <BsKanban />,
+      },
     ],
   },
 ];
@@ -1277,6 +1281,22 @@ export const doubleLineCustomSeriesSpeed = [
     type: "Line",
     color: "red",
   },
+  {
+    dataSource: douleLineChartData[1],
+    xName: "x",
+    yName: "y",
+    name: "現在時間",
+    type: "Line",
+    color: "black",
+  },
+  {
+    dataSource: douleLineChartData[1],
+    xName: "x",
+    yName: "y",
+    name: "未來資料",
+    type: "Line",
+    color: "#34ebd2",
+  },
 ];
 export const doubleLineCustomSeriesFre = [
   {
@@ -1286,6 +1306,22 @@ export const doubleLineCustomSeriesFre = [
     name: "現在資料",
     type: "Line",
     color: "red",
+  },
+  {
+    dataSource: douleLineChartData[1],
+    xName: "x",
+    yName: "y",
+    name: "現在時間",
+    type: "Line",
+    color: "black",
+  },
+  {
+    dataSource: douleLineChartData[1],
+    xName: "x",
+    yName: "y",
+    name: "未來資料",
+    type: "Line",
+    color: "#34ebd2",
   },
 ];
 export const doubleLineCustomSeriesState = [
@@ -1297,6 +1333,22 @@ export const doubleLineCustomSeriesState = [
     type: "Line",
     color: "red",
   },
+  {
+    dataSource: douleLineChartData[1],
+    xName: "x",
+    yName: "y",
+    name: "現在時間",
+    type: "Line",
+    color: "black",
+  },
+  {
+    dataSource: douleLineChartData[1],
+    xName: "x",
+    yName: "y",
+    name: "未來資料",
+    type: "Line",
+    color: "#34ebd2",
+  },
 ];
 export const doubleLineCustomSeriesG = [
   {
@@ -1306,6 +1358,22 @@ export const doubleLineCustomSeriesG = [
     name: "現在資料",
     type: "Line",
     color: "red",
+  },
+  {
+    dataSource: douleLineChartData[1],
+    xName: "x",
+    yName: "y",
+    name: "現在時間",
+    type: "Line",
+    color: "black",
+  },
+  {
+    dataSource: douleLineChartData[1],
+    xName: "x",
+    yName: "y",
+    name: "未來資料",
+    type: "Line",
+    color: "#34ebd2",
   },
 ];
 

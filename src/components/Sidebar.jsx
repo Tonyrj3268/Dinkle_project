@@ -91,7 +91,7 @@ const Sidebar = () => {
     stacked: "stacked",
     維修項目: "fix",
     次數統計: "costtotal",
-    原因分析: "Cause",
+    歷史分析: "Cause",
     預測趨勢: "FutureAnalysis",
   };
   const activeLink =
