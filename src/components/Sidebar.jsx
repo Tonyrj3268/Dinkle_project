@@ -78,6 +78,19 @@ const Sidebar = () => {
 
     setIsTrClicked("");
   };
+  var url = "?";
+  for (
+    var i = 0;
+    i < JSON.parse(process.env.REACT_APP_extra_query).length;
+    i++
+  ) {
+    url =
+      url +
+      JSON.parse(process.env.REACT_APP_extra_query)[i] +
+      "=" +
+      JSON.parse(process.env.REACT_APP_extra_query_ans)[i] +
+      "&";
+  }
 
   const linkSet = {
     後台總管理: "admin",
@@ -131,7 +144,7 @@ const Sidebar = () => {
                 </p>
                 {item.links.map((link) => (
                   <NavLink
-                    to={`/${linkSet[link.name]}/?id1=1&id2=2&id3=3`}
+                    to={`/${linkSet[link.name]}/${url}`}
                     key={link.name}
                     onClick={handleCloseSideBar}
                     style={({ isActive }) => ({

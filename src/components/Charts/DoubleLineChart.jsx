@@ -47,8 +47,8 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
       labelFormat: "{value}",
       rangePadding: "None",
       minimum: 0,
-      maximum: 355,
-      interval: 51,
+      maximum: 360,
+      interval: 60,
       lineStyle: { width: 0 },
       majorTickLines: { width: 0 },
       minorTickLines: { width: 0 },
@@ -88,7 +88,16 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   console.log(lineData[location]);
 
   var temp = [];
-  for (var i = 0; i < 16; i++) {
+  doubleLineCustomSeriesSpeed[0].dataSource = [];
+  doubleLineCustomSeriesSpeed[1].dataSource = [];
+  doubleLineCustomSeriesSpeed[2].dataSource = [];
+  doubleLineCustomSeriesFre[0].dataSource = [];
+  doubleLineCustomSeriesFre[1].dataSource = [];
+  doubleLineCustomSeriesFre[2].dataSource = [];
+  doubleLineCustomSeriesG[0].dataSource = [];
+  doubleLineCustomSeriesG[1].dataSource = [];
+  doubleLineCustomSeriesG[2].dataSource = [];
+  for (var i = 0; i < Math.min(16, lineData[location].time.length); i++) {
     temp.push({
       x: new Date(lineData[location].time[i]),
       y: lineData[location].Speed[i],
@@ -98,11 +107,19 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   console.log(doubleLineCustomSeriesSpeed[0].dataSource);
   doubleLineCustomSeriesSpeed[1].dataSource = [
     {
-      x: new Date(lineData[location].time[15]),
+      x: new Date(
+        lineData[location].time[
+          Math.min(15, lineData[location].time.length - 1)
+        ]
+      ),
       y: selectType.speed.maximum,
     },
     {
-      x: new Date(lineData[location].time[15]),
+      x: new Date(
+        lineData[location].time[
+          Math.min(15, lineData[location].time.length - 1)
+        ]
+      ),
       y: selectType.speed.minimum,
     },
   ];
@@ -110,12 +127,20 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   for (var i = 0; i < lineData[location].recommand_speed.length; i++) {
     if (i !== 0) {
       temp.push({
-        x: new Date(lineData[location].time[15 + i]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1) + i
+          ]
+        ),
         y: lineData[location].recommand_speed[i],
       });
     } else {
       temp.push({
-        x: new Date(lineData[location].time[15 + i]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1) + i
+          ]
+        ),
         y: lineData[location].recommand_speed[i],
       });
     }
@@ -126,7 +151,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   //頻率
 
   var temp = [];
-  for (var i = 0; i < 16; i++) {
+  for (var i = 0; i < Math.min(16, lineData[location].time.length); i++) {
     temp.push({
       x: new Date(lineData[location].time[i]),
       y: lineData[location].frequency[i],
@@ -135,11 +160,19 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   doubleLineCustomSeriesFre[0].dataSource = temp;
   doubleLineCustomSeriesFre[1].dataSource = [
     {
-      x: new Date(lineData[location].time[15]),
+      x: new Date(
+        lineData[location].time[
+          Math.min(15, lineData[location].time.length - 1)
+        ]
+      ),
       y: selectType.frequency.maximum,
     },
     {
-      x: new Date(lineData[location].time[15]),
+      x: new Date(
+        lineData[location].time[
+          Math.min(15, lineData[location].time.length - 1)
+        ]
+      ),
       y: selectType.frequency.minimum,
     },
   ];
@@ -147,12 +180,20 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   for (var i = 0; i < lineData[location].recommand_frequency.length; i++) {
     if (i !== 0) {
       temp.push({
-        x: new Date(lineData[location].time[15 + i]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length) + i
+          ]
+        ),
         y: lineData[location].recommand_frequency[i],
       });
     } else {
       temp.push({
-        x: new Date(lineData[location].time[15 + i]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length) + i
+          ]
+        ),
         y: lineData[location].recommand_frequency[i],
       });
     }
@@ -162,22 +203,32 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   //Status
 
   var temp = [];
-  for (var i = 0; i < 16; i++) {
+  for (var i = 0; i < Math.min(16, lineData[location].time.length - 1); i++) {
     temp.push({
       x: new Date(lineData[location].time[i]),
       y: lineData[location].Status[i],
     });
   }
   doubleLineCustomSeriesState[0].dataSource = temp;
+  doubleLineCustomSeriesState[1].dataSource = [];
+  doubleLineCustomSeriesState[2].dataSource = [];
   // recommand_status
   if (lineData[location].recommand_status[0] !== undefined) {
     doubleLineCustomSeriesState[1].dataSource = [
       {
-        x: new Date(lineData[location].time[15]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1)
+          ]
+        ),
         y: selectType.state.maximum,
       },
       {
-        x: new Date(lineData[location].time[15]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1)
+          ]
+        ),
         y: selectType.state.minimum,
       },
     ];
@@ -185,12 +236,20 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     for (var i = 0; i < lineData[location].recommand_status.length; i++) {
       if (i !== 0) {
         temp.push({
-          x: new Date(lineData[location].time[15 + i]),
+          x: new Date(
+            lineData[location].time[
+              Math.min(15, lineData[location].time.length - 1) + i
+            ]
+          ),
           y: lineData[location].recommand_status[i],
         });
       } else {
         temp.push({
-          x: new Date(lineData[location].time[15 + i]),
+          x: new Date(
+            lineData[location].time[
+              Math.min(15, lineData[location].time.length - 1) + i
+            ]
+          ),
           y: lineData[location].recommand_status[i],
         });
       }
@@ -200,7 +259,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
 
   //G
   var temp = [];
-  for (var i = 0; i < 16; i++) {
+  for (var i = 0; i < Math.min(16, lineData[location].time.length); i++) {
     temp.push({
       x: new Date(lineData[location].time[i]),
       y: lineData[location].g_change[i],
@@ -209,11 +268,19 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   doubleLineCustomSeriesG[0].dataSource = temp;
   doubleLineCustomSeriesG[1].dataSource = [
     {
-      x: new Date(lineData[location].time[15]),
+      x: new Date(
+        lineData[location].time[
+          Math.min(15, lineData[location].time.length - 1)
+        ]
+      ),
       y: selectType.G.maximum,
     },
     {
-      x: new Date(lineData[location].time[15]),
+      x: new Date(
+        lineData[location].time[
+          Math.min(15, lineData[location].time.length - 1)
+        ]
+      ),
       y: selectType.G.minimum,
     },
   ];
@@ -221,12 +288,20 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   for (var i = 0; i < lineData[location].recommand_g_change.length; i++) {
     if (i !== 0) {
       temp.push({
-        x: new Date(lineData[location].time[15 + i]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1) + i
+          ]
+        ),
         y: lineData[location].recommand_g_change[i],
       });
     } else {
       temp.push({
-        x: new Date(lineData[location].time[15 + i]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1) + i
+          ]
+        ),
         y: lineData[location].recommand_g_change[i],
       });
     }
@@ -235,9 +310,10 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
 
   useEffect(() => {
     //機台
+    console.log(lineData[location]);
 
     var temp = [];
-    for (var i = 0; i < 16; i++) {
+    for (var i = 0; i < Math.min(16, lineData[location].time.length); i++) {
       temp.push({
         x: new Date(lineData[location].time[i]),
         y: lineData[location].Speed[i],
@@ -247,11 +323,19 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     console.log(doubleLineCustomSeriesSpeed[0].dataSource);
     doubleLineCustomSeriesSpeed[1].dataSource = [
       {
-        x: new Date(lineData[location].time[15]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1)
+          ]
+        ),
         y: selectType.speed.maximum,
       },
       {
-        x: new Date(lineData[location].time[15]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1)
+          ]
+        ),
         y: selectType.speed.minimum,
       },
     ];
@@ -259,12 +343,20 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     for (var i = 0; i < lineData[location].recommand_speed.length; i++) {
       if (i !== 0) {
         temp.push({
-          x: new Date(lineData[location].time[15 + i]),
+          x: new Date(
+            lineData[location].time[
+              Math.min(15, lineData[location].time.length - 1) + i
+            ]
+          ),
           y: lineData[location].recommand_speed[i],
         });
       } else {
         temp.push({
-          x: new Date(lineData[location].time[15 + i]),
+          x: new Date(
+            lineData[location].time[
+              Math.min(15, lineData[location].time.length - 1) + i
+            ]
+          ),
           y: lineData[location].recommand_speed[i],
         });
       }
@@ -275,7 +367,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     //頻率
 
     var temp = [];
-    for (var i = 0; i < 16; i++) {
+    for (var i = 0; i < Math.min(16, lineData[location].time.length); i++) {
       temp.push({
         x: new Date(lineData[location].time[i]),
         y: lineData[location].frequency[i],
@@ -284,11 +376,19 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     doubleLineCustomSeriesFre[0].dataSource = temp;
     doubleLineCustomSeriesFre[1].dataSource = [
       {
-        x: new Date(lineData[location].time[15]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1)
+          ]
+        ),
         y: selectType.frequency.maximum,
       },
       {
-        x: new Date(lineData[location].time[15]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1)
+          ]
+        ),
         y: selectType.frequency.minimum,
       },
     ];
@@ -296,12 +396,20 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     for (var i = 0; i < lineData[location].recommand_frequency.length; i++) {
       if (i !== 0) {
         temp.push({
-          x: new Date(lineData[location].time[15 + i]),
+          x: new Date(
+            lineData[location].time[
+              Math.min(15, lineData[location].time.length - 1) + i
+            ]
+          ),
           y: lineData[location].recommand_frequency[i],
         });
       } else {
         temp.push({
-          x: new Date(lineData[location].time[15 + i]),
+          x: new Date(
+            lineData[location].time[
+              Math.min(15, lineData[location].time.length - 1) + i
+            ]
+          ),
           y: lineData[location].recommand_frequency[i],
         });
       }
@@ -309,23 +417,34 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     doubleLineCustomSeriesFre[2].dataSource = temp;
 
     //Status
+
     var temp = [];
-    for (var i = 0; i < 16; i++) {
+    for (var i = 0; i < Math.min(16, lineData[location].time.length); i++) {
       temp.push({
         x: new Date(lineData[location].time[i]),
         y: lineData[location].Status[i],
       });
     }
     doubleLineCustomSeriesState[0].dataSource = temp;
+    doubleLineCustomSeriesState[1].dataSource = [];
+    doubleLineCustomSeriesState[2].dataSource = [];
     // recommand_status
     if (lineData[location].recommand_status[0] !== undefined) {
       doubleLineCustomSeriesState[1].dataSource = [
         {
-          x: new Date(lineData[location].time[15]),
+          x: new Date(
+            lineData[location].time[
+              Math.min(15, lineData[location].time.length - 1)
+            ]
+          ),
           y: selectType.state.maximum,
         },
         {
-          x: new Date(lineData[location].time[15]),
+          x: new Date(
+            lineData[location].time[
+              Math.min(15, lineData[location].time.length - 1)
+            ]
+          ),
           y: selectType.state.minimum,
         },
       ];
@@ -333,12 +452,20 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
       for (var i = 0; i < lineData[location].recommand_status.length; i++) {
         if (i !== 0) {
           temp.push({
-            x: new Date(lineData[location].time[15 + i]),
+            x: new Date(
+              lineData[location].time[
+                Math.min(15, lineData[location].time.length - 1) + i
+              ]
+            ),
             y: lineData[location].recommand_status[i],
           });
         } else {
           temp.push({
-            x: new Date(lineData[location].time[15 + i]),
+            x: new Date(
+              lineData[location].time[
+                Math.min(15, lineData[location].time.length - 1) + i
+              ]
+            ),
             y: lineData[location].recommand_status[i],
           });
         }
@@ -348,7 +475,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
 
     //G
     var temp = [];
-    for (var i = 0; i < 16; i++) {
+    for (var i = 0; i < Math.min(16, lineData[location].time.length); i++) {
       temp.push({
         x: new Date(lineData[location].time[i]),
         y: lineData[location].g_change[i],
@@ -357,11 +484,19 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     doubleLineCustomSeriesG[0].dataSource = temp;
     doubleLineCustomSeriesG[1].dataSource = [
       {
-        x: new Date(lineData[location].time[15]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1)
+          ]
+        ),
         y: selectType.G.maximum,
       },
       {
-        x: new Date(lineData[location].time[15]),
+        x: new Date(
+          lineData[location].time[
+            Math.min(15, lineData[location].time.length - 1)
+          ]
+        ),
         y: selectType.G.minimum,
       },
     ];
@@ -369,17 +504,25 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     for (var i = 0; i < lineData[location].recommand_g_change.length; i++) {
       if (i !== 0) {
         temp.push({
-          x: new Date(lineData[location].time[15 + i]),
+          x: new Date(
+            lineData[location].time[
+              Math.min(15, lineData[location].time.length - 1) + i
+            ]
+          ),
           y: lineData[location].recommand_g_change[i],
         });
       } else {
         temp.push({
-          x: new Date(lineData[location].time[15 + i]),
+          x: new Date(
+            lineData[location].time[
+              Math.min(15, lineData[location].time.length - 1) + i
+            ]
+          ),
           y: lineData[location].recommand_g_change[i],
         });
       }
-      doubleLineCustomSeriesG[2].dataSource = temp;
     }
+    doubleLineCustomSeriesG[2].dataSource = temp;
   }, [lineData[location].Speed.length, test]);
 
   return (
