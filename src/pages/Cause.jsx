@@ -3,22 +3,53 @@ import { Header } from "../components";
 import axios from "axios";
 
 const Cause = () => {
+  const formatTime = (date) => {
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, "0");
+    let day = String(date.getDate()).padStart(2, "0");
+    let hours = String(date.getHours()).padStart(2, "0");
+    let minutes = String(date.getMinutes()).padStart(2, "0");
+    let seconds = String(date.getSeconds()).padStart(2, "0");
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
   const [inputFixTimeValue, setInputFixTimeValue] = useState("預測成本統計");
   const [causeData, setCauseData] = useState([]);
   useEffect(() => {
     const formData = new URLSearchParams();
     formData.append("username", process.env.REACT_APP_extra_predict_username);
     formData.append("password", process.env.REACT_APP_extra_predict_password);
+
+    let now = new Date(); // 取得現在的時間
+
+    // 計算一個月前的時間
+    let oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(now.getMonth() - 1);
+
+    // 格式化時間為 yyyy-MM-dd HH:mm:ss 格式
+
+    const params = {
+      Start_time: formatTime(oneMonthAgo),
+      End_time: formatTime(now),
+    };
     let url = process.env.REACT_APP_extract_taguchi_result_data;
-    axios
-      .post(url, formData, {
+    console.log(url);
+    let url2 = process.env.REACT_APP_count_alarm_stampers_data;
+    console.log(url2);
+    Promise.all([
+      axios.post(url, formData, {}),
+      axios.post(url2, formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      })
+        params: params,
+      }),
+    ])
       .then((res) => {
-        console.log(res.data);
-        setCauseData(res.data);
+        const [firstResponse, secondResponse] = res;
+        console.log(firstResponse.data);
+        console.log(secondResponse.data);
+        setCauseData(firstResponse.data);
+        // setCauseData(secondResponse.data)
       })
       .catch((error) => {
         if (error.response) {

@@ -212,9 +212,6 @@ const Realtime = () => {
       })
       .then((res) => {
         console.log(res);
-        // if (res.data == "data insert to db") {
-        //   CallAlarmStampersDataApi();
-        // }
       })
       .catch((error) => {
         if (error.response) {
