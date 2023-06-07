@@ -14,7 +14,7 @@ import {
   Inject,
   colGroup,
 } from "@syncfusion/ej2-react-grids";
-
+import { useNavigate } from "react-router-dom";
 import { Pie as PieChart, LineChart } from "../components";
 import axios from "axios";
 import { realtimeData, contextMenuItems, realtimeGrid } from "../data/dummy";
@@ -662,7 +662,28 @@ const Realtime = () => {
   };
 
   const MINUTE_MS = 60000;
+  //query
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(window.location.search);
+  var verlified = true;
+  var query = JSON.parse(process.env.REACT_APP_extra_query);
+  var ans_query = JSON.parse(process.env.REACT_APP_extra_query_ans);
+  var getQuery = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    for (var i = 0; i < query.length; i++) {
+      if (ans_query[i] !== queryParams.get(query[i])) {
+        verlified = false;
+        break;
+      }
+    }
+  };
+  getQuery();
   useEffect(() => {
+    console.log("The verlified is " + verlified);
+    if (verlified === false) {
+      navigate("/404");
+    }
     if (lineData.length === 0) {
       CallApi(40);
     }
@@ -689,13 +710,6 @@ const Realtime = () => {
     allowEditing: true,
     template: dialogTemplete,
   };
-
-  var pieChartData = [
-    { x: "預防成本", y: 20, text: "20%" },
-    { x: "鑑定成本", y: 9.8, text: "9.8%" },
-    { x: "內部失敗成本", y: 66.2, text: "66.2%" },
-    { x: "外部失敗成本", y: 11, text: "3%" },
-  ];
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl  overflow-y-auto">

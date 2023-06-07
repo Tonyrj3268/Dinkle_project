@@ -85,6 +85,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     },
   };
   //機台
+  console.log(lineData[location]);
 
   var temp = [];
   for (var i = 0; i < 16; i++) {
@@ -159,6 +160,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   doubleLineCustomSeriesFre[2].dataSource = temp;
 
   //Status
+
   var temp = [];
   for (var i = 0; i < 16; i++) {
     temp.push({
@@ -167,10 +169,38 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     });
   }
   doubleLineCustomSeriesState[0].dataSource = temp;
+  // recommand_status
+  if (lineData[location].recommand_status[0] !== undefined) {
+    doubleLineCustomSeriesState[1].dataSource = [
+      {
+        x: new Date(lineData[location].time[15]),
+        y: selectType.state.maximum,
+      },
+      {
+        x: new Date(lineData[location].time[15]),
+        y: selectType.state.minimum,
+      },
+    ];
+    var temp = [];
+    for (var i = 0; i < lineData[location].recommand_status.length; i++) {
+      if (i !== 0) {
+        temp.push({
+          x: new Date(lineData[location].time[15 + i]),
+          y: lineData[location].recommand_status[i],
+        });
+      } else {
+        temp.push({
+          x: new Date(lineData[location].time[15 + i]),
+          y: lineData[location].recommand_status[i],
+        });
+      }
+    }
+    doubleLineCustomSeriesState[2].dataSource = temp;
+  }
 
   //G
   var temp = [];
-  for (var i = 0; i < lineData[location].g_change.length; i++) {
+  for (var i = 0; i < 16; i++) {
     temp.push({
       x: new Date(lineData[location].time[i]),
       y: lineData[location].g_change[i],
@@ -201,6 +231,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
       });
     }
   }
+  doubleLineCustomSeriesG[2].dataSource = temp;
 
   useEffect(() => {
     //機台
@@ -286,10 +317,38 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
       });
     }
     doubleLineCustomSeriesState[0].dataSource = temp;
+    // recommand_status
+    if (lineData[location].recommand_status[0] !== undefined) {
+      doubleLineCustomSeriesState[1].dataSource = [
+        {
+          x: new Date(lineData[location].time[15]),
+          y: selectType.state.maximum,
+        },
+        {
+          x: new Date(lineData[location].time[15]),
+          y: selectType.state.minimum,
+        },
+      ];
+      var temp = [];
+      for (var i = 0; i < lineData[location].recommand_status.length; i++) {
+        if (i !== 0) {
+          temp.push({
+            x: new Date(lineData[location].time[15 + i]),
+            y: lineData[location].recommand_status[i],
+          });
+        } else {
+          temp.push({
+            x: new Date(lineData[location].time[15 + i]),
+            y: lineData[location].recommand_status[i],
+          });
+        }
+      }
+      doubleLineCustomSeriesState[2].dataSource = temp;
+    }
 
     //G
     var temp = [];
-    for (var i = 0; i < lineData[location].g_change.length; i++) {
+    for (var i = 0; i < 16; i++) {
       temp.push({
         x: new Date(lineData[location].time[i]),
         y: lineData[location].g_change[i],
@@ -319,6 +378,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
           y: lineData[location].recommand_g_change[i],
         });
       }
+      doubleLineCustomSeriesG[2].dataSource = temp;
     }
   }, [lineData[location].Speed.length, test]);
 

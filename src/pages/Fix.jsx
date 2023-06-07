@@ -4,7 +4,7 @@ import { Header } from "../components";
 import FixData from "../components/FixData";
 import { useStateContext } from "../contexts/ContextProvider";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 class Repair {
   constructor() {
     this.machine = "";
@@ -84,7 +84,28 @@ const Fix = () => {
       });
   };
   const { repairData, setRepairData } = useStateContext();
+  //query
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(window.location.search);
+  var verlified = true;
+  var query = JSON.parse(process.env.REACT_APP_extra_query);
+  var ans_query = JSON.parse(process.env.REACT_APP_extra_query_ans);
+  var getQuery = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    for (var i = 0; i < query.length; i++) {
+      if (ans_query[i] !== queryParams.get(query[i])) {
+        verlified = false;
+        break;
+      }
+    }
+  };
+  getQuery();
   useEffect(() => {
+    console.log("The verlified is " + verlified);
+    if (verlified === false) {
+      navigate("/404");
+    }
     CallAlarmStampersDataApi();
   }, []);
   return (
@@ -94,22 +115,22 @@ const Fix = () => {
         {repairData.map((d, i) => (
           <FixData props={d} key={i}></FixData>
         ))}
-        <div className="p-4 flex justify-center gap-4 ">
-          <button className="flex justify-center items-center w-8 h-8  ">
-            <img
-              src="https://cdn4.iconfinder.com/data/icons/geomicons/32/672373-chevron-left-512.png"
-              className="w-6 h-6 to-gray-800 stroke-current hover:text-indigo-600"
-            />
-          </button>
-          <button className="flex justify-center items-center w-8 h-8">
-            <img
-              src="https://cdn4.iconfinder.com/data/icons/geomicons/32/672374-chevron-right-512.png"
-              className="w-6 h-6 to-gray-800 stroke-current hover:text-indigo-600"
-            />
-          </button>
-        </div>
       </div>
     </div>
   );
 };
 export default Fix;
+// <div className="p-4 flex justify-center gap-4 ">
+// <button className="flex justify-center items-center w-8 h-8  ">
+//   <img
+//     src="https://cdn4.iconfinder.com/data/icons/geomicons/32/672373-chevron-left-512.png"
+//     className="w-6 h-6 to-gray-800 stroke-current hover:text-indigo-600"
+//   />
+// </button>
+// <button className="flex justify-center items-center w-8 h-8">
+//   <img
+//     src="https://cdn4.iconfinder.com/data/icons/geomicons/32/672374-chevron-right-512.png"
+//     className="w-6 h-6 to-gray-800 stroke-current hover:text-indigo-600"
+//   />
+// </button>
+// </div>

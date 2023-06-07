@@ -38,8 +38,10 @@ const Admin = () => {
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(window.location.search);
   var verlified = true;
-  var query = ["id1", "id2", "id3"];
-  var ans_query = ["1", "2", "3"];
+  var query = JSON.parse(process.env.REACT_APP_extra_query);
+  var ans_query = JSON.parse(process.env.REACT_APP_extra_query_ans);
+  console.log(query);
+  console.log(ans_query);
   var getQuery = () => {
     const queryParams = new URLSearchParams(window.location.search);
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Header } from "../components";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const Cause = () => {
   const formatTime = (date) => {
     let year = date.getFullYear();
@@ -14,7 +14,33 @@ const Cause = () => {
   };
   const [inputFixTimeValue, setInputFixTimeValue] = useState("預測成本統計");
   const [causeData, setCauseData] = useState([]);
+  const [totalData, setTotalData] = useState({
+    不處理數量: 0,
+    空白數量: 0,
+    處理數量: 0,
+  });
+  //query
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(window.location.search);
+  var verlified = true;
+  var query = JSON.parse(process.env.REACT_APP_extra_query);
+  var ans_query = JSON.parse(process.env.REACT_APP_extra_query_ans);
+  var getQuery = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    for (var i = 0; i < query.length; i++) {
+      if (ans_query[i] !== queryParams.get(query[i])) {
+        verlified = false;
+        break;
+      }
+    }
+  };
+  getQuery();
   useEffect(() => {
+    console.log("The verlified is " + verlified);
+    if (verlified === false) {
+      navigate("/404");
+    }
     const formData = new URLSearchParams();
     formData.append("username", process.env.REACT_APP_extra_predict_username);
     formData.append("password", process.env.REACT_APP_extra_predict_password);
@@ -49,6 +75,7 @@ const Cause = () => {
         console.log(firstResponse.data);
         console.log(secondResponse.data);
         setCauseData(firstResponse.data);
+        setTotalData(secondResponse.data[0]);
         // setCauseData(secondResponse.data)
       })
       .catch((error) => {
@@ -74,18 +101,64 @@ const Cause = () => {
       </div>
 
       <div className=" w-full h-full flex flex-col gap-4 font-semibold text-white">
+        <div className="flex gap-2">
+          <div className=" dark:text-gray-200 bg-green-500 h-32 rounded-xl w-1/3 px-4 py-5 m-1  bg-center">
+            <div className="flex justify-between items-center ">
+              <div>
+                <p>正確預測和不正確比例</p>
+              </div>
+            </div>
+            <div className="mt-2">
+              <p className="text-3xl font-bold ">
+                {Math.round(
+                  (totalData.處理數量 /
+                    (totalData.處理數量 +
+                      totalData.空白數量 +
+                      totalData.不處理數量)) *
+                    100
+                )}
+                %
+              </p>
+            </div>
+          </div>
+          <div className=" dark:text-gray-200 bg-green-500 h-32 rounded-xl w-1/3 px-4 py-5 m-1  bg-center">
+            <div className="flex justify-between items-center ">
+              <div>
+                <p>處理總數</p>
+              </div>
+            </div>
+            <div className="mt-2">
+              <p className="text-3xl font-bold ">{totalData.處理數量}</p>
+            </div>
+          </div>
+          <div className=" dark:text-gray-200 bg-green-500 h-32 rounded-xl w-1/3 px-4 py-5 m-1  bg-center">
+            <div className="flex justify-between items-center ">
+              <div>
+                <p>不處理和尚未處理總數</p>
+              </div>
+            </div>
+            <div className="mt-1">
+              <p className="text-3xl font-bold ">
+                {totalData.空白數量 + totalData.不處理數量}
+              </p>
+            </div>
+          </div>
+        </div>
+
         {causeData.map((d, i) => (
           <div
             key={i}
-            className=" flex flex-col gap-2 text-white p-4 bg-white rounded-2xl bg-slate-500 "
+            className=" flex flex-col gap-2 text-white p-4  rounded-2xl bg-slate-500 "
           >
             {" "}
             <p className="text-xl font-bold  ">Detail : {d.detail_name}</p>
             <p className="text-l font-bold  ">料號 : {d.product}</p>
-            <p className="text-l font-bold  ">
-              有沒有震動儀 : {d.have_vibration == 0 ? "沒有" : "有"}
+            <p className="text-l font-bold ">
+              重要因子 :{" "}
+              {d.influence_mode == "Status"
+                ? "Status是否正常"
+                : `${d.influence_mode}誤差是否在一個標準差內`}
             </p>
-            <p className="text-l font-bold ">重要因子 : {d.influence_mode}</p>
           </div>
         ))}
       </div>
