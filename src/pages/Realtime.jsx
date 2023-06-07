@@ -120,6 +120,7 @@ class Machine {
     this.recommand_speed = [];
     this.recommand_g_change = [];
     this.recommand_frequency = [];
+    this.recommand_status = [];
   }
 }
 
@@ -304,12 +305,14 @@ const Realtime = () => {
           machine.recommand_speed = [];
           machine.recommand_g_change = [];
           machine.recommand_frequency = [];
+          machine.recommand_status = [];
           for (let num = 1; num <= 4; num++) {
             machine.recommand_speed.push(json[`recommand_speed_${num}`]);
             machine.recommand_g_change.push(json[`recommand_g_change_${num}`]);
             machine.recommand_frequency.push(
               json[`recommand_frequency_${num}`]
             );
+            machine.recommand_status.push(json[`recommand_status_${num}`]);
           }
           machine.is_qualified.push(is_qualified);
           if (!is_qualified) {
@@ -406,10 +409,12 @@ const Realtime = () => {
         machine.recommand_speed = [];
         machine.recommand_g_change = [];
         machine.recommand_frequency = [];
+        machine.recommand_status = [];
         for (let num = 1; num <= 4; num++) {
           machine.recommand_speed.push(json[`recommand_speed_${num}`]);
           machine.recommand_g_change.push(json[`recommand_g_change_${num}`]);
           machine.recommand_frequency.push(json[`recommand_frequency_${num}`]);
+          machine.recommand_status.push(json[`recommand_status_${num}`]);
         }
         machine.is_qualified.push(is_qualified);
         all_machine.push(machine);
@@ -551,10 +556,12 @@ const Realtime = () => {
     machine.recommand_speed = [];
     machine.recommand_g_change = [];
     machine.recommand_frequency = [];
+    machine.recommand_status = [];
     for (let num = 1; num <= 4; num++) {
       machine.recommand_speed.push(json[`recommand_speed_${num}`]);
       machine.recommand_g_change.push(json[`recommand_g_change_${num}`]);
       machine.recommand_frequency.push(json[`recommand_frequency_${num}`]);
+      machine.recommand_status.push(json[`recommand_status_${num}`]);
     }
     machine.is_qualified.push(is_qualified);
     return machine;
