@@ -29,7 +29,7 @@ const DiaLog = (props) => {
   useEffect(() => {
     var tem = [];
     for (let i = 1; i <= 13; i++) {
-      if (lineData[props.location][`standard_detail_name_${i}`] !== undefined) {
+      if (lineData[props.location][`standard_detail_name_${i}`].length > 3) {
         tem.push({
           name: lineData[props.location][`standard_detail_name_${i}`],
           details: lineData[props.location][`pred_avg_detail_${i}`],

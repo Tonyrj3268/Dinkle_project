@@ -12,8 +12,9 @@ const Cause = () => {
     let seconds = String(date.getSeconds()).padStart(2, "0");
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
-  const [inputFixTimeValue, setInputFixTimeValue] = useState("預測成本統計");
+  const [inputProduct, setInputProductValue] = useState([]);
   const [causeData, setCauseData] = useState([]);
+  const [presentData, setPresentData] = useState([]);
   const [totalData, setTotalData] = useState({
     不處理數量: 0,
     空白數量: 0,
@@ -34,6 +35,17 @@ const Cause = () => {
         break;
       }
     }
+  };
+  var setProductData = (props) => {
+    var temp = [];
+    for (var i = 0; i < causeData.length; i++) {
+      if (causeData[i].product == props) {
+        temp.push(causeData[i]);
+      }
+    }
+    console.log(temp);
+    console.log(props);
+    setPresentData(temp);
   };
   getQuery();
   useEffect(() => {
@@ -74,8 +86,16 @@ const Cause = () => {
         const [firstResponse, secondResponse] = res;
         console.log(firstResponse.data);
         console.log(secondResponse.data);
+        setPresentData(firstResponse.data);
         setCauseData(firstResponse.data);
         setTotalData(secondResponse.data[0]);
+        var inputProduct = [];
+        for (var i = 0; i < firstResponse.data.length; i++) {
+          if (!inputProduct.includes(firstResponse.data[i].product)) {
+            inputProduct.push(firstResponse.data[i].product);
+          }
+        }
+        setInputProductValue(inputProduct);
         // setCauseData(secondResponse.data)
       })
       .catch((error) => {
@@ -105,25 +125,6 @@ const Cause = () => {
           <div className=" dark:text-gray-200 bg-green-500 h-32 rounded-xl w-1/3 px-4 py-5 m-1  bg-center">
             <div className="flex justify-between items-center ">
               <div>
-                <p>正確預測和不正確比例</p>
-              </div>
-            </div>
-            <div className="mt-2">
-              <p className="text-3xl font-bold ">
-                {Math.round(
-                  (totalData.處理數量 /
-                    (totalData.處理數量 +
-                      totalData.空白數量 +
-                      totalData.不處理數量)) *
-                    100
-                )}
-                %
-              </p>
-            </div>
-          </div>
-          <div className=" dark:text-gray-200 bg-green-500 h-32 rounded-xl w-1/3 px-4 py-5 m-1  bg-center">
-            <div className="flex justify-between items-center ">
-              <div>
                 <p>處理總數</p>
               </div>
             </div>
@@ -134,18 +135,47 @@ const Cause = () => {
           <div className=" dark:text-gray-200 bg-green-500 h-32 rounded-xl w-1/3 px-4 py-5 m-1  bg-center">
             <div className="flex justify-between items-center ">
               <div>
-                <p>不處理和尚未處理總數</p>
+                <p>不處理總數</p>
+              </div>
+            </div>
+            <div className="mt-2">
+              <p className="text-3xl font-bold ">{totalData.不處理數量}</p>
+            </div>
+          </div>
+          <div className=" dark:text-gray-200 bg-green-500 h-32 rounded-xl w-1/3 px-4 py-5 m-1  bg-center">
+            <div className="flex justify-between items-center ">
+              <div>
+                <p>尚未處理總數</p>
               </div>
             </div>
             <div className="mt-1">
-              <p className="text-3xl font-bold ">
-                {totalData.空白數量 + totalData.不處理數量}
-              </p>
+              <p className="text-3xl font-bold ">{totalData.空白數量}</p>
             </div>
           </div>
         </div>
+        <div className="w-full flex gap-4">
+          <p className=" text-white w-1/4 p-2 bg-green-500 text-center rounded-full ">
+            選擇料號：
+          </p>
+          <select
+            onChange={(e) => {
+              setProductData(e.target.value);
+            }}
+            className=" border-1 w-3/4 text-black text-center rounded-full"
+            placeholder="料號選擇"
+          >
+            {inputProduct.map((d, i) => (
+              <option id={i + d} value={d}>
+                {d}
+              </option>
+            ))}
+            <option id="123" value="123">
+              測試完全沒有的料號
+            </option>
+          </select>
+        </div>
 
-        {causeData.map((d, i) => (
+        {presentData.map((d, i) => (
           <div
             key={i}
             className=" flex flex-col gap-2 text-white p-4  rounded-2xl bg-slate-500 "
