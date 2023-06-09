@@ -37,93 +37,93 @@ class Machine {
     this.good_rate = 100;
     this.accumulativeMin = 0;
 
-    this.pred_avg_detail_1 = [];
-    this.pred_avg_detail_2 = [];
-    this.pred_avg_detail_3 = [];
-    this.pred_avg_detail_4 = [];
-    this.pred_avg_detail_5 = [];
-    this.pred_avg_detail_6 = [];
-    this.pred_avg_detail_7 = [];
-    this.pred_avg_detail_8 = [];
-    this.pred_avg_detail_9 = [];
-    this.pred_avg_detail_10 = [];
-    this.pred_avg_detail_11 = [];
-    this.pred_avg_detail_12 = [];
-    this.pred_avg_detail_13 = [];
+    // this.pred_avg_detail_1 = [];
+    // this.pred_avg_detail_2 = [];
+    // this.pred_avg_detail_3 = [];
+    // this.pred_avg_detail_4 = [];
+    // this.pred_avg_detail_5 = [];
+    // this.pred_avg_detail_6 = [];
+    // this.pred_avg_detail_7 = [];
+    // this.pred_avg_detail_8 = [];
+    // this.pred_avg_detail_9 = [];
+    // this.pred_avg_detail_10 = [];
+    // this.pred_avg_detail_11 = [];
+    // this.pred_avg_detail_12 = [];
+    // this.pred_avg_detail_13 = [];
 
-    this.pred_max_detail_1 = [];
-    this.pred_max_detail_2 = [];
-    this.pred_max_detail_3 = [];
-    this.pred_max_detail_4 = [];
-    this.pred_max_detail_5 = [];
-    this.pred_max_detail_6 = [];
-    this.pred_max_detail_7 = [];
-    this.pred_max_detail_8 = [];
-    this.pred_max_detail_9 = [];
-    this.pred_max_detail_10 = [];
-    this.pred_max_detail_11 = [];
-    this.pred_max_detail_12 = [];
-    this.pred_max_detail_13 = [];
-    this.pred_min_detail_1 = [];
-    this.pred_min_detail_2 = [];
-    this.pred_min_detail_3 = [];
-    this.pred_min_detail_4 = [];
-    this.pred_min_detail_5 = [];
-    this.pred_min_detail_6 = [];
-    this.pred_min_detail_7 = [];
-    this.pred_min_detail_8 = [];
-    this.pred_min_detail_9 = [];
-    this.pred_min_detail_10 = [];
-    this.pred_min_detail_11 = [];
-    this.pred_min_detail_12 = [];
-    this.pred_min_detail_13 = [];
+    // this.pred_max_detail_1 = [];
+    // this.pred_max_detail_2 = [];
+    // this.pred_max_detail_3 = [];
+    // this.pred_max_detail_4 = [];
+    // this.pred_max_detail_5 = [];
+    // this.pred_max_detail_6 = [];
+    // this.pred_max_detail_7 = [];
+    // this.pred_max_detail_8 = [];
+    // this.pred_max_detail_9 = [];
+    // this.pred_max_detail_10 = [];
+    // this.pred_max_detail_11 = [];
+    // this.pred_max_detail_12 = [];
+    // this.pred_max_detail_13 = [];
+    // this.pred_min_detail_1 = [];
+    // this.pred_min_detail_2 = [];
+    // this.pred_min_detail_3 = [];
+    // this.pred_min_detail_4 = [];
+    // this.pred_min_detail_5 = [];
+    // this.pred_min_detail_6 = [];
+    // this.pred_min_detail_7 = [];
+    // this.pred_min_detail_8 = [];
+    // this.pred_min_detail_9 = [];
+    // this.pred_min_detail_10 = [];
+    // this.pred_min_detail_11 = [];
+    // this.pred_min_detail_12 = [];
+    // this.pred_min_detail_13 = [];
 
-    this.standard_max_detail_1 = 0;
-    this.standard_max_detail_2 = 0;
-    this.standard_max_detail_3 = 0;
-    this.standard_max_detail_4 = 0;
-    this.standard_max_detail_5 = 0;
-    this.standard_max_detail_6 = 0;
-    this.standard_max_detail_7 = 0;
-    this.standard_max_detail_8 = 0;
-    this.standard_max_detail_9 = 0;
-    this.standard_max_detail_10 = 0;
-    this.standard_max_detail_11 = 0;
-    this.standard_max_detail_12 = 0;
-    this.standard_max_detail_13 = 0;
-    this.standard_min_detail_1 = 0;
-    this.standard_min_detail_2 = 0;
-    this.standard_min_detail_3 = 0;
-    this.standard_min_detail_4 = 0;
-    this.standard_min_detail_5 = 0;
-    this.standard_min_detail_6 = 0;
-    this.standard_min_detail_7 = 0;
-    this.standard_min_detail_8 = 0;
-    this.standard_min_detail_9 = 0;
-    this.standard_min_detail_10 = 0;
-    this.standard_min_detail_11 = 0;
-    this.standard_min_detail_12 = 0;
-    this.standard_min_detail_13 = 0;
-    this.standard_detail_name_1 = "";
-    this.standard_detail_name_2 = "";
-    this.standard_detail_name_3 = "";
-    this.standard_detail_name_4 = "";
-    this.standard_detail_name_5 = "";
-    this.standard_detail_name_6 = "";
-    this.standard_detail_name_7 = "";
-    this.standard_detail_name_8 = "";
-    this.standard_detail_name_9 = "";
-    this.standard_detail_name_10 = "";
-    this.standard_detail_name_11 = "";
-    this.standard_detail_name_12 = "";
-    this.standard_detail_name_13 = "";
+    // this.standard_max_detail_1 = 0;
+    // this.standard_max_detail_2 = 0;
+    // this.standard_max_detail_3 = 0;
+    // this.standard_max_detail_4 = 0;
+    // this.standard_max_detail_5 = 0;
+    // this.standard_max_detail_6 = 0;
+    // this.standard_max_detail_7 = 0;
+    // this.standard_max_detail_8 = 0;
+    // this.standard_max_detail_9 = 0;
+    // this.standard_max_detail_10 = 0;
+    // this.standard_max_detail_11 = 0;
+    // this.standard_max_detail_12 = 0;
+    // this.standard_max_detail_13 = 0;
+    // this.standard_min_detail_1 = 0;
+    // this.standard_min_detail_2 = 0;
+    // this.standard_min_detail_3 = 0;
+    // this.standard_min_detail_4 = 0;
+    // this.standard_min_detail_5 = 0;
+    // this.standard_min_detail_6 = 0;
+    // this.standard_min_detail_7 = 0;
+    // this.standard_min_detail_8 = 0;
+    // this.standard_min_detail_9 = 0;
+    // this.standard_min_detail_10 = 0;
+    // this.standard_min_detail_11 = 0;
+    // this.standard_min_detail_12 = 0;
+    // this.standard_min_detail_13 = 0;
+    // this.standard_detail_name_1 = "";
+    // this.standard_detail_name_2 = "";
+    // this.standard_detail_name_3 = "";
+    // this.standard_detail_name_4 = "";
+    // this.standard_detail_name_5 = "";
+    // this.standard_detail_name_6 = "";
+    // this.standard_detail_name_7 = "";
+    // this.standard_detail_name_8 = "";
+    // this.standard_detail_name_9 = "";
+    // this.standard_detail_name_10 = "";
+    // this.standard_detail_name_11 = "";
+    // this.standard_detail_name_12 = "";
+    // this.standard_detail_name_13 = "";
 
-    this.pred_max_detail = [];
-    this.pred_min_detail = [];
-    this.pred_avg_detail = [];
-    this.standard_max_detail = [];
-    this.standard_min_detail = [];
-    this.standard_detial_name = [];
+    this.pred_max_detail = {};
+    this.pred_min_detail = {};
+    this.pred_avg_detail = {};
+    this.standard_max_detail = {};
+    this.standard_min_detail = {};
+    this.standard_detial_name = {};
 
     this.recommand_speed = [];
     this.recommand_g_change = [];
@@ -151,11 +151,10 @@ const Realtime = () => {
     repairData,
     setRepairData,
   } = useStateContext();
-
+  const formData = new URLSearchParams();
+  formData.append("username", process.env.REACT_APP_extra_predict_username);
+  formData.append("password", process.env.REACT_APP_extra_predict_password);
   const CallApi = (minAgo) => {
-    const formData = new URLSearchParams();
-    formData.append("username", process.env.REACT_APP_extra_predict_username);
-    formData.append("password", process.env.REACT_APP_extra_predict_password);
     const params = {
       Show_type: process.env.REACT_APP_Show_type,
       Work_type: process.env.REACT_APP_Work_type,
@@ -191,11 +190,7 @@ const Realtime = () => {
   };
 
   const CallInsertAlarmStampersDataApi = (InsertData) => {
-    const formData = new URLSearchParams();
-    formData.append("username", process.env.REACT_APP_extra_predict_username);
-    formData.append("password", process.env.REACT_APP_extra_predict_password);
     console.log(InsertData);
-    //check if InsertData.machine、product、Pred_time、Detail_name is undefined
     if (
       InsertData.machine == undefined ||
       InsertData.product == undefined ||
@@ -263,204 +258,34 @@ const Realtime = () => {
                 machine[key].shift();
               }
             });
-          }
-
-          machine.time.push(json.time);
-          machine.frequency.push(json.frequency);
-          machine.Speed.push(json.Speed);
-          machine.Status.push(json.Status);
-          machine.g_change.push(json.g_change);
-          machine.have_vibration = json.have_vibration;
-          let is_qualified = true;
-          let unpass_predict_name = "";
-          for (let num = 1; num <= 13; num++) {
-            let detailName = `detail_${num}`;
-            if (json[`standard_detail_name_${num}`] === undefined) {
-              break;
-            }
-            machine[`pred_avg_${detailName}`].push(
-              Number(
-                (
-                  (json[`pred_max_${detailName}`] +
-                    json[`pred_min_${detailName}`]) /
-                  2
-                ).toFixed(2)
-              )
-            );
-            machine[`pred_max_${detailName}`].push(
-              json[`pred_max_${detailName}`].toFixed(3)
-            );
-            machine[`pred_min_${detailName}`].push(
-              json[`pred_min_${detailName}`].toFixed(3)
-            );
-            machine[`standard_max_${detailName}`] =
-              json[`standard_max_${detailName}`];
-            machine[`standard_min_${detailName}`] =
-              json[`standard_min_${detailName}`];
-            machine[`standard_detail_name_${num}`] =
-              json[`standard_detail_name_${num}`];
-
-            if (
-              json[`pred_max_${detailName}`] >
-                json[`standard_max_${detailName}`] ||
-              json[`pred_min_${detailName}`] <
-                json[`standard_min_${detailName}`]
-            ) {
-              is_qualified = false;
-              unpass_predict_name += json[`standard_detail_name_${num}`] + ",";
-            }
-          }
-          machine.recommand_speed = [];
-          machine.recommand_g_change = [];
-          machine.recommand_frequency = [];
-          machine.recommand_status = [];
-          for (let num = 1; num <= 4; num++) {
-            machine.recommand_speed.push(json[`recommand_speed_${num}`]);
-            machine.recommand_g_change.push(json[`recommand_g_change_${num}`]);
-            machine.recommand_frequency.push(
-              json[`recommand_frequency_${num}`]
-            );
-            machine.recommand_status.push(json[`recommand_Status_${num}`]);
-          }
-          machine.is_qualified.push(is_qualified);
-          if (!is_qualified) {
-            console.log(unpass_predict_name);
-            let data = repairData;
-            let now = new Date(); // 取得現在的時間
-            let timeThreshold = 20; // 分鐘數閾值
-
-            // 檢查時間是否在閾值內的函式
-            let isWithinTimeThreshold = (timeString, thresholdMinutes) => {
-              let time = new Date(timeString);
-              let diffMilliseconds = now - time;
-              let diffMinutes = Math.floor(diffMilliseconds / (1000 * 60));
-              return diffMinutes >= thresholdMinutes;
-            };
-
-            // 找出符合條件的資料
-            let filteredData = data.filter((item) =>
-              isWithinTimeThreshold(item.pred_time, timeThreshold)
-            );
-            console.log(json.machine);
-            console.log(filteredData);
-            console.log(json.machine);
-            console.log(json.product);
-            for (let num = 0; num < filteredData.length; num++) {
-              if (
-                filteredData[num].machine === json.machine &&
-                filteredData[num].product === json.product
-              ) {
-                let InsertData = {
-                  machine: json.machine,
-                  product: json.product,
-                  Pred_time: json.time,
-                  Detail_name: unpass_predict_name.slice(
-                    0,
-                    unpass_predict_name.length - 1
-                  ),
-                };
-                console.log("InsertData");
-                CallInsertAlarmStampersDataApi(InsertData);
-                break;
+            Object.keys(machine["pred_avg_detail"]).forEach((key) => {
+              if (Array.isArray(machine["pred_avg_detail"][key])) {
+                machine["pred_avg_detail"][key].shift();
               }
-            }
+            });
+            Object.keys(machine["pred_max_detail"]).forEach((key) => {
+              if (Array.isArray(machine["pred_max_detail"][key])) {
+                machine["pred_max_detail"][key].shift();
+              }
+            });
+            Object.keys(machine["pred_min_detail"]).forEach((key) => {
+              if (Array.isArray(machine["pred_min_detail"][key])) {
+                machine["pred_min_detail"][key].shift();
+              }
+            });
           }
+          let unpass_predict_name = "";
+          machine = AddDataInMachine(machine, json, unpass_predict_name);
         }
       });
       if (!foundObject) {
-        let is_qualified = true;
+        let unpass_predict_name = "";
         let machine = new Machine(json.machine);
+
         machine.location = all_machine.length;
         machine.product = json.product;
-        machine.time.push(json.time);
-        machine.frequency.push(json.frequency);
-        machine.Speed.push(json.Speed);
-        machine.Status.push(json.Status);
-        machine.g_change.push(json.g_change);
-        machine.have_vibration = json.have_vibration;
-        let unpass_predict_name = "";
-        for (let num = 1; num <= 13; num++) {
-          let detailName = `detail_${num}`;
-          if (json[`standard_detail_name_${num}`] === undefined) {
-            break;
-          }
-          machine[`pred_avg_${detailName}`].push(
-            Number(
-              (
-                (json[`pred_max_${detailName}`] +
-                  json[`pred_min_${detailName}`]) /
-                2
-              ).toFixed(2)
-            )
-          );
-          machine[`pred_max_${detailName}`].push(
-            json[`pred_max_${detailName}`].toFixed(3)
-          );
-          machine[`pred_min_${detailName}`].push(
-            json[`pred_min_${detailName}`].toFixed(3)
-          );
-          machine[`standard_max_${detailName}`] =
-            json[`standard_max_${detailName}`];
-          machine[`standard_min_${detailName}`] =
-            json[`standard_min_${detailName}`];
-          machine[`standard_detail_name_${num}`] =
-            json[`standard_detail_name_${num}`];
-          if (
-            json[`pred_max_${detailName}`] >
-              json[`standard_max_${detailName}`] ||
-            json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
-          ) {
-            is_qualified = false;
-            unpass_predict_name += json[`standard_detail_name_${num}`] + ",";
-          }
-        }
-        machine.recommand_speed = [];
-        machine.recommand_g_change = [];
-        machine.recommand_frequency = [];
-        machine.recommand_status = [];
-        for (let num = 1; num <= 4; num++) {
-          machine.recommand_speed.push(json[`recommand_speed_${num}`]);
-          machine.recommand_g_change.push(json[`recommand_g_change_${num}`]);
-          machine.recommand_frequency.push(json[`recommand_frequency_${num}`]);
-          machine.recommand_status.push(json[`recommand_Status_${num}`]);
-        }
-        machine.is_qualified.push(is_qualified);
+        machine = AddDataInMachine(machine, json, unpass_predict_name);
         all_machine.push(machine);
-        if (!is_qualified) {
-          let data = repairData;
-          let now = new Date(); // 取得現在的時間
-          let timeThreshold = 20; // 分鐘數閾值
-
-          // 檢查時間是否在閾值內的函式
-          let isWithinTimeThreshold = (timeString, thresholdMinutes) => {
-            let time = new Date(timeString);
-            let diffMilliseconds = now - time;
-            let diffMinutes = Math.floor(diffMilliseconds / (1000 * 60));
-            return diffMinutes >= thresholdMinutes;
-          };
-
-          // 找出符合條件的資料
-          let filteredData = data.filter((item) =>
-            isWithinTimeThreshold(item.pred_time, timeThreshold)
-          );
-          for (let num = 0; num <= filteredData.length; num++) {
-            if (
-              filteredData.machine !== json.machine &&
-              filteredData.product !== json.product
-            ) {
-              let InsertData = {
-                machine: json.machine,
-                product: json.product,
-                Pred_time: json.time,
-                Detail_name: unpass_predict_name.slice(
-                  0,
-                  unpass_predict_name.length - 1
-                ),
-              };
-              CallInsertAlarmStampersDataApi(InsertData);
-            }
-          }
-        }
       }
     }
     let unpass_rate_20_min = 0;
@@ -519,7 +344,7 @@ const Realtime = () => {
       accumulativePassRateIn20: all_good_rate,
     });
   };
-  const AddDataInMachine = (machine, json) => {
+  const AddDataInMachine = (machine, json, unpass_predict_name) => {
     machine.time.push(json.time);
     machine.frequency.push(json.frequency);
     machine.Speed.push(json.Speed);
@@ -527,31 +352,58 @@ const Realtime = () => {
     machine.g_change.push(json.g_change);
     machine.have_vibration = json.have_vibration;
     let is_qualified = true;
-    for (let num = 1; num <= 13; num++) {
+    let num = 1;
+    while (json[`standard_detail_name_${num}`] !== undefined) {
       let detailName = `detail_${num}`;
-      if (json[`standard_detail_name_${num}`] === undefined) {
-        break;
-      }
-      machine[`pred_avg_${detailName}`].push(
-        Number(
-          (
-            (json[`pred_max_${detailName}`] + json[`pred_min_${detailName}`]) /
-            2
-          ).toFixed(2)
-        )
+      let avg = Number(
+        (
+          (json[`pred_max_${detailName}`] + json[`pred_min_${detailName}`]) /
+          2
+        ).toFixed(2)
       );
-      machine[`pred_max_${detailName}`].push(
-        json[`pred_max_${detailName}`].toFixed(3)
-      );
-      machine[`pred_min_${detailName}`].push(
-        json[`pred_min_${detailName}`].toFixed(3)
-      );
-      machine[`standard_max_${detailName}`] =
+      machine["pred_avg_detail"].hasOwnProperty(`pred_avg_${detailName}`)
+        ? machine["pred_avg_detail"][`pred_avg_${detailName}`].push(avg)
+        : (machine["pred_avg_detail"][`pred_avg_${detailName}`] = [avg]);
+      machine["pred_min_detail"].hasOwnProperty(`pred_min_${detailName}`)
+        ? machine["pred_min_detail"][`pred_min_${detailName}`].push(
+            json[`pred_min_${detailName}`]
+          )
+        : (machine["pred_min_detail"][`pred_min_${detailName}`] = [
+            json[`pred_min_${detailName}`],
+          ]);
+      machine["pred_max_detail"].hasOwnProperty(`pred_max_${detailName}`)
+        ? machine["pred_max_detail"][`pred_max_${detailName}`].push(
+            json[`pred_max_${detailName}`]
+          )
+        : (machine["pred_max_detail"][`pred_max_${detailName}`] = [
+            json[`pred_max_${detailName}`],
+          ]);
+      machine["standard_max_detail"][`standard_max_${detailName}`] =
         json[`standard_max_${detailName}`];
-      machine[`standard_min_${detailName}`] =
+      machine["standard_min_detail"][`standard_min_${detailName}`] =
         json[`standard_min_${detailName}`];
-      machine[`standard_detail_name_${num}`] =
+      machine["standard_detial_name"][`standard_detail_name_${num}`] =
         json[`standard_detail_name_${num}`];
+      // machine[`pred_avg_${detailName}`].push(
+      //   Number(
+      //     (
+      //       (json[`pred_max_${detailName}`] + json[`pred_min_${detailName}`]) /
+      //       2
+      //     ).toFixed(2)
+      //   )
+      // );
+      // machine[`pred_max_${detailName}`].push(
+      //   json[`pred_max_${detailName}`].toFixed(3)
+      // );
+      // machine[`pred_min_${detailName}`].push(
+      //   json[`pred_min_${detailName}`].toFixed(3)
+      // );
+      // machine[`standard_max_${detailName}`] =
+      //   json[`standard_max_${detailName}`];
+      // machine[`standard_min_${detailName}`] =
+      //   json[`standard_min_${detailName}`];
+      // machine[`standard_detail_name_${num}`] =
+      //   json[`standard_detail_name_${num}`];
 
       if (
         json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] ||
@@ -559,19 +411,60 @@ const Realtime = () => {
       ) {
         is_qualified = false;
       }
+      num++;
     }
     //預測值
     machine.recommand_speed = [];
     machine.recommand_g_change = [];
     machine.recommand_frequency = [];
     machine.recommand_status = [];
-    for (let num = 1; num <= 4; num++) {
+    num = 1;
+    while (json[`recommand_speed_${num}`] !== undefined) {
       machine.recommand_speed.push(json[`recommand_speed_${num}`]);
       machine.recommand_g_change.push(json[`recommand_g_change_${num}`]);
       machine.recommand_frequency.push(json[`recommand_frequency_${num}`]);
       machine.recommand_status.push(json[`recommand_Status_${num}`]);
+      num++;
     }
     machine.is_qualified.push(is_qualified);
+
+    if (unpass_predict_name !== undefined) {
+      if (!is_qualified) {
+        let data = repairData;
+        let now = new Date(); // 取得現在的時間
+        let timeThreshold = 20; // 分鐘數閾值
+
+        // 檢查時間是否在閾值內的函式
+        let isWithinTimeThreshold = (timeString, thresholdMinutes) => {
+          let time = new Date(timeString);
+          let diffMilliseconds = now - time;
+          let diffMinutes = Math.floor(diffMilliseconds / (1000 * 60));
+          return diffMinutes >= thresholdMinutes;
+        };
+
+        // 找出符合條件的資料
+        let filteredData = data.filter((item) =>
+          isWithinTimeThreshold(item.pred_time, timeThreshold)
+        );
+        for (let num = 0; num <= filteredData.length; num++) {
+          if (
+            filteredData.machine !== json.machine &&
+            filteredData.product !== json.product
+          ) {
+            let InsertData = {
+              machine: json.machine,
+              product: json.product,
+              Pred_time: json.time,
+              Detail_name: unpass_predict_name.slice(
+                0,
+                unpass_predict_name.length - 1
+              ),
+            };
+            // CallInsertAlarmStampersDataApi(InsertData);
+          }
+        }
+      }
+    }
     return machine;
   };
   const ProcessData40 = (res) => {
@@ -601,6 +494,21 @@ const Realtime = () => {
             Object.keys(machine).forEach((key) => {
               if (Array.isArray(machine[key])) {
                 machine[key].shift();
+              }
+            });
+            Object.keys(machine["pred_avg_detail"]).forEach((key) => {
+              if (Array.isArray(machine["pred_avg_detail"][key])) {
+                machine["pred_avg_detail"][key].shift();
+              }
+            });
+            Object.keys(machine["pred_max_detail"]).forEach((key) => {
+              if (Array.isArray(machine["pred_max_detail"][key])) {
+                machine["pred_max_detail"][key].shift();
+              }
+            });
+            Object.keys(machine["pred_min_detail"]).forEach((key) => {
+              if (Array.isArray(machine["pred_min_detail"][key])) {
+                machine["pred_min_detail"][key].shift();
               }
             });
           }
