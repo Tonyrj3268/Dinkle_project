@@ -117,6 +117,14 @@ class Machine {
     this.standard_detail_name_11 = "";
     this.standard_detail_name_12 = "";
     this.standard_detail_name_13 = "";
+
+    this.pred_max_detail = [];
+    this.pred_min_detail = [];
+    this.pred_avg_detail = [];
+    this.standard_max_detail = [];
+    this.standard_min_detail = [];
+    this.standard_detial_name = [];
+
     this.recommand_speed = [];
     this.recommand_g_change = [];
     this.recommand_frequency = [];
@@ -326,7 +334,7 @@ const Realtime = () => {
               let time = new Date(timeString);
               let diffMilliseconds = now - time;
               let diffMinutes = Math.floor(diffMilliseconds / (1000 * 60));
-              return diffMinutes <= thresholdMinutes;
+              return diffMinutes >= thresholdMinutes;
             };
 
             // 找出符合條件的資料
@@ -428,7 +436,7 @@ const Realtime = () => {
             let time = new Date(timeString);
             let diffMilliseconds = now - time;
             let diffMinutes = Math.floor(diffMilliseconds / (1000 * 60));
-            return diffMinutes <= thresholdMinutes;
+            return diffMinutes >= thresholdMinutes;
           };
 
           // 找出符合條件的資料
