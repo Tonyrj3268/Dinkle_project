@@ -144,9 +144,16 @@ const FixData = ({ props }) => {
             <p>預測規格異常</p>
           </div>
           <div className="flex gap-4">
-            <p>規格示警:{props.detail_name}</p>
-            <p className="ml-9">未處理</p>
+            <div className="flex ">
+              <p>料號:{props.product}</p>
+              <p>機器:{props.machine}</p>
+            </div>
+            <div className="flex">
+              <p>規格示警:{props.detail_name}</p>
+              <p className="ml-9">未處理</p>
+            </div>
           </div>
+
           <dialog id="infoModal"></dialog>
         </div>
         <div className="flex px-4 justify-center gap-4">
@@ -179,8 +186,14 @@ const FixData = ({ props }) => {
           <p>預測規格異常</p>
         </div>
         <div className="flex gap-4">
-          <p>規格示警:{props.detail_name}</p>
-          <p className="ml-9">不處理</p>
+          <div className="flex ">
+            <p>料號:{props.product}</p>
+            <p>機器:{props.machine}</p>
+          </div>
+          <div className="flex">
+            <p>規格示警:{props.detail_name}</p>
+            <p className="ml-9">不處理</p>
+          </div>
         </div>
       </div>
     );
@@ -197,8 +210,14 @@ const FixData = ({ props }) => {
           <p>預測規格異常</p>
         </div>
         <div className="flex gap-4">
-          <p>規格示警:{props.detail_name}</p>
-          <p className="ml-9">已處理</p>
+          <div className="flex ">
+            <p>料號:{props.product}</p>
+            <p>機器:{props.machine}</p>
+          </div>
+          <div className="flex">
+            <p>規格示警:{props.detail_name}</p>
+            <p className="ml-9">已處理</p>
+          </div>
         </div>
         <dialog id="123"></dialog>
       </div>
