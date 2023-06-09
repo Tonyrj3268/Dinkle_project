@@ -60,26 +60,24 @@ const DetailChart = ({ height, width, bg, type }) => {
   if (detailData.details !== 0) {
     for (
       var i = 0;
-      i <
-      lineData[detailData.location][`pred_avg_detail_${detailData.details}`]
-        .length;
+      i < Object.keys(lineData[detailData.location].pred_avg_detail).length;
       i++
     ) {
       tem1.push({
         x: lineData[detailData.location].time[i],
-        y: lineData[detailData.location][
+        y: lineData[detailData.location].standard_max_detail[
           `standard_max_detail_${detailData.details}`
         ],
       });
       tem2.push({
         x: lineData[detailData.location].time[i],
-        y: lineData[detailData.location][
+        y: lineData[detailData.location].standard_min_detail[
           `standard_min_detail_${detailData.details}`
         ],
       });
       tem3.push({
         x: lineData[detailData.location].time[i],
-        y: lineData[detailData.location][
+        y: lineData[detailData.location].pred_avg_detail[
           `pred_avg_detail_${detailData.details}`
         ][i],
       });
@@ -96,26 +94,24 @@ const DetailChart = ({ height, width, bg, type }) => {
     if (detailData.details !== 0) {
       for (
         var i = 0;
-        i <
-        lineData[detailData.location][`pred_avg_detail_${detailData.details}`]
-          .length;
+        i < Object.keys(lineData[detailData.location].pred_avg_detail).length;
         i++
       ) {
         tem1.push({
           x: lineData[detailData.location].time[i],
-          y: lineData[detailData.location][
+          y: lineData[detailData.location].standard_max_detail[
             `standard_max_detail_${detailData.details}`
           ],
         });
         tem2.push({
           x: lineData[detailData.location].time[i],
-          y: lineData[detailData.location][
+          y: lineData[detailData.location].standard_min_detail[
             `standard_min_detail_${detailData.details}`
           ],
         });
         tem3.push({
           x: lineData[detailData.location].time[i],
-          y: lineData[detailData.location][
+          y: lineData[detailData.location].pred_avg_detail[
             `pred_avg_detail_${detailData.details}`
           ][i],
         });
