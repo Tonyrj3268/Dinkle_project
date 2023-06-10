@@ -384,32 +384,14 @@ const Realtime = () => {
         json[`standard_min_${detailName}`];
       machine["standard_detial_name"][`standard_detail_name_${num}`] =
         json[`standard_detail_name_${num}`];
-      // machine[`pred_avg_${detailName}`].push(
-      //   Number(
-      //     (
-      //       (json[`pred_max_${detailName}`] + json[`pred_min_${detailName}`]) /
-      //       2
-      //     ).toFixed(2)
-      //   )
-      // );
-      // machine[`pred_max_${detailName}`].push(
-      //   json[`pred_max_${detailName}`].toFixed(3)
-      // );
-      // machine[`pred_min_${detailName}`].push(
-      //   json[`pred_min_${detailName}`].toFixed(3)
-      // );
-      // machine[`standard_max_${detailName}`] =
-      //   json[`standard_max_${detailName}`];
-      // machine[`standard_min_${detailName}`] =
-      //   json[`standard_min_${detailName}`];
-      // machine[`standard_detail_name_${num}`] =
-      //   json[`standard_detail_name_${num}`];
-
       if (
         json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] ||
         json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
       ) {
         is_qualified = false;
+        if (unpass_predict_name !== undefined) {
+          unpass_predict_name += json[`standard_detail_name_${num}`] + ",";
+        }
       }
       num++;
     }
@@ -460,6 +442,8 @@ const Realtime = () => {
                 unpass_predict_name.length - 1
               ),
             };
+            console.log(json.time);
+            console.log(InsertData);
             // CallInsertAlarmStampersDataApi(InsertData);
           }
         }
