@@ -28,24 +28,38 @@ const DiaLog = (props) => {
   } = useStateContext();
   useEffect(() => {
     var tem = [];
-    for (let i = 1; i <= 13; i++) {
-      if (lineData[props.location][`standard_detail_name_${i}`].length > 3) {
+    for (
+      let i = 1;
+      i <= Object.keys(lineData[props.location].pred_avg_detail).length;
+      i++
+    ) {
+      if (
+        lineData[props.location].standard_detail_name[
+          `standard_detail_name_${i}`
+        ].length > 3
+      ) {
         tem.push({
-          name: lineData[props.location][`standard_detail_name_${i}`],
-          details: lineData[props.location][`pred_avg_detail_${i}`],
-          details_max: lineData[props.location][`pred_max_detail_${i}`],
-          details_min: lineData[props.location][`pred_min_detail_${i}`],
-          max: lineData[props.location][`standard_max_detail_${i}`],
-          min: lineData[props.location][`standard_min_detail_${i}`],
+          name: lineData[props.location].standard_detail_name[
+            `standard_detail_name_${i}`
+          ],
+          details:
+            lineData[props.location].pred_avg_detail[`pred_avg_detail_${i}`],
+          details_max:
+            lineData[props.location].pred_max_detail[`pred_max_detail_${i}`],
+          details_min:
+            lineData[props.location].pred_min_detail[`pred_min_detail_${i}`],
+          max: lineData[props.location].standard_max_detail[
+            `standard_max_detail_${i}`
+          ],
+          min: lineData[props.location].standard_min_detail[
+            `standard_min_detail_${i}`
+          ],
           location: props.location,
           detail_i: i,
         });
       }
     }
     setDetails(tem);
-
-    console.log("----------------------------");
-    console.log(details);
   }, [test, page]);
 
   const handleClose = () => {

@@ -123,7 +123,7 @@ class Machine {
     this.pred_avg_detail = {};
     this.standard_max_detail = {};
     this.standard_min_detail = {};
-    this.standard_detial_name = {};
+    this.standard_detail_name = {};
 
     this.recommand_speed = [];
     this.recommand_g_change = [];
@@ -382,7 +382,7 @@ const Realtime = () => {
         json[`standard_max_${detailName}`];
       machine["standard_min_detail"][`standard_min_${detailName}`] =
         json[`standard_min_${detailName}`];
-      machine["standard_detial_name"][`standard_detail_name_${num}`] =
+      machine["standard_detail_name"][`standard_detail_name_${num}`] =
         json[`standard_detail_name_${num}`];
       if (
         json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] ||
