@@ -37,87 +37,6 @@ class Machine {
     this.good_rate = 100;
     this.accumulativeMin = 0;
 
-    // this.pred_avg_detail_1 = [];
-    // this.pred_avg_detail_2 = [];
-    // this.pred_avg_detail_3 = [];
-    // this.pred_avg_detail_4 = [];
-    // this.pred_avg_detail_5 = [];
-    // this.pred_avg_detail_6 = [];
-    // this.pred_avg_detail_7 = [];
-    // this.pred_avg_detail_8 = [];
-    // this.pred_avg_detail_9 = [];
-    // this.pred_avg_detail_10 = [];
-    // this.pred_avg_detail_11 = [];
-    // this.pred_avg_detail_12 = [];
-    // this.pred_avg_detail_13 = [];
-
-    // this.pred_max_detail_1 = [];
-    // this.pred_max_detail_2 = [];
-    // this.pred_max_detail_3 = [];
-    // this.pred_max_detail_4 = [];
-    // this.pred_max_detail_5 = [];
-    // this.pred_max_detail_6 = [];
-    // this.pred_max_detail_7 = [];
-    // this.pred_max_detail_8 = [];
-    // this.pred_max_detail_9 = [];
-    // this.pred_max_detail_10 = [];
-    // this.pred_max_detail_11 = [];
-    // this.pred_max_detail_12 = [];
-    // this.pred_max_detail_13 = [];
-    // this.pred_min_detail_1 = [];
-    // this.pred_min_detail_2 = [];
-    // this.pred_min_detail_3 = [];
-    // this.pred_min_detail_4 = [];
-    // this.pred_min_detail_5 = [];
-    // this.pred_min_detail_6 = [];
-    // this.pred_min_detail_7 = [];
-    // this.pred_min_detail_8 = [];
-    // this.pred_min_detail_9 = [];
-    // this.pred_min_detail_10 = [];
-    // this.pred_min_detail_11 = [];
-    // this.pred_min_detail_12 = [];
-    // this.pred_min_detail_13 = [];
-
-    // this.standard_max_detail_1 = 0;
-    // this.standard_max_detail_2 = 0;
-    // this.standard_max_detail_3 = 0;
-    // this.standard_max_detail_4 = 0;
-    // this.standard_max_detail_5 = 0;
-    // this.standard_max_detail_6 = 0;
-    // this.standard_max_detail_7 = 0;
-    // this.standard_max_detail_8 = 0;
-    // this.standard_max_detail_9 = 0;
-    // this.standard_max_detail_10 = 0;
-    // this.standard_max_detail_11 = 0;
-    // this.standard_max_detail_12 = 0;
-    // this.standard_max_detail_13 = 0;
-    // this.standard_min_detail_1 = 0;
-    // this.standard_min_detail_2 = 0;
-    // this.standard_min_detail_3 = 0;
-    // this.standard_min_detail_4 = 0;
-    // this.standard_min_detail_5 = 0;
-    // this.standard_min_detail_6 = 0;
-    // this.standard_min_detail_7 = 0;
-    // this.standard_min_detail_8 = 0;
-    // this.standard_min_detail_9 = 0;
-    // this.standard_min_detail_10 = 0;
-    // this.standard_min_detail_11 = 0;
-    // this.standard_min_detail_12 = 0;
-    // this.standard_min_detail_13 = 0;
-    // this.standard_detail_name_1 = "";
-    // this.standard_detail_name_2 = "";
-    // this.standard_detail_name_3 = "";
-    // this.standard_detail_name_4 = "";
-    // this.standard_detail_name_5 = "";
-    // this.standard_detail_name_6 = "";
-    // this.standard_detail_name_7 = "";
-    // this.standard_detail_name_8 = "";
-    // this.standard_detail_name_9 = "";
-    // this.standard_detail_name_10 = "";
-    // this.standard_detail_name_11 = "";
-    // this.standard_detail_name_12 = "";
-    // this.standard_detail_name_13 = "";
-
     this.pred_max_detail = {};
     this.pred_min_detail = {};
     this.pred_avg_detail = {};
@@ -131,7 +50,16 @@ class Machine {
     this.recommand_status = [];
   }
 }
-
+class Repair {
+  constructor() {
+    this.machine = "";
+    this.product = "";
+    this.detail_name = "";
+    this.pred_time = "";
+    this.alarm_status_time = "";
+    this.alarm_status = "";
+  }
+}
 const Realtime = () => {
   // const { currentColor, currentMod } = useStateContext();
   const [page, setPage] = useState("即時監控");
@@ -154,6 +82,33 @@ const Realtime = () => {
   const formData = new URLSearchParams();
   formData.append("username", process.env.REACT_APP_extra_predict_username);
   formData.append("password", process.env.REACT_APP_extra_predict_password);
+
+  const formatTime = (date) => {
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, "0");
+    let day = String(date.getDate()).padStart(2, "0");
+    let hours = String(date.getHours()).padStart(2, "0");
+    let minutes = String(date.getMinutes()).padStart(2, "0");
+    let seconds = String(date.getSeconds()).padStart(2, "0");
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+  const GetRepairObj = (res) => {
+    let all_repair = [];
+    let limit = Math.min(100, res.data.length);
+    for (let i = 0; i < limit; i++) {
+      let obj = res.data[i];
+      let repair = new Repair();
+      repair.machine = obj.machine;
+      repair.product = obj.product;
+      repair.detail_name = obj.detail_name;
+      repair.pred_time = obj.pred_time;
+      repair.alarm_status = obj.alarm_status;
+      repair.alarm_status_time = obj.alarm_status_time;
+
+      all_repair.push(repair);
+    }
+    setRepairData(all_repair);
+  };
   const CallApi = (minAgo) => {
     const params = {
       Show_type: process.env.REACT_APP_Show_type,
@@ -188,7 +143,42 @@ const Realtime = () => {
         console.log(error.config);
       });
   };
+  const CallAlarmStampersDataApi = () => {
+    let now = new Date(); // 取得現在的時間
 
+    let twentyMinutesAgo = new Date(now.getTime() - 20 * 60000); // 20分鐘等於20 * 60秒 * 1000毫秒
+    // 計算一個月前的時間
+    let oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(now.getMonth() - 1);
+    // 格式化時間為 yyyy-MM-dd HH:mm:ss 格式
+
+    const params = {
+      Start_time: formatTime(oneMonthAgo),
+      End_time: formatTime(now),
+    };
+
+    let url = process.env.REACT_APP_extract_alarm_stampers_data;
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        params: params,
+      })
+      .then(GetRepairObj)
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  };
   const CallInsertAlarmStampersDataApi = (InsertData) => {
     console.log(InsertData);
     if (
@@ -413,40 +403,66 @@ const Realtime = () => {
     if (unpass_predict_name !== undefined) {
       if (!is_qualified) {
         let data = repairData;
-        let now = new Date(); // 取得現在的時間
+        console.log(repairData);
+
         let timeThreshold = 20; // 分鐘數閾值
 
         // 檢查時間是否在閾值內的函式
         let isWithinTimeThreshold = (timeString, thresholdMinutes) => {
+          let now = new Date(); // 取得現在的時間
           let time = new Date(timeString);
           let diffMilliseconds = now - time;
           let diffMinutes = Math.floor(diffMilliseconds / (1000 * 60));
-          return diffMinutes >= thresholdMinutes;
+          return diffMinutes <= thresholdMinutes;
+        };
+
+        let isAllDetailHasAnyDiffers = (newItem, existingItemsString) => {
+          console.log(newItem, existingItemsString);
+          return newItem === existingItemsString;
         };
 
         // 找出符合條件的資料
-        let filteredData = data.filter((item) =>
-          isWithinTimeThreshold(item.pred_time, timeThreshold)
+        //如果20分鐘內，有一樣的machine和product，就不用新增
+        unpass_predict_name = unpass_predict_name.slice(
+          0,
+          unpass_predict_name.length - 1
         );
-        for (let num = 0; num <= filteredData.length; num++) {
-          if (
-            filteredData.machine !== json.machine &&
-            filteredData.product !== json.product
-          ) {
-            let InsertData = {
-              machine: json.machine,
-              product: json.product,
-              Pred_time: json.time,
-              Detail_name: unpass_predict_name.slice(
-                0,
-                unpass_predict_name.length - 1
-              ),
-            };
-            console.log(json.time);
-            console.log(InsertData);
-            // CallInsertAlarmStampersDataApi(InsertData);
-          }
+        let filteredData = data.filter(
+          (item) =>
+            isWithinTimeThreshold(item.pred_time, timeThreshold) &&
+            item.machine === json.machine &&
+            item.product === json.product &&
+            isAllDetailHasAnyDiffers(item.detail_name, unpass_predict_name)
+        );
+        console.log(json.machine, json.product, unpass_predict_name);
+        console.log(filteredData);
+        if (filteredData.length === 0) {
+          console.log("insert");
+          let InsertData = {
+            machine: json.machine,
+            product: json.product,
+            Pred_time: json.time,
+            Detail_name: unpass_predict_name,
+          };
+          CallInsertAlarmStampersDataApi(InsertData);
         }
+        // for (let num = 0; num <= filteredData.length; num++) {
+        //   if (
+        //     filteredData.machine !== json.machine &&
+        //     filteredData.product !== json.product
+        //   ) {
+        //     let InsertData = {
+        //       machine: json.machine,
+        //       product: json.product,
+        //       Pred_time: json.time,
+        //       Detail_name: unpass_predict_name.slice(
+        //         0,
+        //         unpass_predict_name.length - 1
+        //       ),
+        //     };
+        //     // CallInsertAlarmStampersDataApi(InsertData);
+        //   }
+        // }
       }
     }
     return machine;
@@ -587,6 +603,7 @@ const Realtime = () => {
     }
     if (lineData.length === 0) {
       CallApi(40);
+      CallAlarmStampersDataApi();
     }
     setData(lineData);
 
@@ -595,6 +612,7 @@ const Realtime = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      CallAlarmStampersDataApi();
       CallApi(1);
     }, MINUTE_MS);
     return () => {
