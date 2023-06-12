@@ -473,28 +473,6 @@ const Realtime = () => {
             machine.product = json.product;
             machine.location = index;
           }
-          // if (machine.Status.length >= 20) {
-          //   Object.keys(machine).forEach((key) => {
-          //     if (Array.isArray(machine[key])) {
-          //       machine[key].shift();
-          //     }
-          //   });
-          //   Object.keys(machine["pred_avg_detail"]).forEach((key) => {
-          //     if (Array.isArray(machine["pred_avg_detail"][key])) {
-          //       machine["pred_avg_detail"][key].shift();
-          //     }
-          //   });
-          //   Object.keys(machine["pred_max_detail"]).forEach((key) => {
-          //     if (Array.isArray(machine["pred_max_detail"][key])) {
-          //       machine["pred_max_detail"][key].shift();
-          //     }
-          //   });
-          //   Object.keys(machine["pred_min_detail"]).forEach((key) => {
-          //     if (Array.isArray(machine["pred_min_detail"][key])) {
-          //       machine["pred_min_detail"][key].shift();
-          //     }
-          //   });
-          // }
           machine = AddDataInMachine(machine, json);
         }
       });
@@ -506,8 +484,7 @@ const Realtime = () => {
         all_machine.push(machine);
       }
     }
-    console.log("all_machine");
-    console.log(all_machine);
+
     let unpass_rate_20_min = 0;
     let unpass_rate_20_min_times = 0;
     let unpass_total_minute = tem_unpass_rate_props.accumulativeMin;
@@ -540,13 +517,36 @@ const Realtime = () => {
         unpass_interval += 20;
       });
       tem_pass_rate.push({
-        x: all_machine[0].time[i],
+        x: all_machine[0].time[i + 20],
         y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
       });
     }
-    all_machine.forEach((obj) => {
-      obj.is_qualified = obj.is_qualified.slice(-20);
+    all_machine.forEach((machine) => {
+      Object.keys(machine).forEach((key) => {
+        if (Array.isArray(machine[key])) {
+          machine[key] = machine[key].slice(-20);
+        }
+      });
+      Object.keys(machine["pred_avg_detail"]).forEach((key) => {
+        if (Array.isArray(machine["pred_avg_detail"][key])) {
+          machine["pred_avg_detail"][key] =
+            machine["pred_avg_detail"][key].slice(-20);
+        }
+      });
+      Object.keys(machine["pred_max_detail"]).forEach((key) => {
+        if (Array.isArray(machine["pred_max_detail"][key])) {
+          machine["pred_max_detail"][key] =
+            machine["pred_max_detail"][key].slice(-20);
+        }
+      });
+      Object.keys(machine["pred_min_detail"]).forEach((key) => {
+        if (Array.isArray(machine["pred_min_detail"][key])) {
+          machine["pred_min_detail"][key] =
+            machine["pred_min_detail"][key].slice(-20);
+        }
+      });
     });
+    console.log(all_machine);
     setLineData(() => all_machine);
     let dataArray = [];
     for (let i = 0; i < all_machine.length; i++) {

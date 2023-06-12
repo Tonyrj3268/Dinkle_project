@@ -84,9 +84,7 @@ const Cause = () => {
       End_time: formatTime(now),
     };
     let url = process.env.REACT_APP_extract_taguchi_result_data;
-    console.log(url);
     let url2 = process.env.REACT_APP_count_alarm_stampers_data;
-    console.log(url2);
     Promise.all([
       axios.post(url, formData, {}),
       axios.post(url2, formData, {
