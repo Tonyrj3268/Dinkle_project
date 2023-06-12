@@ -109,60 +109,110 @@ const DiaLog = (props) => {
         <DialogContent>
           <div className=" flex flex-row px-5 gap-10 ">
             <DoubleLineChart location={props.location}></DoubleLineChart>
-            <div className="flex flex-col p-5 w-[340px] h-[400px]  bg-slate-500 rounded-xl justify-start items-start text-white ">
-              <p className=" text-2xl p-2">機台料號：{props.product}</p>
-              <p className=" text-2xl p-2">機台名稱：{props.machine}</p>
-              <div className="p-2 flex items-center gap-2">
-                <p className=" text-2xl">
-                  轉速：
-                  {
-                    lineData[props.location].Speed[
-                      lineData[props.location].Speed.length - 1
-                    ]
-                  }
-                </p>
-              </div>
-              <div className="p-2 flex items-center gap-2">
-                <p className=" text-2xl">
-                  頻率：
-                  {
-                    lineData[props.location].frequency[
-                      lineData[props.location].Status.length - 1
-                    ]
-                  }
-                </p>
-              </div>
-              <div className="p-2 flex items-center gap-2">
-                <p className=" text-2xl">
-                  狀態：
-                  {
-                    lineData[props.location].Status[
-                      lineData[props.location].Status.length - 1
-                    ]
-                  }
-                </p>
-              </div>
-              {lineData[props.location].have_vibration == 1 ? (
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col p-5 w-[340px] h-[400px]  bg-slate-500 rounded-xl justify-start items-start text-white ">
+                <p className=" text-2xl p-2">機台料號：{props.product}</p>
+                <p className=" text-2xl p-2">機台名稱：{props.machine}</p>
                 <div className="p-2 flex items-center gap-2">
                   <p className=" text-2xl">
-                    G合力：
+                    當下轉速：
                     {
-                      lineData[props.location].g_change[
-                        lineData[props.location].g_change.length - 1
+                      lineData[props.location].Speed[
+                        lineData[props.location].Speed.length - 1
                       ]
                     }
                   </p>
                 </div>
-              ) : (
-                <div></div>
-              )}
+                <div className="p-2 flex items-center gap-2">
+                  <p className=" text-2xl">
+                    當下頻率：
+                    {
+                      lineData[props.location].frequency[
+                        lineData[props.location].Status.length - 1
+                      ]
+                    }
+                  </p>
+                </div>
+                <div className="p-2 flex items-center gap-2">
+                  <p className=" text-2xl">
+                    當下狀態：
+                    {
+                      lineData[props.location].Status[
+                        lineData[props.location].Status.length - 1
+                      ]
+                    }
+                  </p>
+                </div>
+                {lineData[props.location].have_vibration == 1 ? (
+                  <div className="p-2 flex items-center gap-2">
+                    <p className=" text-2xl">
+                      當下G合力：
+                      {
+                        lineData[props.location].g_change[
+                          lineData[props.location].g_change.length - 1
+                        ]
+                      }
+                    </p>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
 
-              <button
-                className="px-8 py-4 bg-green-400 text-xl cursor-pointer hover:bg-green-500 text-white"
-                onClick={(e) => handlePage("Detail")}
-              >
-                查看Detail
-              </button>
+                <button
+                  className="px-8 py-4 bg-green-400 text-xl cursor-pointer hover:bg-green-500 text-white"
+                  onClick={(e) => handlePage("Detail")}
+                >
+                  查看Detail
+                </button>
+              </div>
+              <div className="flex flex-col p-5 w-[340px] h-[250px]  bg-slate-500 rounded-xl justify-start items-start text-white ">
+                <p className=" text-2xl p-1">未來四分鐘推薦參數：</p>
+                <div className="  p-1 flex gap-1 text-center justify-center">
+                  <p className=" text-l ">頻率:</p>
+                  {lineData[props.location].recommand_frequency.map((d, i) => (
+                    <p key={i + d + "fre"} className=" text-l">
+                      {d},
+                    </p>
+                  ))}
+                </div>
+                <div className="  p-1 flex gap-1 text-center justify-center">
+                  <p className=" text-l ">轉速:</p>
+                  {lineData[props.location].recommand_speed.map((d, i) => (
+                    <p key={i + d + "speed"} className=" text-l">
+                      {d},
+                    </p>
+                  ))}
+                </div>
+                {lineData[props.location].have_vibration == 1 ? (
+                  <div></div>
+                ) : (
+                  <div className="  p-1 flex gap-1 text-center justify-center">
+                    <p className=" text-l ">狀態:</p>
+                    {lineData[props.location].recommand_status.map((d, i) => (
+                      <p key={i + d + "state"} className=" text-l">
+                        {d},
+                      </p>
+                    ))}
+                  </div>
+                )}
+
+                {lineData[props.location].have_vibration == 0 ? (
+                  <div></div>
+                ) : (
+                  <div className=" p-1 flex gap-1 text-left ">
+                    <p className=" text-l ">G合力:</p>
+                    <div className="flex-col">
+                      {lineData[props.location].recommand_g_change.map(
+                        (d, i) => (
+                          <p key={i + d + "g"} className=" text-l break-words">
+                            {d},
+                          </p>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </DialogContent>

@@ -38,13 +38,27 @@ const Cause = () => {
   };
   var setProductData = (props) => {
     var temp = [];
+    var product = props.substring(0, props.length - 1);
+    var have_vibration = props.substring(props.length - 1);
     for (var i = 0; i < causeData.length; i++) {
-      if (causeData[i].product == props) {
-        temp.push(causeData[i]);
+      if (
+        causeData[i].product == product &&
+        causeData[i].have_vibration == have_vibration
+      ) {
+        temp.push(causeData[i].data);
       }
     }
     console.log(temp);
-    console.log(props);
+    console.log(product);
+    console.log(have_vibration);
+
+    var str = "有震動儀";
+    if (have_vibration == 0) {
+      str = "無震動儀";
+    }
+    for (var i = 0; i < temp.length; i++) {
+      temp[i].product = product + "(" + str + ")";
+    }
     setPresentData(temp);
   };
   getQuery();
@@ -86,13 +100,20 @@ const Cause = () => {
         const [firstResponse, secondResponse] = res;
         console.log(firstResponse.data);
         console.log(secondResponse.data);
-        setPresentData(firstResponse.data);
         setCauseData(firstResponse.data);
         setTotalData(secondResponse.data[0]);
         var inputProduct = [];
         for (var i = 0; i < firstResponse.data.length; i++) {
-          if (!inputProduct.includes(firstResponse.data[i].product)) {
-            inputProduct.push(firstResponse.data[i].product);
+          if (
+            !inputProduct.includes({
+              product: firstResponse.data[i].product,
+              have_vibration: firstResponse.data[i].have_vibration,
+            })
+          ) {
+            inputProduct.push({
+              product: firstResponse.data[i].product,
+              have_vibration: firstResponse.data[i].have_vibration,
+            });
           }
         }
         setInputProductValue(inputProduct);
@@ -165,8 +186,8 @@ const Cause = () => {
             placeholder="料號選擇"
           >
             {inputProduct.map((d, i) => (
-              <option id={i + d} value={d}>
-                {d}
+              <option key={i} value={d.product + d.have_vibration}>
+                {d.product} ({d.have_vibration == 0 ? "無震動儀" : "有震動儀"})
               </option>
             ))}
             <option id="123" value="123">
@@ -177,7 +198,7 @@ const Cause = () => {
 
         {presentData.map((d, i) => (
           <div
-            key={i}
+            key={i + "presentData"}
             className=" flex flex-col gap-2 text-white p-4  rounded-2xl bg-slate-500 "
           >
             {" "}
