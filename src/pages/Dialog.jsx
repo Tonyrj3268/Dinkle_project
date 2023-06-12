@@ -59,6 +59,7 @@ const DiaLog = (props) => {
         });
       }
     }
+    console.log("updeate detail");
     setDetails(tem);
   }, [test, page]);
 
