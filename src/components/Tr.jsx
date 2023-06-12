@@ -16,7 +16,6 @@ const Tr = ({ props }) => {
       location: props.location,
     });
     setIsTrClicked(props.name);
-    console.log(props);
   };
 
   return (

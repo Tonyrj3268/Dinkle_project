@@ -45,12 +45,9 @@ const Cause = () => {
         causeData[i].product == product &&
         causeData[i].have_vibration == have_vibration
       ) {
-        temp.push(causeData[i].data);
+        temp = causeData[i].data;
       }
     }
-    console.log(temp);
-    console.log(product);
-    console.log(have_vibration);
 
     var str = "有震動儀";
     if (have_vibration == 0) {
@@ -59,6 +56,7 @@ const Cause = () => {
     for (var i = 0; i < temp.length; i++) {
       temp[i].product = product + "(" + str + ")";
     }
+    console.log(temp);
     setPresentData(temp);
   };
   getQuery();

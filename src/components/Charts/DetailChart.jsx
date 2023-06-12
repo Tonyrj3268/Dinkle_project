@@ -60,7 +60,10 @@ const DetailChart = ({ height, width, bg, type }) => {
   if (detailData.details !== 0) {
     for (
       var i = 0;
-      i < Object.keys(lineData[detailData.location].pred_avg_detail).length;
+      i <
+      lineData[detailData.location].pred_avg_detail[
+        `pred_avg_detail_${detailData.details}`
+      ].length;
       i++
     ) {
       tem1.push({
@@ -91,10 +94,18 @@ const DetailChart = ({ height, width, bg, type }) => {
     var tem1 = [];
     var tem2 = [];
     var tem3 = [];
+    console.log(
+      lineData[detailData.location].pred_avg_detail[
+        `pred_avg_detail_${detailData.details}`
+      ]
+    );
     if (detailData.details !== 0) {
       for (
         var i = 0;
-        i < Object.keys(lineData[detailData.location].pred_avg_detail).length;
+        i <
+        lineData[detailData.location].pred_avg_detail[
+          `pred_avg_detail_${detailData.details}`
+        ].length;
         i++
       ) {
         tem1.push({
@@ -119,9 +130,10 @@ const DetailChart = ({ height, width, bg, type }) => {
       lineCustomSeries[0].dataSource = tem1;
       lineCustomSeries[1].dataSource = tem3;
       lineCustomSeries[2].dataSource = tem2;
+      console.log(lineData[detailData.location]);
       console.log("update detail");
     }
-  }, [test]);
+  }, [test, lineData[detailData.location].time[i]]);
 
   return (
     <ChartComponent
