@@ -289,7 +289,7 @@ const Realtime = () => {
       );
       unpass_total_minute += obj.accumulativeMin;
       unpass_rate_20_min = obj.accumulativeMin;
-      unpass_rate_20_min_total += unpass_rate_20_min;
+      unpass_rate_20_min_total += obj.accumulativeMin;
       unpass_rate_20_min_times = 20;
 
       let good_rate = Number(
@@ -349,7 +349,7 @@ const Realtime = () => {
         (
           (json[`pred_max_${detailName}`] + json[`pred_min_${detailName}`]) /
           2
-        ).toFixed(2)
+        ).toFixed(4)
       );
       machine["pred_avg_detail"].hasOwnProperty(`pred_avg_${detailName}`)
         ? machine["pred_avg_detail"][`pred_avg_${detailName}`].push(avg)
@@ -444,25 +444,8 @@ const Realtime = () => {
             Pred_time: json.time,
             Detail_name: unpass_predict_name,
           };
-          CallInsertAlarmStampersDataApi(InsertData);
+          //CallInsertAlarmStampersDataApi(InsertData);
         }
-        // for (let num = 0; num <= filteredData.length; num++) {
-        //   if (
-        //     filteredData.machine !== json.machine &&
-        //     filteredData.product !== json.product
-        //   ) {
-        //     let InsertData = {
-        //       machine: json.machine,
-        //       product: json.product,
-        //       Pred_time: json.time,
-        //       Detail_name: unpass_predict_name.slice(
-        //         0,
-        //         unpass_predict_name.length - 1
-        //       ),
-        //     };
-        //     // CallInsertAlarmStampersDataApi(InsertData);
-        //   }
-        // }
       }
     }
     return machine;
@@ -490,28 +473,28 @@ const Realtime = () => {
             machine.product = json.product;
             machine.location = index;
           }
-          if (machine.Status.length >= 20) {
-            Object.keys(machine).forEach((key) => {
-              if (Array.isArray(machine[key])) {
-                machine[key].shift();
-              }
-            });
-            Object.keys(machine["pred_avg_detail"]).forEach((key) => {
-              if (Array.isArray(machine["pred_avg_detail"][key])) {
-                machine["pred_avg_detail"][key].shift();
-              }
-            });
-            Object.keys(machine["pred_max_detail"]).forEach((key) => {
-              if (Array.isArray(machine["pred_max_detail"][key])) {
-                machine["pred_max_detail"][key].shift();
-              }
-            });
-            Object.keys(machine["pred_min_detail"]).forEach((key) => {
-              if (Array.isArray(machine["pred_min_detail"][key])) {
-                machine["pred_min_detail"][key].shift();
-              }
-            });
-          }
+          // if (machine.Status.length >= 20) {
+          //   Object.keys(machine).forEach((key) => {
+          //     if (Array.isArray(machine[key])) {
+          //       machine[key].shift();
+          //     }
+          //   });
+          //   Object.keys(machine["pred_avg_detail"]).forEach((key) => {
+          //     if (Array.isArray(machine["pred_avg_detail"][key])) {
+          //       machine["pred_avg_detail"][key].shift();
+          //     }
+          //   });
+          //   Object.keys(machine["pred_max_detail"]).forEach((key) => {
+          //     if (Array.isArray(machine["pred_max_detail"][key])) {
+          //       machine["pred_max_detail"][key].shift();
+          //     }
+          //   });
+          //   Object.keys(machine["pred_min_detail"]).forEach((key) => {
+          //     if (Array.isArray(machine["pred_min_detail"][key])) {
+          //       machine["pred_min_detail"][key].shift();
+          //     }
+          //   });
+          // }
           machine = AddDataInMachine(machine, json);
         }
       });
@@ -523,6 +506,8 @@ const Realtime = () => {
         all_machine.push(machine);
       }
     }
+    console.log("all_machine");
+    console.log(all_machine);
     let unpass_rate_20_min = 0;
     let unpass_rate_20_min_times = 0;
     let unpass_total_minute = tem_unpass_rate_props.accumulativeMin;
@@ -567,8 +552,6 @@ const Realtime = () => {
     for (let i = 0; i < all_machine.length; i++) {
       dataArray.push(all_machine[i]);
     }
-    console.log("====================================");
-    console.log(dataArray);
     setData(dataArray);
     setPassRate(() => tem_pass_rate);
     setPassRateProps({
