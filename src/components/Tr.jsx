@@ -32,11 +32,41 @@ const Tr = ({ props }) => {
           <p className=" font-bold ">
             {props.min}-{props.max}{" "}
           </p>
-          <p className="font-bold ">
-          {props.details_min[props.details_min.length - 1]}- {props.details_max[props.details_max.length - 1]}
+          <p className=" font-bold ">
+            {
+              lineData[props.location].pred_min_detail[
+                `pred_min_detail_${props.detail_i}`
+              ][
+                lineData[props.location].pred_min_detail[
+                  `pred_min_detail_${props.detail_i}`
+                ].length - 1
+              ]
+            }
+            -
+            {
+              lineData[props.location].pred_max_detail[
+                `pred_max_detail_${props.detail_i}`
+              ][
+                lineData[props.location].pred_max_detail[
+                  `pred_max_detail_${props.detail_i}`
+                ].length - 1
+              ]
+            }{" "}
           </p>
-          {props.details_max[props.details_max.length - 1] > props.max ||
-          props.details_min[props.details_min.length - 1] < props.min ? (
+          {lineData[props.location].pred_max_detail[
+            `pred_max_detail_${props.detail_i}`
+          ][
+            lineData[props.location].pred_max_detail[
+              `pred_max_detail_${props.detail_i}`
+            ].length - 1
+          ] > props.max ||
+          lineData[props.location].pred_min_detail[
+            `pred_min_detail_${props.detail_i}`
+          ][
+            lineData[props.location].pred_min_detail[
+              `pred_min_detail_${props.detail_i}`
+            ].length - 1
+          ] < props.min ? (
             <p className="font-bold p-1 bg-red-600 rounded-full ">不合格</p>
           ) : (
             <p className="font-bold  p-1 bg-green-400  rounded-full">合格</p>
@@ -54,11 +84,41 @@ const Tr = ({ props }) => {
           <p className=" font-bold ">
             {props.min}-{props.max}{" "}
           </p>
-          <p className="font-bold ">
-          {props.details_min[props.details_min.length - 1]}- {props.details_max[props.details_max.length - 1]}
+          <p className=" font-bold ">
+            {
+              lineData[props.location].pred_min_detail[
+                `pred_min_detail_${props.detail_i}`
+              ][
+                lineData[props.location].pred_min_detail[
+                  `pred_min_detail_${props.detail_i}`
+                ].length - 1
+              ]
+            }
+            -
+            {
+              lineData[props.location].pred_max_detail[
+                `pred_max_detail_${props.detail_i}`
+              ][
+                lineData[props.location].pred_max_detail[
+                  `pred_max_detail_${props.detail_i}`
+                ].length - 1
+              ]
+            }{" "}
           </p>
-          {props.details_max[props.details_max.length - 1] > props.max ||
-          props.details_min[props.details_min.length - 1] < props.min ? (
+          {lineData[props.location].pred_max_detail[
+            `pred_max_detail_${props.detail_i}`
+          ][
+            lineData[props.location].pred_max_detail[
+              `pred_max_detail_${props.detail_i}`
+            ].length - 1
+          ] > props.max ||
+          lineData[props.location].pred_min_detail[
+            `pred_min_detail_${props.detail_i}`
+          ][
+            lineData[props.location].pred_min_detail[
+              `pred_min_detail_${props.detail_i}`
+            ].length - 1
+          ] < props.min ? (
             <p className="font-bold p-1 bg-red-600 rounded-full ">不合格</p>
           ) : (
             <p className="font-bold  p-1 bg-green-400  rounded-full">合格</p>
