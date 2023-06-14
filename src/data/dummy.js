@@ -865,7 +865,7 @@ export const realtimeGrid = [
     field: "machine",
     headerText: "機台名稱",
     width: "150",
-    editType: "dropdownedit",
+
     textAlign: "Center",
   },
   {

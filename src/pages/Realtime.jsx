@@ -14,12 +14,15 @@ import {
   Inject,
   colGroup,
 } from "@syncfusion/ej2-react-grids";
+import Button from "@mui/material/Button";
+import DiaLog from "./Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
 import { useNavigate } from "react-router-dom";
 import { Pie as PieChart, LineChart } from "../components";
 import axios from "axios";
 import { realtimeData, contextMenuItems, realtimeGrid } from "../data/dummy";
 // import { useStateContext } from "../contexts/ContextProvider";
-import DiaLog from "./Dialog";
 import { HiVariable } from "react-icons/hi";
 import { useStateContext } from "../contexts/ContextProvider";
 class Machine {
@@ -64,9 +67,10 @@ const Realtime = () => {
   // const { currentColor, currentMod } = useStateContext();
   const [page, setPage] = useState("即時監控");
   const [data, setData] = useState([]);
-  function dialogTemplete(props) {
-    return <DiaLog {...props} />;
-  }
+
+  const [DialogData, setDialogData] = React.useState({});
+  const [isOpenDialog, setIsOpenDialog] = React.useState(false);
+
   const {
     setLineData,
     test,
@@ -82,6 +86,7 @@ const Realtime = () => {
   const formData = new URLSearchParams();
   formData.append("username", process.env.REACT_APP_extra_predict_username);
   formData.append("password", process.env.REACT_APP_extra_predict_password);
+  const toolbarOptions = ["Add", "Edit", "Delete"];
 
   const formatTime = (date) => {
     let year = date.getFullYear();
@@ -606,11 +611,10 @@ const Realtime = () => {
   var changePage = (value) => {
     setPage(value);
   };
-
+  var grid;
   const editing = {
     mode: "Normal",
     allowEditing: true,
-    template: dialogTemplete,
   };
 
   return (
@@ -643,22 +647,45 @@ const Realtime = () => {
         <div>
           <div className="flex w-full p-5"></div>
 
-          <GridComponent
-            id="gridcomp"
-            dataSource={data}
-            allowSorting
-            contextMenuItems={contextMenuItems}
-            editSettings={editing}
-            enablePersistence={true}
-          >
-            <ColumnsDirective>
-              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-              {realtimeGrid.map((item, index) => (
-                <ColumnDirective key={index} {...item} />
-              ))}
-            </ColumnsDirective>
-            <Inject services={[Sort, ContextMenu, Page, Edit]} />
-          </GridComponent>
+          <div className="container mx-auto ">
+            <table className="min-w-full divide-y divide-gray-200 text-xs">
+              <thead className="bg-gray-50 text-gray-500 border-1 border-gray-200">
+                <tr>
+                  <th className="py-3 px-6 text-center ">料號</th>
+                  <th className="py-3 px-6 text-center">機台名稱</th>
+                  <th className="py-3 px-6 text-center">狀態</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {data.map((d, i) => (
+                  <tr
+                    key={i}
+                    onClick={(e) => {
+                      console.log(d);
+                      setDialogData({
+                        location: d.location,
+                        machine: d.machine,
+                        product: d.product,
+                      });
+                      setIsOpenDialog(true);
+                    }}
+                    className=" border-1 border-gray-200 cursor-pointer hover:bg-gray-200"
+                  >
+                    <td className="py-3 px-6 text-center">{d.product}</td>
+                    <td className="py-3 px-6 text-center">{d.machine}</td>
+                    <td className="py-3 px-6 text-center">{d.good_rate}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <DiaLog
+            isOpenDialog={isOpenDialog}
+            onClose={() => {
+              setIsOpenDialog(false);
+            }}
+            data={DialogData}
+          />
         </div>
       ) : (
         <div>

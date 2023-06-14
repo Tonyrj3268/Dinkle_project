@@ -130,7 +130,7 @@ const DetailChart = ({ height, width, bg, type }) => {
       lineCustomSeries[0].dataSource = tem1;
       lineCustomSeries[1].dataSource = tem3;
       lineCustomSeries[2].dataSource = tem2;
-      console.log(lineData[detailData.location]);
+
       console.log("update detail");
     }
   }, [test, lineData[detailData.location].time[i]]);

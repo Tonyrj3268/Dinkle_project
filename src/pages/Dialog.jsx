@@ -10,7 +10,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 import { compose } from "@mui/system";
 import axios from "axios";
 
-const DiaLog = (props) => {
+const DiaLog = ({ isOpenDialog, onClose, data }) => {
   const { currentMode } = useStateContext();
   const [open, setOpen] = React.useState(true);
   const [details, setDetails] = React.useState([]);
@@ -26,82 +26,85 @@ const DiaLog = (props) => {
     setIsTrClicked,
     isTrClicked,
   } = useStateContext();
+
   useEffect(() => {
-    var tem = [];
-    for (
-      let i = 1;
-      i <= Object.keys(lineData[props.location].pred_avg_detail).length;
-      i++
-    ) {
-      if (
-        lineData[props.location].standard_detail_name[
-          `standard_detail_name_${i}`
-        ].length > 3
+    if (!isOpenDialog) {
+    } else {
+      var tem = [];
+      for (
+        let i = 1;
+        i <= Object.keys(lineData[data.location].pred_avg_detail).length;
+        i++
       ) {
-        tem.push({
-          name: lineData[props.location].standard_detail_name[
+        if (
+          lineData[data.location].standard_detail_name[
             `standard_detail_name_${i}`
-          ],
-          details:
-            lineData[props.location].pred_avg_detail[`pred_avg_detail_${i}`],
-          details_max:
-            lineData[props.location].pred_max_detail[`pred_max_detail_${i}`],
-          details_min:
-            lineData[props.location].pred_min_detail[`pred_min_detail_${i}`],
-          max: lineData[props.location].standard_max_detail[
-            `standard_max_detail_${i}`
-          ],
-          min: lineData[props.location].standard_min_detail[
-            `standard_min_detail_${i}`
-          ],
-          location: props.location,
-          detail_i: i,
-        });
+          ].length > 3
+        ) {
+          tem.push({
+            name: lineData[data.location].standard_detail_name[
+              `standard_detail_name_${i}`
+            ],
+            details:
+              lineData[data.location].pred_avg_detail[`pred_avg_detail_${i}`],
+            details_max:
+              lineData[data.location].pred_max_detail[`pred_max_detail_${i}`],
+            details_min:
+              lineData[data.location].pred_min_detail[`pred_min_detail_${i}`],
+            max: lineData[data.location].standard_max_detail[
+              `standard_max_detail_${i}`
+            ],
+            min: lineData[data.location].standard_min_detail[
+              `standard_min_detail_${i}`
+            ],
+            location: data.location,
+            detail_i: i,
+          });
+        }
       }
+      console.log("updeate detail");
+
+      setDetails(tem);
     }
-    console.log("updeate detail");
-    setDetails(tem);
   }, [test, page]);
 
-  const handleClose = () => {
-    setPage("選擇畫面");
-    setDetails([]);
-    setOpen(false);
-  };
   const handlePage = (value) => {
     setPage(value);
     console.log(value);
   };
+  if (!isOpenDialog) {
+    return null;
+  }
 
   if (page === "機台") {
     return (
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open={true}
+        onClose={onClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
         maxWidth="lg"
       >
-        <h1 className=" p-3 text-3xl font-semibold">{props.Name}</h1>
+        <h1 className=" p-3 text-3xl font-semibold">{data.machine}</h1>
         <h1 className=" px-7 py-1 text-xl font-semibold">
-          {lineData[props.location].time.length > 0
+          {lineData[data.location].time.length > 0
             ? new Date(
-                lineData[props.location].time[
-                  lineData[props.location].time.length - 1
+                lineData[data.location].time[
+                  lineData[data.location].time.length - 1
                 ]
               ).getFullYear() +
               "年" +
               (new Date(
-                lineData[props.location].time[
-                  lineData[props.location].time.length - 1
+                lineData[data.location].time[
+                  lineData[data.location].time.length - 1
                 ]
               ).getMonth() +
                 1) +
               "月" +
               new Date(
-                lineData[props.location].time[
-                  lineData[props.location].time.length - 1
+                lineData[data.location].time[
+                  lineData[data.location].time.length - 1
                 ]
               ).getDate() +
               "日"
@@ -109,17 +112,17 @@ const DiaLog = (props) => {
         </h1>
         <DialogContent>
           <div className=" flex flex-row px-5 gap-10 ">
-            <DoubleLineChart location={props.location}></DoubleLineChart>
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col p-5 w-[340px] h-[400px]  bg-slate-500 rounded-xl justify-start items-start text-white ">
-                <p className=" text-2xl p-2">機台料號：{props.product}</p>
-                <p className=" text-2xl p-2">機台名稱：{props.machine}</p>
+            <DoubleLineChart location={data.location}></DoubleLineChart>
+            <div className="flex flex-col">
+              <div className="flex flex-col p-5 w-full h-full mb-2  bg-slate-500 rounded-xl justify-start items-start text-white ">
+                <p className=" text-2xl p-2">機台料號：{data.product}</p>
+                <p className=" text-2xl p-2">機台名稱：{data.machine}</p>
                 <div className="p-2 flex items-center gap-2">
                   <p className=" text-2xl">
                     當下轉速：
                     {
-                      lineData[props.location].Speed[
-                        lineData[props.location].Speed.length - 1
+                      lineData[data.location].Speed[
+                        lineData[data.location].Speed.length - 1
                       ]
                     }
                   </p>
@@ -128,8 +131,8 @@ const DiaLog = (props) => {
                   <p className=" text-2xl">
                     當下頻率：
                     {
-                      lineData[props.location].frequency[
-                        lineData[props.location].Status.length - 1
+                      lineData[data.location].frequency[
+                        lineData[data.location].Status.length - 1
                       ]
                     }
                   </p>
@@ -138,19 +141,19 @@ const DiaLog = (props) => {
                   <p className=" text-2xl">
                     當下狀態：
                     {
-                      lineData[props.location].Status[
-                        lineData[props.location].Status.length - 1
+                      lineData[data.location].Status[
+                        lineData[data.location].Status.length - 1
                       ]
                     }
                   </p>
                 </div>
-                {lineData[props.location].have_vibration == 1 ? (
+                {lineData[data.location].have_vibration == 1 ? (
                   <div className="p-2 flex items-center gap-2">
                     <p className=" text-2xl">
                       當下G合力：
                       {
-                        lineData[props.location].g_change[
-                          lineData[props.location].g_change.length - 1
+                        lineData[data.location].g_change[
+                          lineData[data.location].g_change.length - 1
                         ]
                       }
                     </p>
@@ -160,65 +163,130 @@ const DiaLog = (props) => {
                 )}
 
                 <button
-                  className="px-8 py-4 bg-green-400 text-xl cursor-pointer hover:bg-green-500 text-white"
+                  className="px-8 py-4 mt-2 bg-green-400 text-xl cursor-pointer hover:bg-green-500 text-white rounded-full"
                   onClick={(e) => handlePage("Detail")}
                 >
                   查看Detail
                 </button>
               </div>
-              <div className="flex flex-col p-5 w-[340px] h-[250px]  bg-slate-500 rounded-xl justify-start items-start text-white ">
-                <p className=" text-2xl p-1">未來四分鐘推薦參數：</p>
-                <div className="  p-1 flex gap-1 text-center justify-center">
-                  <p className=" text-l ">頻率:</p>
-                  {lineData[props.location].recommand_frequency.map((d, i) => (
-                    <p key={i + d + "fre"} className=" text-l">
-                      {d},
-                    </p>
-                  ))}
-                </div>
-                <div className="  p-1 flex gap-1 text-center justify-center">
-                  <p className=" text-l ">轉速:</p>
-                  {lineData[props.location].recommand_speed.map((d, i) => (
-                    <p key={i + d + "speed"} className=" text-l">
-                      {d},
-                    </p>
-                  ))}
-                </div>
-                {lineData[props.location].have_vibration == 1 ? (
-                  <div></div>
-                ) : (
-                  <div className="  p-1 flex gap-1 text-center justify-center">
-                    <p className=" text-l ">狀態:</p>
-                    {lineData[props.location].recommand_status.map((d, i) => (
-                      <p key={i + d + "state"} className=" text-l">
-                        {d},
-                      </p>
-                    ))}
-                  </div>
-                )}
-
-                {lineData[props.location].have_vibration == 0 ? (
-                  <div></div>
-                ) : (
-                  <div className=" p-1 flex gap-1 text-left ">
-                    <p className=" text-l ">G合力:</p>
-                    <div className="flex-col">
-                      {lineData[props.location].recommand_g_change.map(
-                        (d, i) => (
-                          <p key={i + d + "g"} className=" text-l break-words">
-                            {d},
-                          </p>
-                        )
-                      )}
-                    </div>
-                  </div>
-                )}
+              <div className="flex flex-col items-center p-5 w-full  bg-slate-500   text-white border-b-1 border-gray-200 rounded-t-xl ">
+                <p className=" text-xl p-1 text-center ">未來四分鐘推薦參數</p>
               </div>
+              {lineData[data.location].recommand_frequency.length < 4 ? (
+                <div></div>
+              ) : (
+                <div className="container mx-auto">
+                  <table className="min-w-full divide-y divide-gray-200 text-white ">
+                    <thead className="bg-slate-500">
+                      <tr>
+                        <th className="py-3 px-6 text-center ">分鐘</th>
+                        <th className="py-3 px-6">頻率</th>
+                        <th className="py-3 px-6">轉速</th>
+
+                        {lineData[data.location].have_vibration == 0 ? (
+                          <div></div>
+                        ) : (
+                          <td className="py-3 px-6">G合力</td>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody className="bg-slate-500 divide-y divide-gray-200">
+                      <tr>
+                        <td className="py-3 px-6 text-center">1</td>
+                        <td className="py-3 px-6">
+                          {lineData[
+                            data.location
+                          ].recommand_frequency[0].toFixed(2)}
+                        </td>
+                        <td className="py-3 px-6">
+                          {lineData[data.location].recommand_speed[0]}
+                        </td>
+
+                        {lineData[data.location].have_vibration == 0 ? (
+                          <div></div>
+                        ) : (
+                          <td className="py-3 px-6">
+                            {Math.round(
+                              lineData[data.location].recommand_g_change[0],
+                              3
+                            )}
+                          </td>
+                        )}
+                      </tr>
+                      <tr>
+                        <td className="py-3 px-6 text-center">2</td>
+                        <td className="py-3 px-6">
+                          {lineData[
+                            data.location
+                          ].recommand_frequency[1].toFixed(2)}
+                        </td>
+                        <td className="py-3 px-6">
+                          {lineData[data.location].recommand_speed[1]}
+                        </td>
+                        {lineData[data.location].have_vibration == 0 ? (
+                          <div></div>
+                        ) : (
+                          <td className="py-3 px-6">
+                            {Math.round(
+                              lineData[data.location].recommand_g_change[1],
+                              3
+                            )}
+                          </td>
+                        )}
+                      </tr>
+                      <tr>
+                        <td className="py-3 px-6 text-center">3</td>
+                        <td className="py-3 px-6">
+                          {lineData[
+                            data.location
+                          ].recommand_frequency[2].toFixed(2)}
+                        </td>
+                        <td className="py-3 px-6">
+                          {lineData[data.location].recommand_speed[2]}
+                        </td>
+                        {lineData[data.location].have_vibration == 0 ? (
+                          <div></div>
+                        ) : (
+                          <td className="py-3 px-6">
+                            {Math.round(
+                              lineData[data.location].recommand_g_change[2],
+                              3
+                            )}
+                          </td>
+                        )}
+                      </tr>
+                      <tr>
+                        <td className="py-3 px-6 text-center">4</td>
+                        <td className="py-3 px-6 ">
+                          {lineData[
+                            data.location
+                          ].recommand_frequency[3].toFixed(2)}
+                        </td>
+                        <td className="py-3 px-6 ">
+                          {lineData[data.location].recommand_speed[3]}
+                        </td>
+                        {lineData[data.location].have_vibration == 0 ? (
+                          <div></div>
+                        ) : (
+                          <td className="py-3 px-6">
+                            {Math.round(
+                              lineData[data.location].recommand_g_change[3],
+                              1
+                            )}
+                          </td>
+                        )}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              <div className="flex flex-col items-center p-2 w-full  bg-slate-500   text-white border-b-1 border-gray-200 rounded-b-xl border-t-1 "></div>
             </div>
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={onClose}>Close</Button>
         </DialogActions>
       </Dialog>
     );
@@ -226,7 +294,7 @@ const DiaLog = (props) => {
     return (
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={onClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
@@ -314,7 +382,7 @@ const DiaLog = (props) => {
         </div>
 
         <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={onClose}>Close</Button>
         </DialogActions>
       </Dialog>
     );
@@ -322,7 +390,7 @@ const DiaLog = (props) => {
     return (
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={onClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
@@ -346,7 +414,7 @@ const DiaLog = (props) => {
         </div>
 
         <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={onClose}>Close</Button>
         </DialogActions>
       </Dialog>
     );
