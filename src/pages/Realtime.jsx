@@ -47,10 +47,10 @@ class Machine {
     this.standard_min_detail = {};
     this.standard_detail_name = {};
 
-    this.recommand_speed = [];
-    this.recommand_g_change = [];
-    this.recommand_frequency = [];
-    this.recommand_status = [];
+    this.recommend_speed = [];
+    this.recommend_g_change = [];
+    this.recommend_frequency = [];
+    this.recommend_status = [];
   }
 }
 class Repair {
@@ -391,16 +391,16 @@ const Realtime = () => {
       num++;
     }
     //預測值
-    machine.recommand_speed = [];
-    machine.recommand_g_change = [];
-    machine.recommand_frequency = [];
-    machine.recommand_status = [];
+    machine.recommend_speed = [];
+    machine.recommend_g_change = [];
+    machine.recommend_frequency = [];
+    machine.recommend_status = [];
     num = 1;
-    while (json[`recommand_speed_${num}`] !== undefined) {
-      machine.recommand_speed.push(json[`recommand_speed_${num}`]);
-      machine.recommand_g_change.push(json[`recommand_g_change_${num}`]);
-      machine.recommand_frequency.push(json[`recommand_frequency_${num}`]);
-      machine.recommand_status.push(json[`recommand_Status_${num}`]);
+    while (json[`recommend_speed_${num}`] !== undefined) {
+      machine.recommend_speed.push(json[`recommend_speed_${num}`]);
+      machine.recommend_g_change.push(json[`recommend_g_change_${num}`]);
+      machine.recommend_frequency.push(json[`recommend_frequency_${num}`]);
+      machine.recommend_status.push(json[`recommend_Status_${num}`]);
       num++;
     }
     machine.is_qualified.push(is_qualified);
@@ -408,7 +408,6 @@ const Realtime = () => {
     if (unpass_predict_name !== undefined) {
       if (!is_qualified) {
         let data = repairData;
-        console.log(repairData);
 
         let timeThreshold = 20; // 分鐘數閾值
 
@@ -439,8 +438,7 @@ const Realtime = () => {
             item.product === json.product &&
             isAllDetailHasAnyDiffers(item.detail_name, unpass_predict_name)
         );
-        console.log(json.machine, json.product, unpass_predict_name);
-        console.log(filteredData);
+
         if (filteredData.length === 0) {
           console.log("insert");
           let InsertData = {

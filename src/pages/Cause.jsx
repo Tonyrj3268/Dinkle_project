@@ -46,6 +46,16 @@ const Cause = () => {
         causeData[i].have_vibration == have_vibration
       ) {
         temp = causeData[i].data;
+        for (var t = 0; t < temp.length / 2; t++) {
+          temp[t].standard_detail_name =
+            causeData[i].product_stardand_name[0][
+              "standard_detail_name_" + (t + 1)
+            ];
+          temp[t + temp.length / 2].standard_detail_name =
+            causeData[i].product_stardand_name[0][
+              "standard_detail_name_" + (t + 1)
+            ];
+        }
       }
     }
 
@@ -198,7 +208,9 @@ const Cause = () => {
             className=" flex flex-col gap-2 text-white p-4  rounded-2xl bg-slate-500 "
           >
             {" "}
-            <p className="text-xl font-bold  ">Detail : {d.detail_name}</p>
+            <p className="text-xl font-bold  ">
+              Detail : {d.standard_detail_name}
+            </p>
             <p className="text-l font-bold  ">料號 : {d.product}</p>
             <p className="text-l font-bold ">
               重要因子 :{" "}

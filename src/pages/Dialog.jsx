@@ -172,7 +172,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
               <div className="flex flex-col items-center p-5 w-full  bg-slate-500   text-white border-b-1 border-gray-200 rounded-t-xl ">
                 <p className=" text-xl p-1 text-center ">未來四分鐘推薦參數</p>
               </div>
-              {lineData[data.location].recommand_frequency.length < 4 ? (
+              {lineData[data.location].recommend_frequency.length < 4 ? (
                 <div></div>
               ) : (
                 <div className="container mx-auto">
@@ -196,10 +196,10 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                         <td className="py-3 px-6">
                           {lineData[
                             data.location
-                          ].recommand_frequency[0].toFixed(2)}
+                          ].recommend_frequency[0].toFixed(2)}
                         </td>
                         <td className="py-3 px-6">
-                          {lineData[data.location].recommand_speed[0]}
+                          {lineData[data.location].recommend_speed[0]}
                         </td>
 
                         {lineData[data.location].have_vibration == 0 ? (
@@ -207,7 +207,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                         ) : (
                           <td className="py-3 px-6">
                             {Math.round(
-                              lineData[data.location].recommand_g_change[0],
+                              lineData[data.location].recommend_g_change[0],
                               3
                             )}
                           </td>
@@ -218,17 +218,17 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                         <td className="py-3 px-6">
                           {lineData[
                             data.location
-                          ].recommand_frequency[1].toFixed(2)}
+                          ].recommend_frequency[1].toFixed(2)}
                         </td>
                         <td className="py-3 px-6">
-                          {lineData[data.location].recommand_speed[1]}
+                          {lineData[data.location].recommend_speed[1]}
                         </td>
                         {lineData[data.location].have_vibration == 0 ? (
                           <div></div>
                         ) : (
                           <td className="py-3 px-6">
                             {Math.round(
-                              lineData[data.location].recommand_g_change[1],
+                              lineData[data.location].recommend_g_change[1],
                               3
                             )}
                           </td>
@@ -239,17 +239,17 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                         <td className="py-3 px-6">
                           {lineData[
                             data.location
-                          ].recommand_frequency[2].toFixed(2)}
+                          ].recommend_frequency[2].toFixed(2)}
                         </td>
                         <td className="py-3 px-6">
-                          {lineData[data.location].recommand_speed[2]}
+                          {lineData[data.location].recommend_speed[2]}
                         </td>
                         {lineData[data.location].have_vibration == 0 ? (
                           <div></div>
                         ) : (
                           <td className="py-3 px-6">
                             {Math.round(
-                              lineData[data.location].recommand_g_change[2],
+                              lineData[data.location].recommend_g_change[2],
                               3
                             )}
                           </td>
@@ -260,17 +260,17 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                         <td className="py-3 px-6 ">
                           {lineData[
                             data.location
-                          ].recommand_frequency[3].toFixed(2)}
+                          ].recommend_frequency[3].toFixed(2)}
                         </td>
                         <td className="py-3 px-6 ">
-                          {lineData[data.location].recommand_speed[3]}
+                          {lineData[data.location].recommend_speed[3]}
                         </td>
                         {lineData[data.location].have_vibration == 0 ? (
                           <div></div>
                         ) : (
                           <td className="py-3 px-6">
                             {Math.round(
-                              lineData[data.location].recommand_g_change[3],
+                              lineData[data.location].recommend_g_change[3],
                               1
                             )}
                           </td>
