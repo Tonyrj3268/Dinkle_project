@@ -301,12 +301,10 @@ const Realtime = () => {
         unpass_rate_20_min / unpass_rate_20_min_times
       ).toFixed(2);
       obj.good_rate = good_rate;
-      all_good_rate += good_rate;
+      all_good_rate += parseFloat(good_rate);
     });
-
-    all_good_rate =
-      Number((all_good_rate * 100) / all_machine.length).toFixed(2) + "%";
-
+    let accumulativePassRateIn20 =
+      ((all_good_rate * 100) / all_machine.length).toFixed(2) + "%";
     let unpass = 0;
     let unpass_interval = 0;
     all_machine.forEach((obj) => {
@@ -336,7 +334,7 @@ const Realtime = () => {
     setPassRateProps({
       accumulativeMin: unpass_total_minute,
       accumulativeMinIn20: unpass_rate_20_min_total,
-      accumulativePassRateIn20: all_good_rate,
+      accumulativePassRateIn20: accumulativePassRateIn20,
     });
   };
   const AddDataInMachine = (machine, json, unpass_predict_name) => {
@@ -476,9 +474,9 @@ const Realtime = () => {
         (1 - unpass_rate_20_min / unpass_rate_20_min_times).toFixed(2)
       );
       obj.good_rate = good_rate;
-      all_good_rate += good_rate;
+      all_good_rate += parseFloat(good_rate);
     });
-    all_good_rate =
+    let accumulativePassRateIn20 =
       ((all_good_rate * 100) / all_machine.length).toFixed(2) + "%";
 
     for (let i = 0; i < 20; i++) {
@@ -531,7 +529,7 @@ const Realtime = () => {
     setPassRateProps({
       accumulativeMin: unpass_total_minute,
       accumulativeMinIn20: unpass_rate_20_min_total,
-      accumulativePassRateIn20: all_good_rate,
+      accumulativePassRateIn20: accumulativePassRateIn20,
     });
   };
 
