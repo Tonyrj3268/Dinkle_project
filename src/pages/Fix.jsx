@@ -26,6 +26,9 @@ const Fix = () => {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
   const GetRepairObj = (res) => {
+    if (typeof res.data === "string") {
+      return;
+    }
     let all_repair = [];
     let limit = Math.min(100, res.data.length);
     for (let i = 0; i < limit; i++) {

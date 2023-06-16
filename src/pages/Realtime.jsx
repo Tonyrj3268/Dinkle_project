@@ -326,7 +326,6 @@ const Realtime = () => {
       y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
     });
     setPassRate(() => tempassRate);
-
     setLineData(() => all_machine);
     let dataArray = [];
     for (let i = 0; i < all_machine.length; i++) {
