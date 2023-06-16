@@ -21,7 +21,7 @@ import DialogContent from "@mui/material/DialogContent";
 import { useNavigate } from "react-router-dom";
 import { Pie as PieChart, LineChart } from "../components";
 import axios from "axios";
-import { realtimeData, contextMenuItems, realtimeGrid } from "../data/dummy";
+import { contextMenuItems, realtimeGrid } from "../data/dummy";
 // import { useStateContext } from "../contexts/ContextProvider";
 import { HiVariable } from "react-icons/hi";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -671,7 +671,25 @@ const Realtime = () => {
                   >
                     <td className="py-3 px-6 text-center">{d.product}</td>
                     <td className="py-3 px-6 text-center">{d.machine}</td>
-                    <td className="py-3 px-6 text-center">{d.good_rate}</td>
+                    <td className="py-3 px-6 text-center">
+                      {d.good_rate < 1 ? (
+                        <button
+                          type="button"
+                          style={{ background: "red" }}
+                          className="text-white py-1 px-2 capitalize rounded-2xl text-md"
+                        >
+                          不合格
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          style={{ background: "green" }}
+                          className="text-white py-1 px-2 capitalize rounded-2xl text-md"
+                        >
+                          合格
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>

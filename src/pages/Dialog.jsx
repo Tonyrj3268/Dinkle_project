@@ -286,7 +286,15 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Close</Button>
+          <Button
+            onClick={(e) => {
+              setPage("選擇畫面");
+
+              onClose();
+            }}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     );
@@ -382,7 +390,15 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
         </div>
 
         <DialogActions>
-          <Button onClick={onClose}>Close</Button>
+          <Button
+            onClick={(e) => {
+              setPage("選擇畫面");
+
+              onClose();
+            }}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     );
@@ -414,7 +430,15 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
         </div>
 
         <DialogActions>
-          <Button onClick={onClose}>Close</Button>
+          <Button
+            onClick={(e) => {
+              setPage("選擇畫面");
+
+              onClose();
+            }}
+          >
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     );
