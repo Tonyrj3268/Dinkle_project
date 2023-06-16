@@ -526,18 +526,16 @@ export const employeesGrid = [
     textAlign: "Center",
   },
 ];
-
+// {
+//   title: "Dashboard",
+//   links: [
+//     {
+//       name: "後台總管理",
+//       icon: <FiShoppingBag />,
+//     },
+//   ],
+// },
 export const links = [
-  {
-    title: "Dashboard",
-    links: [
-      {
-        name: "後台總管理",
-        icon: <FiShoppingBag />,
-      },
-    ],
-  },
-
   {
     title: "即時品質預測",
     links: [
