@@ -285,8 +285,10 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
             </div>
           </div>
         </DialogContent>
-        <DialogActions>
-          <Button
+        <DialogActions className="">
+          <div
+            className=" text-3xl py-3 px-6 bg-green-400 cursor-pointer hover:bg-green-500 text-white rounded-2xl
+            "
             onClick={(e) => {
               setPage("選擇畫面");
 
@@ -294,7 +296,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
             }}
           >
             Close
-          </Button>
+          </div>
         </DialogActions>
       </Dialog>
     );
@@ -389,8 +391,10 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
           </div>
         </div>
 
-        <DialogActions>
-          <Button
+        <DialogActions className="">
+          <div
+            className=" text-3xl py-3 px-6 bg-green-400 cursor-pointer hover:bg-green-500 text-white rounded-2xl
+            "
             onClick={(e) => {
               setPage("選擇畫面");
 
@@ -398,7 +402,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
             }}
           >
             Close
-          </Button>
+          </div>
         </DialogActions>
       </Dialog>
     );
@@ -429,8 +433,10 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
           </div>
         </div>
 
-        <DialogActions>
-          <Button
+        <DialogActions className="">
+          <div
+            className=" text-3xl py-2 px-6 bg-green-400 cursor-pointer hover:bg-green-500 text-white rounded-2xl
+            "
             onClick={(e) => {
               setPage("選擇畫面");
 
@@ -438,7 +444,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
             }}
           >
             Close
-          </Button>
+          </div>
         </DialogActions>
       </Dialog>
     );
