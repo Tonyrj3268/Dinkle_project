@@ -185,7 +185,6 @@ const Realtime = () => {
       });
   };
   const CallInsertAlarmStampersDataApi = (InsertData) => {
-    console.log(InsertData);
     if (
       InsertData.machine == undefined ||
       InsertData.product == undefined ||
@@ -297,14 +296,16 @@ const Realtime = () => {
       unpass_rate_20_min_total += obj.accumulativeMin;
       unpass_rate_20_min_times = 20;
 
-      let good_rate = Number(
-        (1 - unpass_rate_20_min / unpass_rate_20_min_times).toFixed(2)
-      );
+      let good_rate = (
+        1 -
+        unpass_rate_20_min / unpass_rate_20_min_times
+      ).toFixed(2);
       obj.good_rate = good_rate;
       all_good_rate += good_rate;
     });
 
-    all_good_rate = (all_good_rate * 100) / all_machine.length + "%";
+    all_good_rate =
+      Number((all_good_rate * 100) / all_machine.length).toFixed(2) + "%";
 
     let unpass = 0;
     let unpass_interval = 0;
@@ -407,48 +408,19 @@ const Realtime = () => {
 
     if (unpass_predict_name !== undefined) {
       if (!is_qualified) {
-        let data = repairData;
-
-        let timeThreshold = 20; // 分鐘數閾值
-
-        // 檢查時間是否在閾值內的函式
-        let isWithinTimeThreshold = (timeString, thresholdMinutes) => {
-          let now = new Date(); // 取得現在的時間
-          let time = new Date(timeString);
-          let diffMilliseconds = now - time;
-          let diffMinutes = Math.floor(diffMilliseconds / (1000 * 60));
-          return diffMinutes <= thresholdMinutes;
-        };
-
-        let isAllDetailHasAnyDiffers = (newItem, existingItemsString) => {
-          console.log(newItem, existingItemsString);
-          return newItem === existingItemsString;
-        };
-
         // 找出符合條件的資料
         //如果20分鐘內，有一樣的machine和product，就不用新增
         unpass_predict_name = unpass_predict_name.slice(
           0,
           unpass_predict_name.length - 1
         );
-        let filteredData = data.filter(
-          (item) =>
-            isWithinTimeThreshold(item.pred_time, timeThreshold) &&
-            item.machine === json.machine &&
-            item.product === json.product &&
-            isAllDetailHasAnyDiffers(item.detail_name, unpass_predict_name)
-        );
-
-        if (filteredData.length === 0) {
-          console.log("insert");
-          let InsertData = {
-            machine: json.machine,
-            product: json.product,
-            Pred_time: json.time,
-            Detail_name: unpass_predict_name,
-          };
-          //CallInsertAlarmStampersDataApi(InsertData);
-        }
+        let InsertData = {
+          machine: json.machine,
+          product: json.product,
+          Pred_time: json.time,
+          Detail_name: unpass_predict_name,
+        };
+        //CallInsertAlarmStampersDataApi(InsertData);
       }
     }
     return machine;

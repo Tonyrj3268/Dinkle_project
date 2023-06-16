@@ -46,15 +46,20 @@ const Cause = () => {
         causeData[i].have_vibration == have_vibration
       ) {
         temp = causeData[i].data;
+
         for (var t = 0; t < temp.length / 2; t++) {
           temp[t].standard_detail_name =
             causeData[i].product_stardand_name[0][
               "standard_detail_name_" + (t + 1)
-            ];
+            ] +
+            " " +
+            temp[t].detail_name.slice(-3);
           temp[t + temp.length / 2].standard_detail_name =
             causeData[i].product_stardand_name[0][
               "standard_detail_name_" + (t + 1)
-            ];
+            ] +
+            " " +
+            temp[t + temp.length / 2].detail_name.slice(-3);
         }
       }
     }
