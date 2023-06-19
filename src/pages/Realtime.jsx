@@ -128,13 +128,7 @@ const Realtime = () => {
         },
         params: params,
       })
-      .then((res) => {
-        if (minAgo === 1) {
-          ProcessData(res);
-        } else if (minAgo === 40) {
-          ProcessData40(res);
-        }
-      })
+      .then(ProcessData40)
       .catch((error) => {
         if (error.response) {
           console.log(error.response.data);
@@ -150,9 +144,6 @@ const Realtime = () => {
   };
   const CallAlarmStampersDataApi = () => {
     let now = new Date(); // 取得現在的時間
-
-    let twentyMinutesAgo = new Date(now.getTime() - 20 * 60000); // 20分鐘等於20 * 60秒 * 1000毫秒
-    // 計算一個月前的時間
     let oneMonthAgo = new Date();
     oneMonthAgo.setMonth(now.getMonth() - 1);
     // 格式化時間為 yyyy-MM-dd HH:mm:ss 格式
@@ -466,8 +457,6 @@ const Realtime = () => {
   var changePage = (value) => {
     setPage(value);
   };
-
-  console.log(passRateProps);
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl  overflow-y-auto">

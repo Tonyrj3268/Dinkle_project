@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-
+import axios from "axios";
 import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
 import {
   Admin,
@@ -70,6 +70,7 @@ class Repair {
   }
 }
 const App = () => {
+  const [data, setData] = useState([]);
   const {
     setCurrentColor,
     setCurrentMode,
@@ -78,6 +79,12 @@ const App = () => {
     currentColor,
     themeSettings,
     setThemeSettings,
+    setLineData,
+    lineData,
+    passRate,
+    setPassRate,
+    passRateProps,
+    setPassRateProps,
   } = useStateContext();
   var pathname = window.location.pathname;
   const CallApi = (minAgo) => {
@@ -97,34 +104,40 @@ const App = () => {
       .then((res) => {
         ProcessData(res);
       })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      });
+      .catch(consoleError);
   };
-  const CallAlarmStampersDataApi = () => {
-    let now = new Date(); // 取得現在的時間
-
-    let twentyMinutesAgo = new Date(now.getTime() - 20 * 60000); // 20分鐘等於20 * 60秒 * 1000毫秒
-    // 計算一個月前的時間
-    let oneMonthAgo = new Date();
-    oneMonthAgo.setMonth(now.getMonth() - 1);
-    // 格式化時間為 yyyy-MM-dd HH:mm:ss 格式
-
+  const formData = new URLSearchParams();
+  formData.append("username", process.env.REACT_APP_extra_predict_username);
+  formData.append("password", process.env.REACT_APP_extra_predict_password);
+  const consoleError = (error) => {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
+    console.log(error.config);
+  };
+  const CallInsertAlarmStampersDataApi = (InsertData) => {
+    if (
+      InsertData.machine == undefined ||
+      InsertData.product == undefined ||
+      InsertData.Pred_time == undefined ||
+      InsertData.Detail_name == undefined
+    ) {
+      alert("have undefined data");
+      return;
+    }
     const params = {
-      Start_time: formatTime(oneMonthAgo),
-      End_time: formatTime(now),
+      Machine: InsertData.machine,
+      Product: InsertData.product,
+      Pred_time: InsertData.Pred_time,
+      Detail_name: InsertData.Detail_name,
     };
-
-    let url = process.env.REACT_APP_extract_alarm_stampers_data;
+    let url = process.env.REACT_APP_insert_alarm_stampers_data;
     axios
       .post(url, formData, {
         headers: {
@@ -132,36 +145,10 @@ const App = () => {
         },
         params: params,
       })
-      .then(GetRepairObj)
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      });
-  };
-  const GetRepairObj = (res) => {
-    let all_repair = [];
-    let limit = Math.min(100, res.data.length);
-    for (let i = 0; i < limit; i++) {
-      let obj = res.data[i];
-      let repair = new Repair();
-      repair.machine = obj.machine;
-      repair.product = obj.product;
-      repair.detail_name = obj.detail_name;
-      repair.pred_time = obj.pred_time;
-      repair.alarm_status = obj.alarm_status;
-      repair.alarm_status_time = obj.alarm_status_time;
-
-      all_repair.push(repair);
-    }
-    setRepairData(all_repair);
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(consoleError);
   };
   const ProcessData = (res) => {
     console.log(res.data);
@@ -169,6 +156,8 @@ const App = () => {
       return;
     }
     let all_machine = lineData.slice();
+    console.log("process data");
+    console.log(all_machine);
     let api_data = res.data;
     let all_good_rate = 0;
 
@@ -261,7 +250,9 @@ const App = () => {
       x: api_data[0].time,
       y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
     });
+    console.log(tempassRate);
     setPassRate(() => tempassRate);
+    console.log(all_machine);
     setLineData(() => all_machine);
     let dataArray = [];
     for (let i = 0; i < all_machine.length; i++) {
@@ -355,7 +346,7 @@ const App = () => {
           Pred_time: json.time,
           Detail_name: unpass_predict_name,
         };
-        //CallInsertAlarmStampersDataApi(InsertData);
+        CallInsertAlarmStampersDataApi(InsertData);
       }
     }
     return machine;
@@ -368,13 +359,18 @@ const App = () => {
       setCurrentColor(currentThemeColor);
       setCurrentMode(currentThemeMode);
     }
-    setInterval(() => {
-      CallAlarmStampersDataApi();
-      CallApi(1);
-    }, MINUTE_MS);
 
     console.log(pathname);
   }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("call api");
+      CallApi(1);
+    }, MINUTE_MS);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [passRateProps]);
 
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
