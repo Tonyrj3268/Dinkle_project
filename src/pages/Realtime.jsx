@@ -175,46 +175,6 @@ const Realtime = () => {
         console.log(error.config);
       });
   };
-  const CallInsertAlarmStampersDataApi = (InsertData) => {
-    if (
-      InsertData.machine == undefined ||
-      InsertData.product == undefined ||
-      InsertData.Pred_time == undefined ||
-      InsertData.Detail_name == undefined
-    ) {
-      alert("have undefined data");
-      return;
-    }
-    const params = {
-      Machine: InsertData.machine,
-      Product: InsertData.product,
-      Pred_time: InsertData.Pred_time,
-      Detail_name: InsertData.Detail_name,
-    };
-    let url = process.env.REACT_APP_insert_alarm_stampers_data;
-    axios
-      .post(url, formData, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        params: params,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      });
-  };
 
   const AddDataInMachine = (machine, json, unpass_predict_name) => {
     machine.time.push(json.time);
@@ -282,23 +242,6 @@ const Realtime = () => {
     }
     machine.is_qualified.push(is_qualified);
 
-    if (unpass_predict_name !== undefined) {
-      if (!is_qualified) {
-        // 找出符合條件的資料
-        //如果20分鐘內，有一樣的machine和product，就不用新增
-        unpass_predict_name = unpass_predict_name.slice(
-          0,
-          unpass_predict_name.length - 1
-        );
-        let InsertData = {
-          machine: json.machine,
-          product: json.product,
-          Pred_time: json.time,
-          Detail_name: unpass_predict_name,
-        };
-        //CallInsertAlarmStampersDataApi(InsertData);
-      }
-    }
     return machine;
   };
   const ProcessData40 = (res) => {
