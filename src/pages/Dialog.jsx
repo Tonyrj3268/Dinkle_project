@@ -184,7 +184,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                         <th className="py-3 px-6">轉速</th>
 
                         {lineData[data.location].have_vibration == 0 ? (
-                          <div></div>
+                          <td className=""></td>
                         ) : (
                           <td className="py-3 px-6">G合力</td>
                         )}
@@ -203,7 +203,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                         </td>
 
                         {lineData[data.location].have_vibration == 0 ? (
-                          <div></div>
+                          <td className=""></td>
                         ) : (
                           <td className="py-3 px-6">
                             {Math.round(
@@ -224,7 +224,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                           {lineData[data.location].recommend_speed[1]}
                         </td>
                         {lineData[data.location].have_vibration == 0 ? (
-                          <div></div>
+                          <td className=""></td>
                         ) : (
                           <td className="py-3 px-6">
                             {Math.round(
@@ -245,7 +245,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                           {lineData[data.location].recommend_speed[2]}
                         </td>
                         {lineData[data.location].have_vibration == 0 ? (
-                          <div></div>
+                          <td className=""></td>
                         ) : (
                           <td className="py-3 px-6">
                             {Math.round(
@@ -266,7 +266,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                           {lineData[data.location].recommend_speed[3]}
                         </td>
                         {lineData[data.location].have_vibration == 0 ? (
-                          <div></div>
+                          <td className=""></td>
                         ) : (
                           <td className="py-3 px-6">
                             {Math.round(

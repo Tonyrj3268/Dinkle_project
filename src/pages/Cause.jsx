@@ -221,7 +221,7 @@ const Cause = () => {
               重要因子 :{" "}
               {d.influence_mode == "Status"
                 ? "Status是否正常"
-                : `${d.influence_mode}誤差是否在一個標準差內`}
+                : `${d.influence_mode}變動`}
             </p>
           </div>
         ))}
