@@ -225,118 +225,6 @@ const Realtime = () => {
       });
   };
 
-  const ProcessData = (res) => {
-    console.log(res.data);
-    if (typeof res.data === "string") {
-      return;
-    }
-    let all_machine = lineData.slice();
-    let api_data = res.data;
-    let all_good_rate = 0;
-
-    for (let i = 0; i < api_data.length; i++) {
-      let json = api_data[i];
-      let foundObject = false;
-      all_machine.forEach((machine) => {
-        if (machine.machine === json.machine) {
-          foundObject = true;
-          if (machine.product !== json.product) {
-            let index = machine.location;
-            machine = new Machine(json.machine);
-            machine.product = json.product;
-            machine.location = index;
-          }
-          if (machine.Status.length >= 20) {
-            Object.keys(machine).forEach((key) => {
-              if (Array.isArray(machine[key])) {
-                machine[key].shift();
-              }
-            });
-            Object.keys(machine["pred_avg_detail"]).forEach((key) => {
-              if (Array.isArray(machine["pred_avg_detail"][key])) {
-                machine["pred_avg_detail"][key].shift();
-              }
-            });
-            Object.keys(machine["pred_max_detail"]).forEach((key) => {
-              if (Array.isArray(machine["pred_max_detail"][key])) {
-                machine["pred_max_detail"][key].shift();
-              }
-            });
-            Object.keys(machine["pred_min_detail"]).forEach((key) => {
-              if (Array.isArray(machine["pred_min_detail"][key])) {
-                machine["pred_min_detail"][key].shift();
-              }
-            });
-          }
-          let unpass_predict_name = "";
-          machine = AddDataInMachine(machine, json, unpass_predict_name);
-        }
-      });
-      if (!foundObject) {
-        let unpass_predict_name = "";
-        let machine = new Machine(json.machine);
-
-        machine.location = all_machine.length;
-        machine.product = json.product;
-        machine = AddDataInMachine(machine, json, unpass_predict_name);
-        all_machine.push(machine);
-      }
-    }
-    let unpass_rate_20_min = 0;
-    let unpass_rate_20_min_times = 0;
-    let unpass_total_minute = 0;
-    let unpass_rate_20_min_total = 0;
-    all_machine.forEach((obj) => {
-      obj.accumulativeMin = obj.is_qualified.reduce(
-        (acc, cur) => (cur === false ? acc + 1 : acc),
-        0
-      );
-      unpass_total_minute += obj.accumulativeMin;
-      unpass_rate_20_min = obj.accumulativeMin;
-      unpass_rate_20_min_total += obj.accumulativeMin;
-      unpass_rate_20_min_times = 20;
-
-      let good_rate = (
-        1 -
-        unpass_rate_20_min / unpass_rate_20_min_times
-      ).toFixed(2);
-      obj.good_rate = good_rate;
-      all_good_rate += parseFloat(good_rate);
-    });
-    let accumulativePassRateIn20 =
-      ((all_good_rate * 100) / all_machine.length).toFixed(2) + "%";
-    let unpass = 0;
-    let unpass_interval = 0;
-    all_machine.forEach((obj) => {
-      unpass += obj.is_qualified.reduce(
-        (acc, cur) => (cur === false ? acc + 1 : acc),
-        0
-      );
-      unpass_interval += 20;
-    });
-
-    let tempassRate = passRate;
-    if (tempassRate.length >= 20) {
-      tempassRate.shift();
-    }
-    tempassRate.push({
-      x: api_data[0].time,
-      y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
-    });
-    setPassRate(() => tempassRate);
-    setLineData(() => all_machine);
-    let dataArray = [];
-    for (let i = 0; i < all_machine.length; i++) {
-      dataArray.push(all_machine[i]);
-    }
-
-    setData(dataArray);
-    setPassRateProps({
-      accumulativeMin: unpass_total_minute,
-      accumulativeMinIn20: unpass_rate_20_min_total,
-      accumulativePassRateIn20: accumulativePassRateIn20,
-    });
-  };
   const AddDataInMachine = (machine, json, unpass_predict_name) => {
     machine.time.push(json.time);
     machine.frequency.push(json.frequency);
@@ -565,15 +453,15 @@ const Realtime = () => {
     return; // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      CallAlarmStampersDataApi();
-      CallApi(1);
-    }, MINUTE_MS);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [passRateProps]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     CallAlarmStampersDataApi();
+  //     CallApi(1);
+  //   }, MINUTE_MS);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [passRateProps]);
 
   var changePage = (value) => {
     setPage(value);
