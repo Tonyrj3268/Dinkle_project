@@ -40,6 +40,7 @@ class Machine {
     this.frequency = [];
     this.Speed = [];
     this.Status = [];
+    this.status_type = [];
     this.g_change = [];
     this.have_vibration = 0;
     this.is_qualified = [];
@@ -271,6 +272,7 @@ const App = () => {
     machine.frequency.push(json.frequency);
     machine.Speed.push(json.Speed);
     machine.Status.push(json.Status);
+    machine.status_type.push(json.status_type);
     machine.g_change.push(json.g_change);
     machine.have_vibration = json.have_vibration;
     let is_qualified = true;
@@ -359,8 +361,6 @@ const App = () => {
       setCurrentColor(currentThemeColor);
       setCurrentMode(currentThemeMode);
     }
-
-    console.log(pathname);
   }, []);
   useEffect(() => {
     const interval = setInterval(() => {

@@ -37,7 +37,8 @@ import { useStateContext } from "../../contexts/ContextProvider";
 //   type: "Line",
 //   color: "#34ebd2",
 // },
-
+const Staus_type = JSON.parse(process.env.REACT_APP_Status_type);
+console.log(Staus_type);
 const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
   const { currentMode, lineData, doubleLineData, setTest, test } =
     useStateContext();
