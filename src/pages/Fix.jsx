@@ -26,11 +26,12 @@ const Fix = () => {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
   const GetRepairObj = (res) => {
+    let limit = Math.min(100, res.data.length);
     if (typeof res.data === "string") {
-      return;
+      limit = 0;
     }
     let all_repair = [];
-    let limit = Math.min(100, res.data.length);
+
     for (let i = 0; i < limit; i++) {
       let obj = res.data[i];
       let repair = new Repair();
@@ -44,7 +45,6 @@ const Fix = () => {
       all_repair.push(repair);
     }
     setRepairData(all_repair);
-    console.log(all_repair);
   };
   const CallAlarmStampersDataApi = () => {
     const formData = new URLSearchParams();

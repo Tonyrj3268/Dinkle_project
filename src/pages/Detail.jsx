@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import { LineChart } from "../components";
 import { useStateContext } from ".././contexts/ContextProvider";
 import Tr from "../components/Tr";
 const Detail = () => {
-  const { activeMenu, lineData, setLineData, setTest,test } = useStateContext();
+  const { activeMenu, lineData, setLineData, setTest, test } =
+    useStateContext();
   const MINUTE_MS = 3000;
-  var data=[]
+  var data = [];
 
   useEffect(() => {
     const interval = setInterval(() => {

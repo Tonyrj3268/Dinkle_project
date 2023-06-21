@@ -132,7 +132,7 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                     當下頻率：
                     {
                       lineData[data.location].frequency[
-                        lineData[data.location].Status.length - 1
+                        lineData[data.location].frequency.length - 1
                       ]
                     }
                   </p>
@@ -141,8 +141,8 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
                   <p className=" text-2xl">
                     當下狀態：
                     {
-                      lineData[data.location].Status[
-                        lineData[data.location].Status.length - 1
+                      lineData[data.location].status_type[
+                        lineData[data.location].status_type.length - 1
                       ]
                     }
                   </p>
