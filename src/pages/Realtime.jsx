@@ -176,14 +176,19 @@ const Realtime = () => {
         console.log(error.config);
       });
   };
-
+  function getRandomNumber(min, max) {
+    return Math.random() * (max - min) + min;
+  }
   const AddDataInMachine = (machine, json, unpass_predict_name) => {
     machine.time.push(json.time);
-    machine.frequency.push(json.frequency);
-    machine.Speed.push(json.Speed);
+    machine.frequency.push(getRandomNumber(10, 22));
+    // machine.frequency.push(json.frequency + getRandomNumber(10, 22));
+    // machine.Speed.push(json.Speed + getRandomNumber(0, json.Speed) / 2);
+    machine.Speed.push(getRandomNumber(100, 300));
     machine.Status.push(json.Status);
     machine.status_type.push(json.status_type);
-    machine.g_change.push(json.g_change);
+    // machine.g_change.push(json.g_change + getRandomNumber(10000, 20000));
+    machine.g_change.push(getRandomNumber(10000, 20000));
     machine.have_vibration = json.have_vibration;
     let is_qualified = true;
     let num = 1;
@@ -195,9 +200,20 @@ const Realtime = () => {
           2
         ).toFixed(4)
       );
+      const rangePercentage = 0.2; // 範圍的百分比
+      const range =
+        (json[`pred_max_${detailName}`] - json[`pred_min_${detailName}`]) *
+        rangePercentage;
+      const lowerLimit = avg - range;
+      const upperLimit = avg + range;
+
+      // 產生在指定範圍內的亂數
+      let randomValue = getRandomNumber(lowerLimit, upperLimit);
       machine["pred_avg_detail"].hasOwnProperty(`pred_avg_${detailName}`)
-        ? machine["pred_avg_detail"][`pred_avg_${detailName}`].push(avg)
-        : (machine["pred_avg_detail"][`pred_avg_${detailName}`] = [avg]);
+        ? machine["pred_avg_detail"][`pred_avg_${detailName}`].push(randomValue)
+        : (machine["pred_avg_detail"][`pred_avg_${detailName}`] = [
+            randomValue,
+          ]);
       machine["pred_min_detail"].hasOwnProperty(`pred_min_${detailName}`)
         ? machine["pred_min_detail"][`pred_min_${detailName}`].push(
             json[`pred_min_${detailName}`]
