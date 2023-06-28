@@ -272,14 +272,14 @@ const App = () => {
   }
   const AddDataInMachine = (machine, json, unpass_predict_name) => {
     machine.time.push(json.time);
-    machine.frequency.push(getRandomNumber(10, 22));
+    machine.frequency.push(getRandomNumber(10, 22).toFixed(2));
     // machine.frequency.push(json.frequency + getRandomNumber(10, 22));
     // machine.Speed.push(json.Speed + getRandomNumber(0, json.Speed) / 2);
-    machine.Speed.push(getRandomNumber(100, 300));
+    machine.Speed.push(getRandomNumber(100, 300).toFixed(2));
     machine.Status.push(json.Status);
     machine.status_type.push(json.status_type);
     // machine.g_change.push(json.g_change + getRandomNumber(10000, 20000));
-    machine.g_change.push(getRandomNumber(10000, 20000));
+    machine.g_change.push(getRandomNumber(10000, 20000).toFixed(2));
     machine.have_vibration = json.have_vibration;
     let is_qualified = true;
     let num = 1;
