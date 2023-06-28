@@ -348,7 +348,7 @@ const App = () => {
           Pred_time: json.time,
           Detail_name: unpass_predict_name,
         };
-        CallInsertAlarmStampersDataApi(InsertData);
+        // CallInsertAlarmStampersDataApi(InsertData);
       }
     }
     return machine;

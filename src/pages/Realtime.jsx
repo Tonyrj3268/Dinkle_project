@@ -447,7 +447,6 @@ const Realtime = () => {
                   <tr
                     key={i}
                     onClick={(e) => {
-                      console.log(d);
                       setDialogData({
                         location: d.location,
                         machine: d.machine,
@@ -460,7 +459,7 @@ const Realtime = () => {
                     <td className="py-3 px-6 text-center">{d.product}</td>
                     <td className="py-3 px-6 text-center">{d.machine}</td>
                     <td className="py-3 px-6 text-center">
-                      {d.good_rate < 1 ? (
+                      {!d.is_qualified[d.is_qualified.length - 1] ? (
                         <button
                           type="button"
                           style={{ background: "red" }}
