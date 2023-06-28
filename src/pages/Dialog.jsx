@@ -11,7 +11,7 @@ import { compose } from "@mui/system";
 import axios from "axios";
 
 const DiaLog = ({ isOpenDialog, onClose, data }) => {
-  const { currentMode } = useStateContext();
+  const { currentMode, setDetailData } = useStateContext();
   const [open, setOpen] = React.useState(true);
   const [details, setDetails] = React.useState([]);
   const [page, setPage] = React.useState("選擇畫面");
@@ -396,6 +396,12 @@ const DiaLog = ({ isOpenDialog, onClose, data }) => {
             className=" text-3xl py-3 px-6 bg-green-400 cursor-pointer hover:bg-green-500 text-white rounded-2xl
             "
             onClick={(e) => {
+              setDetailData({
+                max: 0,
+                min: 0,
+                details: 0,
+                location: 0,
+              });
               setPage("選擇畫面");
 
               onClose();
