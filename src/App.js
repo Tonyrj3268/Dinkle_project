@@ -26,6 +26,7 @@ import {
   Cause,
   FutureAnalysis,
   NotFoundPage,
+  MachineDetailPage
 } from "./pages";
 import "./App.css";
 
@@ -390,7 +391,7 @@ const App = () => {
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
-          {pathname !== "/404" ? (
+          {pathname !== "/404"&& !pathname.includes("/machine") ? (
             <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
               <TooltipComponent content="Settings" position="Top">
                 <button
@@ -407,7 +408,7 @@ const App = () => {
             <div className=""></div>
           )}
 
-          {activeMenu && pathname !== "/404" ? (
+          {activeMenu && pathname !== "/404"&& !pathname.includes("/machine") ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
               <Sidebar />
             </div>
@@ -417,12 +418,12 @@ const App = () => {
 
           <div
             className={
-              activeMenu && pathname !== "/404"
+              activeMenu && pathname !== "/404"&& !pathname.includes("/machine")
                 ? "dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  "
                 : "bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 "
             }
           >
-            {pathname !== "/404" ? (
+            {pathname !== "/404"&& !pathname.includes("/machine") ? (
               <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
                 <Navbar />
               </div>
@@ -446,6 +447,7 @@ const App = () => {
                 <Route path="/futureanalysis" element={<FutureAnalysis />} />
                 <Route path="/detail" element={<Detail />} />
                 <Route path="/404" element={<NotFoundPage />} />
+                <Route path="/machine/:id" element={<MachineDetailPage />} />
                 {/* apps  */}
                 <Route path="/kanban" element={<Kanban />} />
                 <Route path="/editor" element={<Editor />} />
