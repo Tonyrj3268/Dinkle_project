@@ -26,6 +26,7 @@ export const ContextProvider = ({ children }) => {
     details: 0,
     location: 0,
   });
+  const [allDetailData, setAllDetailData] = useState([]);
   const [repairData, setRepairData] = useState([]);
   const [passRateProps, setPassRateProps] = useState({
     accumulativeMin: 0,
@@ -81,6 +82,8 @@ export const ContextProvider = ({ children }) => {
         setDetailData,
         repairData,
         setRepairData,
+        allDetailData,
+        setAllDetailData,
       }}
     >
       {children}

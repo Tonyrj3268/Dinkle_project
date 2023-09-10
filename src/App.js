@@ -26,51 +26,12 @@ import {
   Cause,
   FutureAnalysis,
   NotFoundPage,
-  MachineDetailPage
+  MachineDetailPage,
 } from "./pages";
 import "./App.css";
 
 import { useStateContext } from "./contexts/ContextProvider";
-
-class Machine {
-  constructor(machine) {
-    this.machine = machine;
-    this.product = "";
-    this.location = 0;
-    this.time = [];
-    this.frequency = [];
-    this.Speed = [];
-    this.Status = [];
-    this.status_type = [];
-    this.g_change = [];
-    this.have_vibration = 0;
-    this.is_qualified = [];
-    this.good_rate = 100;
-    this.accumulativeMin = 0;
-
-    this.pred_max_detail = {};
-    this.pred_min_detail = {};
-    this.pred_avg_detail = {};
-    this.standard_max_detail = {};
-    this.standard_min_detail = {};
-    this.standard_detail_name = {};
-
-    this.recommend_speed = [];
-    this.recommend_g_change = [];
-    this.recommend_frequency = [];
-    this.recommend_status = [];
-  }
-}
-class Repair {
-  constructor() {
-    this.machine = "";
-    this.product = "";
-    this.detail_name = "";
-    this.pred_time = "";
-    this.alarm_status_time = "";
-    this.alarm_status = "";
-  }
-}
+import { Machine, Repair } from "./models.js";
 const App = () => {
   const [data, setData] = useState([]);
   const {
@@ -123,43 +84,12 @@ const App = () => {
     }
     console.log(error.config);
   };
-  const CallInsertAlarmStampersDataApi = (InsertData) => {
-    if (
-      InsertData.machine == undefined ||
-      InsertData.product == undefined ||
-      InsertData.Pred_time == undefined ||
-      InsertData.Detail_name == undefined
-    ) {
-      alert("have undefined data");
-      return;
-    }
-    const params = {
-      Machine: InsertData.machine,
-      Product: InsertData.product,
-      Pred_time: InsertData.Pred_time,
-      Detail_name: InsertData.Detail_name,
-    };
-    let url = process.env.REACT_APP_insert_alarm_stampers_data;
-    axios
-      .post(url, formData, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        params: params,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch(consoleError);
-  };
   const ProcessData = (res) => {
     console.log(res.data);
     if (typeof res.data === "string") {
       return;
     }
     let all_machine = lineData.slice();
-    console.log("process data");
-    console.log(all_machine);
     let api_data = res.data;
     let all_good_rate = 0;
 
@@ -252,9 +182,7 @@ const App = () => {
       x: api_data[0].time,
       y: ((1 - unpass / unpass_interval) * 100).toFixed(2),
     });
-    console.log(tempassRate);
     setPassRate(() => tempassRate);
-    console.log(all_machine);
     setLineData(() => all_machine);
     let dataArray = [];
     for (let i = 0; i < all_machine.length; i++) {
@@ -284,7 +212,7 @@ const App = () => {
     machine.have_vibration = json.have_vibration;
     let is_qualified = true;
     let num = 1;
-    while (json[`standard_detail_name_${num}`] !== undefined) {
+    while (json[`Standard_detail_name_${num}`] !== undefined) {
       let detailName = `detail_${num}`;
       let avg = Number(
         (
@@ -318,19 +246,19 @@ const App = () => {
         : (machine["pred_max_detail"][`pred_max_${detailName}`] = [
             json[`pred_max_${detailName}`],
           ]);
-      machine["standard_max_detail"][`standard_max_${detailName}`] =
-        json[`standard_max_${detailName}`];
-      machine["standard_min_detail"][`standard_min_${detailName}`] =
-        json[`standard_min_${detailName}`];
-      machine["standard_detail_name"][`standard_detail_name_${num}`] =
-        json[`standard_detail_name_${num}`];
+      machine["standard_max_detail"][`Standard_max_${detailName}`] =
+        json[`Standard_max_${detailName}`];
+      machine["standard_min_detail"][`Standard_min_${detailName}`] =
+        json[`Standard_min_${detailName}`];
+      machine["standard_detail_name"][`Standard_detail_name_${num}`] =
+        json[`Standard_detail_name_${num}`];
       if (
-        json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] ||
-        json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
+        json[`pred_max_${detailName}`] > json[`Standard_max_${detailName}`] ||
+        json[`pred_min_${detailName}`] < json[`Standard_min_${detailName}`]
       ) {
         is_qualified = false;
         if (unpass_predict_name !== undefined) {
-          unpass_predict_name += json[`standard_detail_name_${num}`] + ",";
+          unpass_predict_name += json[`Standard_detail_name_${num}`] + ",";
         }
       }
       num++;
@@ -341,31 +269,18 @@ const App = () => {
     machine.recommend_frequency = [];
     machine.recommend_status = [];
     num = 1;
-    while (json[`recommend_speed_${num}`] !== undefined) {
-      machine.recommend_speed.push(json[`recommend_speed_${num}`]);
-      machine.recommend_g_change.push(json[`recommend_g_change_${num}`]);
-      machine.recommend_frequency.push(json[`recommend_frequency_${num}`]);
-      machine.recommend_status.push(json[`recommend_Status_${num}`]);
+    while (json[`recommend_recommend_speed_${num}`] !== undefined) {
+      machine.recommend_speed.push(json[`recommend_recommend_speed_${num}`]);
+      machine.recommend_g_change.push(
+        json[`recommend_recommend_g_change_${num}`]
+      );
+      machine.recommend_frequency.push(
+        json[`recommend_recommend_frequency_${num}`]
+      );
+      machine.recommend_status.push(json[`recommend_recommend_Status_${num}`]);
       num++;
     }
     machine.is_qualified.push(is_qualified);
-
-    if (unpass_predict_name !== undefined) {
-      if (!is_qualified) {
-        // 找出符合條件的資料
-        unpass_predict_name = unpass_predict_name.slice(
-          0,
-          unpass_predict_name.length - 1
-        );
-        let InsertData = {
-          machine: json.machine,
-          product: json.product,
-          Pred_time: json.time,
-          Detail_name: unpass_predict_name,
-        };
-        //CallInsertAlarmStampersDataApi(InsertData);
-      }
-    }
     return machine;
   };
   const MINUTE_MS = 60000;
@@ -379,7 +294,6 @@ const App = () => {
   }, []);
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("call api");
       CallApi(1);
     }, MINUTE_MS);
     return () => {
@@ -388,10 +302,14 @@ const App = () => {
   }, [passRateProps]);
 
   return (
-    <div className={currentMode === "Dark" ? "dark" : ""}>
+    <div
+      className={
+        currentMode === "Dark" && !pathname.includes("/machine") ? "dark" : ""
+      }
+    >
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
-          {pathname !== "/404"&& !pathname.includes("/machine") ? (
+          {pathname !== "/404" && !pathname.includes("/machine") ? (
             <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
               <TooltipComponent content="Settings" position="Top">
                 <button
@@ -408,7 +326,9 @@ const App = () => {
             <div className=""></div>
           )}
 
-          {activeMenu && pathname !== "/404"&& !pathname.includes("/machine") ? (
+          {activeMenu &&
+          pathname !== "/404" &&
+          !pathname.includes("/machine") ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
               <Sidebar />
             </div>
@@ -418,12 +338,14 @@ const App = () => {
 
           <div
             className={
-              activeMenu && pathname !== "/404"&& !pathname.includes("/machine")
+              activeMenu &&
+              pathname !== "/404" &&
+              !pathname.includes("/machine")
                 ? "dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  "
                 : "bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 "
             }
           >
-            {pathname !== "/404"&& !pathname.includes("/machine") ? (
+            {pathname !== "/404" && !pathname.includes("/machine") ? (
               <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
                 <Navbar />
               </div>
@@ -447,7 +369,10 @@ const App = () => {
                 <Route path="/futureanalysis" element={<FutureAnalysis />} />
                 <Route path="/detail" element={<Detail />} />
                 <Route path="/404" element={<NotFoundPage />} />
-                <Route path="/machine/:id" element={<MachineDetailPage />} />
+                <Route
+                  path="/machine/:machine"
+                  element={<MachineDetailPage />}
+                />
                 {/* apps  */}
                 <Route path="/kanban" element={<Kanban />} />
                 <Route path="/editor" element={<Editor />} />

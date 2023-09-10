@@ -85,7 +85,6 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     },
   };
   //機台
-  console.log(lineData[location]);
 
   var temp = [];
   doubleLineCustomSeriesSpeed[0].dataSource = [];
@@ -114,7 +113,6 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     });
   }
   doubleLineCustomSeriesSpeed[0].dataSource = temp;
-  console.log(doubleLineCustomSeriesSpeed[0].dataSource);
   doubleLineCustomSeriesSpeed[1].dataSource = [
     {
       x: new Date(lineData[location].time[lineData[location].time.length - 1]),
@@ -145,7 +143,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     }
   }
   doubleLineCustomSeriesSpeed[2].dataSource = temp;
-  console.log(doubleLineCustomSeriesSpeed[2].dataSource);
+
   // doubleLineCustomSeriesSpeed[2].dataSource = doubleLineData.speed.lineFuture;
   //頻率
 
@@ -283,7 +281,7 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
 
   useEffect(() => {
     //機台
-    console.log(lineData[location]);
+
     doubleLineCustomSeriesSpeed[0].dataSource = [];
     doubleLineCustomSeriesSpeed[1].dataSource = [];
     doubleLineCustomSeriesSpeed[2].dataSource = [];
@@ -301,7 +299,6 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
       });
     }
     doubleLineCustomSeriesSpeed[0].dataSource = temp;
-    console.log(doubleLineCustomSeriesSpeed[0].dataSource);
     doubleLineCustomSeriesSpeed[1].dataSource = [
       {
         x: new Date(
@@ -339,7 +336,6 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
       }
     }
     doubleLineCustomSeriesSpeed[2].dataSource = temp;
-    console.log(doubleLineCustomSeriesSpeed[2].dataSource);
     // doubleLineCustomSeriesSpeed[2].dataSource = doubleLineData.speed.lineFuture;
     //頻率
 
@@ -463,27 +459,16 @@ const DoubleLineChart = ({ height, width, bg, id, type, location }) => {
     ];
     var temp = [];
     for (var i = 0; i < lineData[location].recommend_g_change.length; i++) {
-      if (i !== 0) {
-        temp.push({
-          x: addMin(
-            lineData[location].time[lineData[location].time.length - 1],
-            i
-          ),
-          y: lineData[location].recommend_g_change[i],
-        });
-      } else {
-        temp.push({
-          x: addMin(
-            lineData[location].time[lineData[location].time.length - 1],
-            i
-          ),
-          y: lineData[location].recommend_g_change[i],
-        });
-      }
+      temp.push({
+        x: addMin(
+          lineData[location].time[lineData[location].time.length - 1],
+          i
+        ),
+        y: lineData[location].recommend_g_change[i],
+      });
     }
     doubleLineCustomSeriesG[2].dataSource = temp;
   }, [lineData[location].Speed.length, test]);
-
   return (
     <div className=" flex flex-col">
       <div>
