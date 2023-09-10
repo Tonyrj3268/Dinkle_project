@@ -1,69 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  GridComponent,
-  ColumnsDirective,
-  ColumnDirective,
-  Resize,
-  Sort,
-  ContextMenu,
-  Filter,
-  Page,
-  ExcelExport,
-  PdfExport,
-  Edit,
-  Inject,
-  colGroup,
-} from "@syncfusion/ej2-react-grids";
-import Button from "@mui/material/Button";
 import DiaLog from "./Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
 import { useNavigate } from "react-router-dom";
 import { Pie as PieChart, LineChart } from "../components";
 import axios from "axios";
-import { contextMenuItems, realtimeGrid } from "../data/dummy";
 // import { useStateContext } from "../contexts/ContextProvider";
-import { HiVariable } from "react-icons/hi";
 import { useStateContext } from "../contexts/ContextProvider";
-class Machine {
-  constructor(machine) {
-    this.machine = machine;
-    this.product = "";
-    this.location = 0;
-    this.time = [];
-    this.frequency = [];
-    this.Speed = [];
-    this.Status = [];
-    this.status_type = [];
-    this.g_change = [];
-    this.have_vibration = 0;
-    this.is_qualified = [];
-    this.good_rate = 100;
-    this.accumulativeMin = 0;
-
-    this.pred_max_detail = {};
-    this.pred_min_detail = {};
-    this.pred_avg_detail = {};
-    this.standard_max_detail = {};
-    this.standard_min_detail = {};
-    this.standard_detail_name = {};
-
-    this.recommend_speed = [];
-    this.recommend_g_change = [];
-    this.recommend_frequency = [];
-    this.recommend_status = [];
-  }
-}
-class Repair {
-  constructor() {
-    this.machine = "";
-    this.product = "";
-    this.detail_name = "";
-    this.pred_time = "";
-    this.alarm_status_time = "";
-    this.alarm_status = "";
-  }
-}
+import { Machine, Repair } from "../models.js";
 const Realtime = () => {
   // const { currentColor, currentMod } = useStateContext();
   const [page, setPage] = useState("即時監控");
@@ -87,7 +29,6 @@ const Realtime = () => {
   const formData = new URLSearchParams();
   formData.append("username", process.env.REACT_APP_extra_predict_username);
   formData.append("password", process.env.REACT_APP_extra_predict_password);
-  const toolbarOptions = ["Add", "Edit", "Delete"];
 
   const formatTime = (date) => {
     let year = date.getFullYear();
@@ -192,7 +133,7 @@ const Realtime = () => {
     machine.have_vibration = json.have_vibration;
     let is_qualified = true;
     let num = 1;
-    while (json[`standard_detail_name_${num}`] !== undefined) {
+    while (json[`Standard_detail_name_${num}`] !== undefined) {
       let detailName = `detail_${num}`;
       let avg = Number(
         (
@@ -206,14 +147,13 @@ const Realtime = () => {
         rangePercentage;
       const lowerLimit = avg - range;
       const upperLimit = avg + range;
-
+      let value =
+        (json[`pred_max_${detailName}`] + json[`pred_min_${detailName}`]) / 2;
       // 產生在指定範圍內的亂數
       let randomValue = getRandomNumber(lowerLimit, upperLimit);
       machine["pred_avg_detail"].hasOwnProperty(`pred_avg_${detailName}`)
-        ? machine["pred_avg_detail"][`pred_avg_${detailName}`].push(randomValue)
-        : (machine["pred_avg_detail"][`pred_avg_${detailName}`] = [
-            randomValue,
-          ]);
+        ? machine["pred_avg_detail"][`pred_avg_${detailName}`].push(value)
+        : (machine["pred_avg_detail"][`pred_avg_${detailName}`] = [value]);
       machine["pred_min_detail"].hasOwnProperty(`pred_min_${detailName}`)
         ? machine["pred_min_detail"][`pred_min_${detailName}`].push(
             json[`pred_min_${detailName}`]
@@ -229,18 +169,18 @@ const Realtime = () => {
             json[`pred_max_${detailName}`],
           ]);
       machine["standard_max_detail"][`standard_max_${detailName}`] =
-        json[`standard_max_${detailName}`];
+        json[`Standard_max_${detailName}`];
       machine["standard_min_detail"][`standard_min_${detailName}`] =
-        json[`standard_min_${detailName}`];
+        json[`Standard_min_${detailName}`];
       machine["standard_detail_name"][`standard_detail_name_${num}`] =
-        json[`standard_detail_name_${num}`];
+        json[`Standard_detail_name_${num}`];
       if (
-        json[`pred_max_${detailName}`] > json[`standard_max_${detailName}`] ||
-        json[`pred_min_${detailName}`] < json[`standard_min_${detailName}`]
+        json[`pred_max_${detailName}`] > json[`Standard_max_${detailName}`] ||
+        json[`pred_min_${detailName}`] < json[`Standard_min_${detailName}`]
       ) {
         is_qualified = false;
         if (unpass_predict_name !== undefined) {
-          unpass_predict_name += json[`standard_detail_name_${num}`] + ",";
+          unpass_predict_name += json[`Standard_detail_name_${num}`] + ",";
         }
       }
       num++;
@@ -251,15 +191,19 @@ const Realtime = () => {
     machine.recommend_frequency = [];
     machine.recommend_status = [];
     num = 1;
-    while (json[`recommend_speed_${num}`] !== undefined) {
-      machine.recommend_speed.push(json[`recommend_speed_${num}`]);
-      machine.recommend_g_change.push(json[`recommend_g_change_${num}`]);
-      machine.recommend_frequency.push(json[`recommend_frequency_${num}`]);
-      machine.recommend_status.push(json[`recommend_Status_${num}`]);
+    while (json[`recommend_recommend_speed_${num}`] !== undefined) {
+      machine.recommend_speed.push(json[`recommend_recommend_speed_${num}`]);
+      machine.recommend_g_change.push(
+        json[`recommend_recommend_g_change_${num}`]
+      );
+      machine.recommend_frequency.push(
+        json[`recommend_recommend_frequency_${num}`]
+      );
+      machine.recommend_status.push(json[`recommend_recommend_Status_${num}`]);
       num++;
     }
     machine.is_qualified.push(is_qualified);
-
+    console.log(machine);
     return machine;
   };
   const ProcessData40 = (res) => {
@@ -404,16 +348,6 @@ const Realtime = () => {
 
     return; // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
   }, []);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     CallAlarmStampersDataApi();
-  //     CallApi(1);
-  //   }, MINUTE_MS);
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [passRateProps]);
 
   var changePage = (value) => {
     setPage(value);

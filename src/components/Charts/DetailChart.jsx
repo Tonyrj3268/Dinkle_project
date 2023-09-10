@@ -88,17 +88,12 @@ const DetailChart = ({ height, width, bg, type }) => {
     lineCustomSeries[0].dataSource = tem1;
     lineCustomSeries[1].dataSource = tem3;
     lineCustomSeries[2].dataSource = tem2;
-    console.log("update detail");
   }
   useEffect(() => {
     var tem1 = [];
     var tem2 = [];
     var tem3 = [];
-    console.log(
-      lineData[detailData.location].pred_avg_detail[
-        `pred_avg_detail_${detailData.details}`
-      ]
-    );
+    console.log(detailData);
     if (detailData.details !== 0) {
       for (
         var i = 0;
@@ -130,11 +125,9 @@ const DetailChart = ({ height, width, bg, type }) => {
       lineCustomSeries[0].dataSource = tem1;
       lineCustomSeries[1].dataSource = tem3;
       lineCustomSeries[2].dataSource = tem2;
-
-      console.log("update detail");
+      console.log(lineCustomSeries);
     }
   }, [test, lineData[detailData.location].time[i]]);
-
   return (
     <ChartComponent
       id="line-chart"
