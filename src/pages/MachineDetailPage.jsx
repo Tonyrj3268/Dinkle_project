@@ -443,7 +443,6 @@ const MachineDetailPage = () => {
             </div>
           </div>
         </div>
-
         <div className="flex">
           <AllDetailChart height={"200px"} width={"300px"} />
         </div>
