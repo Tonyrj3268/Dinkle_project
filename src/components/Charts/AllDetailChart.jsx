@@ -58,18 +58,16 @@ const AllDetailChart = ({ height, width }) => {
   ];
   useEffect(() => {
     const newLineCustomSeriesArray = initializeEmptyDataSeries();
-    console.log(allDetailData);
     for (let i = 0; i < allDetailData.length; i++) {
       let tem1 = [];
       let tem2 = [];
       let tem3 = [];
-      // let lineCustomSeriesCopy = data;
       let lineCustomSeriesCopy = JSON.parse(JSON.stringify(data));
 
       for (let j = 0; j < allDetailData[i].time.length; j++) {
         tem1.push({
           x: allDetailData[i].time[j],
-          y: allDetailData[i].max,
+          y: allDetailData[i].standard_max,
         });
         tem2.push({
           x: allDetailData[i].time[j],
@@ -77,7 +75,7 @@ const AllDetailChart = ({ height, width }) => {
         });
         tem3.push({
           x: allDetailData[i].time[j],
-          y: allDetailData[i].min,
+          y: allDetailData[i].standard_min,
         });
       }
       lineCustomSeriesCopy[0].dataSource = tem1;
@@ -105,9 +103,13 @@ const AllDetailChart = ({ height, width }) => {
               primaryYAxis={{
                 labelFormat: "{value}",
                 rangePadding: "None",
-                minimum: allDetail.min - (allDetail.max - allDetail.min) / 8,
-                maximum: allDetail.max + (allDetail.max - allDetail.min) / 8,
-                interval: (allDetail.max - allDetail.min) / 4,
+                minimum:
+                  allDetail.chart_min -
+                  (allDetail.chart_max - allDetail.chart_min) / 8,
+                maximum:
+                  allDetail.chart_max +
+                  (allDetail.chart_max - allDetail.chart_min) / 8,
+                interval: (allDetail.chart_max - allDetail.chart_min) / 4,
                 lineStyle: { width: 0 },
                 majorTickLines: { width: 0 },
                 minorTickLines: { width: 0 },

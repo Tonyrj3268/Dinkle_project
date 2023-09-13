@@ -113,15 +113,11 @@ const MachineDetailPage = () => {
     machine.recommend_frequency = [];
     machine.recommend_status = [];
     num = 1;
-    while (json[`recommend_recommend_speed_${num}`] !== undefined) {
-      machine.recommend_speed.push(json[`recommend_recommend_speed_${num}`]);
-      machine.recommend_g_change.push(
-        json[`recommend_recommend_g_change_${num}`]
-      );
-      machine.recommend_frequency.push(
-        json[`recommend_recommend_frequency_${num}`]
-      );
-      machine.recommend_status.push(json[`recommend_recommend_Status_${num}`]);
+    while (json[`recommend_speed_${num}`] !== undefined) {
+      machine.recommend_speed.push(json[`recommend_speed_${num}`]);
+      machine.recommend_g_change.push(json[`recommend_g_change_${num}`]);
+      machine.recommend_frequency.push(json[`recommend_frequency_${num}`]);
+      machine.recommend_status.push(json[`recommend_Status_${num}`]);
       num++;
     }
     machine.is_qualified.push(is_qualified);
@@ -281,8 +277,18 @@ const MachineDetailPage = () => {
         details: targetMachine.pred_avg_detail[`pred_avg_detail_${i}`],
         details_max: targetMachine.pred_max_detail[`pred_max_detail_${i}`],
         details_min: targetMachine.pred_min_detail[`pred_min_detail_${i}`],
-        max: targetMachine.standard_max_detail[`Standard_max_detail_${i}`],
-        min: targetMachine.standard_min_detail[`Standard_min_detail_${i}`],
+        standard_max:
+          targetMachine.standard_max_detail[`Standard_max_detail_${i}`],
+        standard_min:
+          targetMachine.standard_min_detail[`Standard_min_detail_${i}`],
+        chart_max: Math.max(
+          Math.max(...targetMachine.pred_max_detail[`pred_max_detail_${i}`]),
+          targetMachine.standard_max_detail[`Standard_max_detail_${i}`]
+        ),
+        chart_min: Math.min(
+          Math.min(...targetMachine.pred_min_detail[`pred_min_detail_${i}`]),
+          targetMachine.standard_min_detail[`Standard_min_detail_${i}`]
+        ),
         time: targetMachine.time,
         location: targetMachine.location,
         detail_i: i,

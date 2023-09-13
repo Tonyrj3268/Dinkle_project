@@ -191,15 +191,11 @@ const Realtime = () => {
     machine.recommend_frequency = [];
     machine.recommend_status = [];
     num = 1;
-    while (json[`recommend_recommend_speed_${num}`] !== undefined) {
-      machine.recommend_speed.push(json[`recommend_recommend_speed_${num}`]);
-      machine.recommend_g_change.push(
-        json[`recommend_recommend_g_change_${num}`]
-      );
-      machine.recommend_frequency.push(
-        json[`recommend_recommend_frequency_${num}`]
-      );
-      machine.recommend_status.push(json[`recommend_recommend_Status_${num}`]);
+    while (json[`recommend_speed_${num}`] !== undefined) {
+      machine.recommend_speed.push(json[`recommend_speed_${num}`]);
+      machine.recommend_g_change.push(json[`recommend_g_change_${num}`]);
+      machine.recommend_frequency.push(json[`recommend_frequency_${num}`]);
+      machine.recommend_status.push(json[`recommend_Status_${num}`]);
       num++;
     }
     machine.is_qualified.push(is_qualified);
